@@ -1,0 +1,103 @@
+site_name: wArgs
+site_description: Decorator-based argparse automation. Just decorate and you're done.
+site_url: https://wargs.readthedocs.io
+repo_name: wargs/wargs
+repo_url: https://github.com/wargs/wargs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+            show_root_toc_entry: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            docstring_style: google
+            merge_init_into_class: true
+            show_signature_annotations: true
+            separate_signature: true
+            signature_crossrefs: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+    - Tutorial: getting-started/tutorial.md
+  - User Guide:
+    - Basic Usage: guide/basic-usage.md
+    - Type System: guide/type-system.md
+    - Docstrings: guide/docstrings.md
+    - Subcommands: guide/subcommands.md
+    - Inheritance: guide/inheritance.md
+    - Advanced: guide/advanced.md
+  - Cookbook:
+    - Common Patterns: cookbook/patterns.md
+    - Testing CLIs: cookbook/testing.md
+    - Migrating from argparse: cookbook/migration-argparse.md
+    - Migrating from Click: cookbook/migration-click.md
+  - API Reference:
+    - Decorators: api/decorators.md
+    - Types: api/types.md
+    - Utilities: api/utilities.md
+    - Exceptions: api/exceptions.md
+  - Changelog: changelog.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/wargs/wargs
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/wargs/
