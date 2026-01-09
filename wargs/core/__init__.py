@@ -1,6 +1,6 @@
 """Core wArgs functionality."""
 
-from wargs.core.config import (
+from wArgs.core.config import (
     MISSING,
     ArgumentConfig,
     FunctionInfo,
@@ -9,7 +9,7 @@ from wargs.core.config import (
     ParserConfig,
     TypeInfo,
 )
-from wargs.core.exceptions import (
+from wArgs.core.exceptions import (
     ConfigurationError,
     ConversionError,
     IntrospectionError,

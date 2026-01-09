@@ -10,7 +10,7 @@ from textwrap import dedent
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from wargs.completion.generator import CompletionOption, CompletionSpec
+    from wArgs.completion.generator import CompletionOption, CompletionSpec
 
 
 def generate_zsh_completion(spec: CompletionSpec) -> str:

@@ -8,10 +8,10 @@ from __future__ import annotations
 
 import warnings
 
-from wargs.core.config import FunctionInfo, ParameterInfo
-from wargs.introspection.docstrings import parse_docstring
-from wargs.introspection.signatures import extract_function_info
-from wargs.introspection.types import resolve_type
+from wArgs.core.config import FunctionInfo, ParameterInfo
+from wArgs.introspection.docstrings import parse_docstring
+from wArgs.introspection.signatures import extract_function_info
+from wArgs.introspection.types import resolve_type
 
 
 def get_init_parameters(cls: type) -> list[ParameterInfo]:

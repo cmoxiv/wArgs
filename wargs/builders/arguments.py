@@ -7,10 +7,11 @@ from __future__ import annotations
 
 from typing import Any, get_args, get_origin
 
-from wargs.core.arg import Arg
-from wargs.core.config import (
+from wArgs.core.arg import Arg
+from wArgs.core.config import (
     MISSING,
     ArgumentConfig,
+    DictExpansion,
     FunctionInfo,
     ParameterInfo,
     ParameterKind,
@@ -43,19 +44,23 @@ def _extract_arg_metadata(annotation: Any) -> Arg | None:
     return None
 
 
-def _param_to_flag(name: str) -> str:
+def _param_to_flag(name: str, prefix: str | None = None) -> str:
     """Convert a parameter name to a CLI flag.
 
     Converts snake_case to kebab-case with -- prefix.
 
     Args:
         name: The parameter name.
+        prefix: Optional prefix (callable name) to add before the param name.
 
     Returns:
-        The CLI flag (e.g., "--my-param").
+        The CLI flag (e.g., "--my-param" or "--func-my-param").
     """
     # Convert underscores to hyphens
     flag_name = name.replace("_", "-")
+    if prefix:
+        prefix_kebab = prefix.replace("_", "-")
+        return f"--{prefix_kebab}-{flag_name}"
     return f"--{flag_name}"
 
 
@@ -178,12 +183,14 @@ def build_argument_config(
     param: ParameterInfo,
     *,
     arg_metadata: Arg | None = None,
+    prefix: str | None = None,
 ) -> ArgumentConfig:
     """Build ArgumentConfig from ParameterInfo.
 
     Args:
         param: The parameter information.
         arg_metadata: Optional Arg metadata from Annotated.
+        prefix: Optional prefix (callable name) for the flag.
 
     Returns:
         ArgumentConfig for this parameter.
@@ -207,7 +214,7 @@ def build_argument_config(
         if arg_metadata and arg_metadata.long:
             flags.append(arg_metadata.long)
         else:
-            flags.append(_param_to_flag(param.name))
+            flags.append(_param_to_flag(param.name, prefix=prefix))
 
         # Add short flag
         if arg_metadata and arg_metadata.short:
@@ -263,7 +270,9 @@ def build_argument_config(
         metavar = _get_enum_metavar(param.type_info)
 
     # Determine dest
-    dest = None
+    # When using prefixed flags, always set dest to param.name so argparse
+    # stores values under the original parameter name, not the prefixed flag name
+    dest = param.name if prefix else None
     if arg_metadata and arg_metadata.dest:
         dest = arg_metadata.dest
 
@@ -294,11 +303,88 @@ def build_argument_config(
     )
 
 
+def _infer_type_converter(value: Any) -> type | None:
+    """Infer a type converter from a value.
+
+    Args:
+        value: The value to infer type from.
+
+    Returns:
+        Type converter function or None.
+    """
+    if value is None:
+        return str
+    return type(value)
+
+
+def _expand_dict_param(
+    param: ParameterInfo,
+    default_dict: dict[str, Any],
+    prefix: str | None = None,
+) -> tuple[list[ArgumentConfig], DictExpansion]:
+    """Expand a dict parameter into multiple CLI arguments.
+
+    Args:
+        param: The parameter with a dict default.
+        default_dict: The default dict value.
+        prefix: Optional prefix (callable name) for the flags.
+
+    Returns:
+        Tuple of (list of ArgumentConfigs, DictExpansion metadata).
+    """
+    arguments: list[ArgumentConfig] = []
+    keys: list[str] = []
+    key_types: dict[str, type] = {}
+
+    for key, value in default_dict.items():
+        keys.append(key)
+        value_type = _infer_type_converter(value)
+        key_types[key] = value_type if value_type else str
+
+        # Create expanded argument name: param_key
+        expanded_name = f"{param.name}_{key}"
+        # Create flag: --[prefix-]param-key
+        param_kebab = param.name.replace("_", "-")
+        key_kebab = key.replace("_", "-")
+        if prefix:
+            prefix_kebab = prefix.replace("_", "-")
+            flag = f"--{prefix_kebab}-{param_kebab}-{key_kebab}"
+        else:
+            flag = f"--{param_kebab}-{key_kebab}"
+
+        # Build help text
+        help_text = f"{param.name}[{key!r}]"
+        if param.description:
+            help_text = f"{param.description} [{key}]"
+        help_text += f" (default: {value!r})"
+
+        arg_config = ArgumentConfig(
+            name=expanded_name,
+            flags=[flag],
+            type=value_type,
+            default=value,
+            required=False,
+            help=help_text,
+            dest=expanded_name,  # Ensure argparse uses the expanded name as dest
+        )
+        arguments.append(arg_config)
+
+    expansion = DictExpansion(
+        param_name=param.name,
+        keys=keys,
+        key_types=key_types,
+        default_dict=dict(default_dict),
+    )
+
+    return arguments, expansion
+
+
 def build_parser_config(
     func_info: FunctionInfo,
     *,
     prog: str | None = None,
     description: str | None = None,
+    prefix: str | None = None,
 ) -> ParserConfig:
     """Build ParserConfig from FunctionInfo.
 
@@ -306,6 +392,7 @@ def build_parser_config(
         func_info: The function information.
         prog: Program name override.
         description: Description override.
+        prefix: Optional prefix for argument flags. If None, uses func_info.name.
 
     Returns:
         ParserConfig for building an ArgumentParser.
@@ -323,18 +410,39 @@ def build_parser_config(
         else:
             desc = first_para.strip()
 
+    # Use function name as prefix for argument flags
+    arg_prefix = prefix if prefix is not None else func_info.name
+
     # Build argument configs
     arguments: list[ArgumentConfig] = []
+    dict_expansions: dict[str, DictExpansion] = {}
 
     for param in func_info.parameters:
         # Skip *args and **kwargs for now (handled specially)
         if param.kind in (ParameterKind.VAR_POSITIONAL, ParameterKind.VAR_KEYWORD):
             continue
 
+        # Check if this param has a dict default that should be expanded
+        if (
+            param.has_default
+            and isinstance(param.default, dict)
+            and param.default  # Non-empty dict
+            and all(isinstance(k, str) for k in param.default.keys())
+        ):
+            # Expand dict into multiple arguments
+            expanded_args, expansion = _expand_dict_param(
+                param, param.default, prefix=arg_prefix
+            )
+            arguments.extend(expanded_args)
+            dict_expansions[param.name] = expansion
+            continue
+
         # Extract Arg metadata from annotation
         arg_metadata = _extract_arg_metadata(param.annotation)
 
-        arg_config = build_argument_config(param, arg_metadata=arg_metadata)
+        arg_config = build_argument_config(
+            param, arg_metadata=arg_metadata, prefix=arg_prefix
+        )
 
         # Skip if marked to skip
         if not arg_config.skip:
@@ -344,6 +452,7 @@ def build_parser_config(
         prog=prog,
         description=desc,
         arguments=arguments,
+        dict_expansions=dict_expansions,
     )
 
 

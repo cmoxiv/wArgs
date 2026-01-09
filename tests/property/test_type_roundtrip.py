@@ -7,7 +7,7 @@ from pathlib import Path
 from hypothesis import given
 from hypothesis import strategies as st
 
-from wargs.introspection.types import resolve_type
+from wArgs.introspection.types import resolve_type
 
 
 class TestTypeRoundtrip:

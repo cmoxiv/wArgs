@@ -8,12 +8,12 @@ from __future__ import annotations
 import inspect
 from typing import Any, Callable
 
-from wargs.builders.arguments import build_parser_config
-from wargs.core.config import FunctionInfo, ParserConfig
-from wargs.introspection.docstrings import parse_docstring
-from wargs.introspection.mro import get_inherited_function_info
-from wargs.introspection.signatures import extract_function_info
-from wargs.introspection.types import resolve_type
+from wArgs.builders.arguments import build_parser_config
+from wArgs.core.config import DictExpansion, FunctionInfo, ParserConfig
+from wArgs.introspection.docstrings import parse_docstring
+from wArgs.introspection.mro import get_inherited_function_info
+from wArgs.introspection.signatures import extract_function_info
+from wArgs.introspection.types import resolve_type
 
 
 def is_public_method(name: str, method: Any) -> bool:
@@ -152,26 +152,31 @@ def build_subcommand_config(
             desc = first_para.strip()
 
     # Build main parser config
+    dict_expansions: dict[str, DictExpansion] = {}
     config = ParserConfig(
         prog=prog,
         description=desc,
         arguments=[],
         subcommands={},
+        dict_expansions=dict_expansions,
     )
 
     # Extract global options from __init__ (with optional MRO traversal)
+    # Always use class name as prefix for init args
     if traverse_mro:
         # Use MRO traversal to get inherited parameters
         init_info = get_inherited_function_info(cls, warn_on_conflict=warn_on_conflict)
         if init_info.parameters:
-            init_config = build_parser_config(init_info)
+            init_config = build_parser_config(init_info, prefix=cls.__name__)
             config.arguments = init_config.arguments
+            config.dict_expansions.update(init_config.dict_expansions)
     else:
         # Only get __init__ from the class itself
         maybe_init_info = extract_init_info(cls)
         if maybe_init_info is not None:
-            init_config = build_parser_config(maybe_init_info)
+            init_config = build_parser_config(maybe_init_info, prefix=cls.__name__)
             config.arguments = init_config.arguments
+            config.dict_expansions.update(init_config.dict_expansions)
 
     # Extract methods as subcommands
     methods = extract_methods(cls)

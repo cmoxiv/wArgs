@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import warnings
 
-from wargs.introspection.mro import (
+from wArgs.introspection.mro import (
     get_inherited_function_info,
     get_init_parameters,
     merge_parameters,

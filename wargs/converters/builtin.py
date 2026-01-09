@@ -17,8 +17,8 @@ from fractions import Fraction
 from pathlib import Path
 from uuid import UUID
 
-from wargs.converters.registry import ConverterRegistry, get_default_registry
-from wargs.core.exceptions import ConversionError
+from wArgs.converters.registry import ConverterRegistry, get_default_registry
+from wArgs.core.exceptions import ConversionError
 
 
 def convert_datetime(value: str) -> datetime:

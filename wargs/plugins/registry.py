@@ -15,7 +15,7 @@ else:
     from importlib_metadata import entry_points  # pragma: no cover
 
 if TYPE_CHECKING:
-    from wargs.converters.registry import ConverterRegistry
+    from wArgs.converters.registry import ConverterRegistry
 
 
 class PluginError(Exception):

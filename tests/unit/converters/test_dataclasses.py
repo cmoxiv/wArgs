@@ -6,12 +6,12 @@ from dataclasses import dataclass, field
 
 import pytest
 
-from wargs.converters.dataclasses import (
+from wArgs.converters.dataclasses import (
     expand_dataclass,
     is_dataclass_type,
     reconstruct_dataclass,
 )
-from wargs.core.config import ParameterKind
+from wArgs.core.config import ParameterKind
 
 
 class TestIsDataclassType:

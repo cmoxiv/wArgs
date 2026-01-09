@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from wargs.builders.subcommands import (
+from wArgs.builders.subcommands import (
     build_subcommand_config,
     extract_init_info,
     extract_method_info,

@@ -3,9 +3,9 @@
 Converts introspected function information into argparse configuration.
 """
 
-from wargs.builders.arguments import build_argument_config, build_parser_config
-from wargs.builders.parser import ParserBuilder, build_parser
-from wargs.builders.subcommands import build_subcommand_config
+from wArgs.builders.arguments import build_argument_config, build_parser_config
+from wArgs.builders.parser import ParserBuilder, build_parser
+from wArgs.builders.subcommands import build_subcommand_config
 
 __all__ = [
     "ParserBuilder",

@@ -166,6 +166,23 @@ class ArgumentConfig:
 
 
 @dataclass
+class DictExpansion:
+    """Tracks a dict parameter that was expanded into multiple CLI args.
+
+    Attributes:
+        param_name: Original parameter name.
+        keys: Dict keys that were expanded.
+        key_types: Type of each key's value (inferred from default).
+        default_dict: The original default dict value.
+    """
+
+    param_name: str
+    keys: list[str] = field(default_factory=list)
+    key_types: dict[str, type] = field(default_factory=dict)
+    default_dict: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
 class ParserConfig:
     """Configuration for an ArgumentParser.
 
@@ -179,6 +196,7 @@ class ParserConfig:
         subcommands: Mapping of subcommand names to their ParserConfigs.
         add_help: Whether to add -h/--help option.
         formatter_class: Help formatter class name.
+        dict_expansions: Dict parameters expanded into multiple args.
     """
 
     prog: str | None = None
@@ -188,9 +206,11 @@ class ParserConfig:
     subcommands: dict[str, ParserConfig] = field(default_factory=dict)
     add_help: bool = True
     formatter_class: str | None = None
+    dict_expansions: dict[str, DictExpansion] = field(default_factory=dict)
 
 
 __all__ = [
+    "DictExpansion",
     "MISSING",
     "ArgumentConfig",
     "FunctionInfo",

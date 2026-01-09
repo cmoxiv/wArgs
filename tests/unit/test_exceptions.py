@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from wargs import (
+from wArgs import (
     ConfigurationError,
     ConversionError,
     ErrorContext,
@@ -225,7 +225,7 @@ class TestExceptionImports:
 
     def test_import_from_wargs(self) -> None:
         """Test exceptions can be imported from wargs package."""
-        from wargs import (
+        from wArgs import (
             ConfigurationError,
             ConversionError,
             ErrorContext,
@@ -241,16 +241,16 @@ class TestExceptionImports:
         assert ErrorContext.__name__ == "ErrorContext"
 
     def test_import_from_core(self) -> None:
-        """Test exceptions can be imported from wargs.core."""
-        from wargs.core import (
+        """Test exceptions can be imported from wArgs.core."""
+        from wArgs.core import (
             WargsError,
         )
 
         assert WargsError.__name__ == "WargsError"
 
     def test_import_from_core_exceptions(self) -> None:
-        """Test exceptions can be imported from wargs.core.exceptions."""
-        from wargs.core.exceptions import (
+        """Test exceptions can be imported from wArgs.core.exceptions."""
+        from wArgs.core.exceptions import (
             ErrorContext,
             WargsError,
         )

@@ -3,7 +3,7 @@
 Provides a Click-style group/command pattern as an alternative to class-based subcommands.
 
 Example:
-    from wargs import wargs
+    from wargs import wArgs
 
     @wargs.group()
     def cli(verbose: bool = False):
@@ -45,13 +45,13 @@ from dataclasses import dataclass
 from functools import wraps
 from typing import Any, Callable
 
-from wargs.builders.arguments import build_parser_config
-from wargs.builders.parser import build_parser
-from wargs.core.config import ArgumentConfig, ParserConfig
-from wargs.introspection.docstrings import parse_docstring
-from wargs.introspection.signatures import extract_function_info
-from wargs.introspection.types import resolve_type
-from wargs.utilities import debug_print
+from wArgs.builders.arguments import build_parser_config
+from wArgs.builders.parser import build_parser
+from wArgs.core.config import ArgumentConfig, ParserConfig
+from wArgs.introspection.docstrings import parse_docstring
+from wArgs.introspection.signatures import extract_function_info
+from wArgs.introspection.types import resolve_type
+from wArgs.utilities import debug_print
 
 
 def _build_add_argument_kwargs(config: ArgumentConfig) -> dict[str, Any]:
@@ -474,7 +474,7 @@ class WargsGroup:
                 if idx + 1 < len(check_args):
                     shell = check_args[idx + 1]
                     if shell in ("bash", "zsh", "fish"):
-                        from wargs.completion import generate_completion
+                        from wArgs.completion import generate_completion
 
                         print(generate_completion(self, shell=shell))
                         return None
@@ -545,7 +545,7 @@ def group(
         Decorator that creates a WargsGroup.
 
     Example:
-        from wargs import wargs
+        from wargs import wArgs
 
         @wargs.group()
         def cli(verbose: bool = False):

@@ -9,7 +9,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Protocol, runtime_checkable
 
 if TYPE_CHECKING:
-    from wargs.converters.registry import ConverterRegistry
+    from wArgs.converters.registry import ConverterRegistry
 
 
 @runtime_checkable

@@ -3,7 +3,7 @@
 This is the main user-facing API for wArgs.
 
 Example (function):
-    from wargs import wargs
+    from wargs import wArgs
 
     @wargs
     def greet(name: str, count: int = 1):
@@ -20,7 +20,7 @@ Example (function):
         greet()
 
 Example (class with subcommands):
-    from wargs import wargs
+    from wargs import wArgs
 
     @wargs
     class CLI:
@@ -58,19 +58,19 @@ import inspect
 from functools import wraps
 from typing import TYPE_CHECKING, Any, Callable, overload
 
-from wargs.builders.arguments import build_parser_config
-from wargs.builders.parser import build_parser
-from wargs.builders.subcommands import build_subcommand_config, extract_methods
-from wargs.core.config import ParameterKind
-from wargs.introspection.docstrings import parse_docstring
-from wargs.introspection.signatures import extract_function_info
-from wargs.introspection.types import resolve_type
-from wargs.utilities import debug_print
+from wArgs.builders.arguments import build_parser_config
+from wArgs.builders.parser import build_parser
+from wArgs.builders.subcommands import build_subcommand_config, extract_methods
+from wArgs.core.config import ParameterKind
+from wArgs.introspection.docstrings import parse_docstring
+from wArgs.introspection.signatures import extract_function_info
+from wArgs.introspection.types import resolve_type
+from wArgs.utilities import debug_print
 
 if TYPE_CHECKING:
     from argparse import ArgumentParser, Namespace
 
-    from wargs.core.config import FunctionInfo, ParserConfig
+    from wArgs.core.config import FunctionInfo, ParserConfig
 
 
 class WargsWrapper:
@@ -211,10 +211,25 @@ class WargsWrapper:
             self._build_parser()
 
         assert self._func_info is not None
+        assert self._parser_config is not None
+
+        # Reconstruct dict parameters from expanded args
+        for param_name, expansion in self._parser_config.dict_expansions.items():
+            reconstructed: dict[str, Any] = dict(expansion.default_dict)
+            for key in expansion.keys:
+                expanded_name = f"{param_name}_{key}"
+                value = getattr(namespace, expanded_name, None)
+                if value is not None:
+                    reconstructed[key] = value
+            kwargs[param_name] = reconstructed
 
         for param in self._func_info.parameters:
             # Skip *args and **kwargs
             if param.kind in (ParameterKind.VAR_POSITIONAL, ParameterKind.VAR_KEYWORD):
+                continue
+
+            # Skip dict-expanded parameters (already handled above)
+            if param.name in self._parser_config.dict_expansions:
                 continue
 
             # Get value from namespace
@@ -243,7 +258,7 @@ class WargsWrapper:
                 if idx + 1 < len(check_args):
                     shell = check_args[idx + 1]
                     if shell in ("bash", "zsh", "fish"):
-                        from wargs.completion import generate_completion
+                        from wArgs.completion import generate_completion
 
                         print(generate_completion(self, shell=shell))
                         return None
@@ -422,8 +437,29 @@ class WargsClassWrapper:
             valid_params = set()
             has_var_keyword = False
 
+        # Reconstruct dict parameters from expanded args
+        for param_name, expansion in self._parser_config.dict_expansions.items():
+            if param_name in valid_params or has_var_keyword:
+                reconstructed: dict[str, Any] = dict(expansion.default_dict)
+                for key in expansion.keys:
+                    expanded_name = f"{param_name}_{key}"
+                    value = getattr(namespace, expanded_name, None)
+                    if value is not None:
+                        reconstructed[key] = value
+                kwargs[param_name] = reconstructed
+
+        # Build set of expanded arg names to skip
+        expanded_arg_names: set[str] = set()
+        for expansion in self._parser_config.dict_expansions.values():
+            for key in expansion.keys:
+                expanded_arg_names.add(f"{expansion.param_name}_{key}")
+
         # Get arguments that belong to __init__ (global options)
         for arg in self._parser_config.arguments:
+            # Skip expanded dict args (already handled above)
+            if arg.name in expanded_arg_names:
+                continue
+
             # Only include if __init__ accepts it (or has **kwargs)
             if arg.name in valid_params or has_var_keyword:
                 value = getattr(namespace, arg.name, None)
@@ -483,7 +519,7 @@ class WargsClassWrapper:
                 if idx + 1 < len(check_args):
                     shell = check_args[idx + 1]
                     if shell in ("bash", "zsh", "fish"):
-                        from wargs.completion import generate_completion
+                        from wArgs.completion import generate_completion
 
                         print(generate_completion(self, shell=shell))
                         return None
@@ -515,7 +551,7 @@ class WargsClassWrapper:
         """Call the wrapper.
 
         Parses CLI arguments and creates an instance of the class.
-        Any explicitly provided kwargs override CLI-parsed values.
+        Explicit kwargs override CLI-parsed values.
 
         Args:
             *args: Positional arguments passed directly to __init__.
@@ -549,15 +585,15 @@ class WargsClassWrapper:
 # Note: type overload must come first because type is a subtype of Callable
 # mypy reports overlap but runtime behavior is correct (classes are checked first)
 @overload
-def wargs(func: type) -> WargsClassWrapper: ...  # type: ignore[overload-overlap]
+def wArgs(func: type) -> WargsClassWrapper: ...  # type: ignore[overload-overlap]
 
 
 @overload
-def wargs(func: Callable[..., Any]) -> WargsWrapper: ...
+def wArgs(func: Callable[..., Any]) -> WargsWrapper: ...
 
 
 @overload
-def wargs(
+def wArgs(
     *,
     prog: str | None = None,
     description: str | None = None,
@@ -568,7 +604,7 @@ def wargs(
 ) -> Callable[[Callable[..., Any] | type], WargsWrapper | WargsClassWrapper]: ...
 
 
-def wargs(
+def wArgs(
     func: Callable[..., Any] | type | None = None,
     *,
     prog: str | None = None,
@@ -656,5 +692,5 @@ def wargs(
 __all__ = [
     "WargsClassWrapper",
     "WargsWrapper",
-    "wargs",
+    "wArgs",
 ]

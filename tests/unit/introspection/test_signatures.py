@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from wargs.core.config import MISSING, ParameterKind
-from wargs.core.exceptions import IntrospectionError
-from wargs.introspection.signatures import extract_function_info, extract_parameters
+from wArgs.core.config import MISSING, ParameterKind
+from wArgs.core.exceptions import IntrospectionError
+from wArgs.introspection.signatures import extract_function_info, extract_parameters
 
 
 class TestExtractParameters:

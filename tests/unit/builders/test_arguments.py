@@ -4,15 +4,15 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from wargs.builders.arguments import (
+from wArgs.builders.arguments import (
     _format_default_help,
     _get_enum_metavar,
     _get_nargs,
     build_argument_config,
     build_parser_config,
 )
-from wargs.core.arg import Arg
-from wargs.core.config import (
+from wArgs.core.arg import Arg
+from wArgs.core.config import (
     MISSING,
     FunctionInfo,
     ParameterInfo,
@@ -72,7 +72,7 @@ class TestExtractArgMetadata:
         config = build_parser_config(func_info)
 
         # Should use default flags since no Arg metadata
-        assert config.arguments[0].flags == ["--value"]
+        assert config.arguments[0].flags == ["--func-value"]
 
     def test_annotated_with_multiple_metadata(self) -> None:
         """Test Annotated type with Arg and other metadata."""
@@ -92,7 +92,7 @@ class TestExtractArgMetadata:
         config = build_parser_config(func_info)
 
         # Should find Arg even among other metadata
-        assert config.arguments[0].flags == ["-v", "--value"]
+        assert config.arguments[0].flags == ["-v", "--func-value"]
 
 
 class TestBuildArgumentConfig:
@@ -599,7 +599,7 @@ class TestBuildArgumentConfigAdvanced:
 
         config = build_parser_config(func_info)
 
-        assert config.arguments[0].flags == ["-n", "--name"]
+        assert config.arguments[0].flags == ["-n", "--greet-name"]
         assert config.arguments[0].help == "The name"
 
     def test_skip_parameter_via_annotated(self) -> None:

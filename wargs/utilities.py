@@ -4,7 +4,7 @@ This module provides functions to inspect and debug wArgs-decorated
 functions and classes.
 
 Example:
-    from wargs import wargs, explain, get_parser, get_config
+    from wargs import wArgs, explain, get_parser, get_config
 
     @wargs
     def greet(name: str, count: int = 1):
@@ -30,8 +30,8 @@ from typing import TYPE_CHECKING, Any, Callable
 if TYPE_CHECKING:
     from argparse import ArgumentParser
 
-    from wargs.core.config import ParserConfig
-    from wargs.decorator import WargsClassWrapper, WargsWrapper
+    from wArgs.core.config import ParserConfig
+    from wArgs.decorator import WargsClassWrapper, WargsWrapper
 
 
 # Environment variable for debug output
@@ -73,7 +73,7 @@ def _get_wrapper(
     Raises:
         TypeError: If func is not a wargs-decorated function.
     """
-    from wargs.decorator import WargsClassWrapper, WargsWrapper
+    from wArgs.decorator import WargsClassWrapper, WargsWrapper
 
     if isinstance(func, (WargsWrapper, WargsClassWrapper)):
         return func
@@ -181,7 +181,7 @@ def explain(
 
         print(explain(greet))
     """
-    from wargs.decorator import WargsClassWrapper
+    from wArgs.decorator import WargsClassWrapper
 
     wrapper = _get_wrapper(func)
     config = get_config(func)

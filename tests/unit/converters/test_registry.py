@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from wargs.converters.registry import (
+from wArgs.converters.registry import (
     ConverterRegistry,
     converter,
     get_default_registry,
@@ -210,7 +210,7 @@ class TestLoadEntryPoints:
 
         registry = ConverterRegistry()
 
-        with patch("wargs.converters.registry.entry_points") as mock_eps:
+        with patch("wArgs.converters.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             count = registry.load_entry_points()
 
@@ -222,7 +222,7 @@ class TestLoadEntryPoints:
 
         registry = ConverterRegistry()
 
-        with patch("wargs.converters.registry.entry_points") as mock_eps:
+        with patch("wArgs.converters.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             count1 = registry.load_entry_points()
             count2 = registry.load_entry_points()
@@ -241,7 +241,7 @@ class TestLoadEntryPoints:
         mock_ep = MagicMock()
         mock_ep.load.return_value = lambda r: r.register(int, lambda x: int(x) * 2)
 
-        with patch("wargs.converters.registry.entry_points") as mock_eps:
+        with patch("wArgs.converters.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             count = registry.load_entry_points()
 
@@ -258,7 +258,7 @@ class TestLoadEntryPoints:
         mock_ep = MagicMock()
         mock_ep.load.side_effect = ImportError("Module not found")
 
-        with patch("wargs.converters.registry.entry_points") as mock_eps:
+        with patch("wArgs.converters.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             count = registry.load_entry_points()
 
@@ -274,7 +274,7 @@ class TestLoadEntryPoints:
         mock_ep = MagicMock()
         mock_ep.load.return_value = lambda r: None
 
-        with patch("wargs.converters.registry.entry_points") as mock_eps:
+        with patch("wArgs.converters.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             count = registry.load_entry_points(group="custom.group")
 
@@ -287,7 +287,7 @@ class TestLoadEntryPoints:
 
         registry = ConverterRegistry()
 
-        with patch("wargs.converters.registry.entry_points") as mock_eps:
+        with patch("wArgs.converters.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             registry.load_entry_points()
             assert registry._plugins_loaded is True

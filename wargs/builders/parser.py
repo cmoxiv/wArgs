@@ -8,7 +8,7 @@ from __future__ import annotations
 import argparse
 from typing import TYPE_CHECKING, Any
 
-from wargs.core.config import ArgumentConfig, ParserConfig
+from wArgs.core.config import ArgumentConfig, ParserConfig
 
 if TYPE_CHECKING:
     from argparse import ArgumentParser, _ArgumentGroup

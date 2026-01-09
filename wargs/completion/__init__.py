@@ -3,7 +3,7 @@
 This module provides shell completion script generation for Bash, Zsh, and Fish.
 
 Example:
-    from wargs.completion import generate_completion, install_completion
+    from wArgs.completion import generate_completion, install_completion
 
     @wargs
     def cli(name: str, count: int = 1):
@@ -20,22 +20,22 @@ from __future__ import annotations
 
 from typing import Any
 
-from wargs.completion.bash import (
+from wArgs.completion.bash import (
     generate_bash_completion,
     get_bash_completion_install_instructions,
 )
-from wargs.completion.fish import (
+from wArgs.completion.fish import (
     generate_fish_completion,
     get_fish_completion_install_instructions,
 )
-from wargs.completion.generator import (
+from wArgs.completion.generator import (
     CompletionOption,
     CompletionSpec,
     CompletionSubcommand,
     detect_shell,
     get_completion_spec,
 )
-from wargs.completion.zsh import (
+from wArgs.completion.zsh import (
     generate_zsh_completion,
     get_zsh_completion_install_instructions,
 )

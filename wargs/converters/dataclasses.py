@@ -21,7 +21,7 @@ from __future__ import annotations
 import dataclasses
 from typing import Any, get_type_hints
 
-from wargs.core.config import ParameterInfo, ParameterKind
+from wArgs.core.config import ParameterInfo, ParameterKind
 
 
 def is_dataclass_type(annotation: Any) -> bool:

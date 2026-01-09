@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from wargs.core.config import (
+from wArgs.core.config import (
     MISSING,
     FunctionInfo,
     ParameterInfo,
@@ -16,7 +16,7 @@ class TestMissing:
 
     def test_missing_is_singleton(self) -> None:
         """MISSING should be a singleton."""
-        from wargs.core.config import _Missing
+        from wArgs.core.config import _Missing
 
         m1 = _Missing()
         m2 = _Missing()

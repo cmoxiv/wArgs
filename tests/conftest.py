@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from wargs.core.exceptions import ErrorContext
+from wArgs.core.exceptions import ErrorContext
 
 
 @pytest.fixture

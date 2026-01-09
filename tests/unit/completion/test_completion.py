@@ -7,8 +7,8 @@ from unittest.mock import patch
 
 import pytest
 
-from wargs import wargs
-from wargs.completion import (
+from wArgs import wArgs
+from wArgs.completion import (
     CompletionOption,
     CompletionSpec,
     CompletionSubcommand,
@@ -17,13 +17,13 @@ from wargs.completion import (
     get_completion_spec,
     get_install_instructions,
 )
-from wargs.completion.bash import generate_bash_completion
-from wargs.completion.fish import generate_fish_completion
-from wargs.completion.generator import (
+from wArgs.completion.bash import generate_bash_completion
+from wArgs.completion.fish import generate_fish_completion
+from wArgs.completion.generator import (
     extract_completion_spec,
     extract_completion_spec_from_parser,
 )
-from wargs.completion.zsh import generate_zsh_completion
+from wArgs.completion.zsh import generate_zsh_completion
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -125,7 +125,7 @@ class TestGetCompletionSpec:
     def test_function_spec(self) -> None:
         """Test getting spec from wargs-decorated function."""
 
-        @wargs
+        @wArgs
         def cli(name: str, count: int = 1) -> str:
             """Process something."""
             return f"{name}: {count}"
@@ -137,7 +137,7 @@ class TestGetCompletionSpec:
     def test_class_spec(self) -> None:
         """Test getting spec from wargs-decorated class."""
 
-        @wargs
+        @wArgs
         class CLI:
             """A CLI tool."""
 
@@ -173,7 +173,7 @@ class TestExtractCompletionSpec:
     def test_simple_function(self) -> None:
         """Test extraction from simple function config."""
 
-        @wargs
+        @wArgs
         def cli(name: str, verbose: bool = False) -> str:
             return name
 
@@ -185,14 +185,14 @@ class TestExtractCompletionSpec:
 
         # Check global options
         opt_flags = [o.flags for o in spec.global_options]
-        assert any("--name" in flags for flags in opt_flags)
-        assert any("--verbose" in flags for flags in opt_flags)
+        assert any("--cli-name" in flags for flags in opt_flags)
+        assert any("--cli-verbose" in flags for flags in opt_flags)
         assert any("-h" in flags or "--help" in flags for flags in opt_flags)
 
     def test_with_choices(self) -> None:
         """Test extraction preserves choices."""
 
-        @wargs
+        @wArgs
         def cli(format: Literal["json", "csv", "text"] = "text") -> str:
             return format
 
@@ -203,7 +203,7 @@ class TestExtractCompletionSpec:
 
         # Find format option
         format_opt = next(
-            (o for o in spec.global_options if "--format" in o.flags), None
+            (o for o in spec.global_options if "--cli-format" in o.flags), None
         )
         assert format_opt is not None
         assert set(format_opt.choices) == {"json", "csv", "text"}
@@ -215,7 +215,7 @@ class TestGenerateBashCompletion:
     def test_simple_completion(self) -> None:
         """Test generating bash completion for simple function."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str, count: int = 1) -> str:
             return f"{name}: {count}"
 
@@ -224,14 +224,14 @@ class TestGenerateBashCompletion:
 
         assert "myapp" in script
         assert "_wargs_myapp_completions" in script
-        assert "--name" in script
-        assert "--count" in script
+        assert "--cli-name" in script
+        assert "--cli-count" in script
         assert "complete -F" in script
 
     def test_with_subcommands(self) -> None:
         """Test generating bash completion with subcommands."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -269,7 +269,7 @@ class TestGenerateZshCompletion:
     def test_simple_completion(self) -> None:
         """Test generating zsh completion for simple function."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str, count: int = 1) -> str:
             return f"{name}: {count}"
 
@@ -283,7 +283,7 @@ class TestGenerateZshCompletion:
     def test_with_subcommands(self) -> None:
         """Test generating zsh completion with subcommands."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -302,7 +302,7 @@ class TestGenerateFishCompletion:
     def test_simple_completion(self) -> None:
         """Test generating fish completion for simple function."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str, count: int = 1) -> str:
             return f"{name}: {count}"
 
@@ -316,7 +316,7 @@ class TestGenerateFishCompletion:
     def test_with_subcommands(self) -> None:
         """Test generating fish completion with subcommands."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -335,7 +335,7 @@ class TestGenerateCompletion:
     def test_auto_detect_shell(self) -> None:
         """Test auto-detecting shell type."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -346,7 +346,7 @@ class TestGenerateCompletion:
     def test_explicit_bash(self) -> None:
         """Test explicit bash shell."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -356,7 +356,7 @@ class TestGenerateCompletion:
     def test_explicit_zsh(self) -> None:
         """Test explicit zsh shell."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -366,7 +366,7 @@ class TestGenerateCompletion:
     def test_explicit_fish(self) -> None:
         """Test explicit fish shell."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -376,7 +376,7 @@ class TestGenerateCompletion:
     def test_unknown_shell_raises(self) -> None:
         """Test that unknown shell type raises ValueError."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -390,7 +390,7 @@ class TestGetInstallInstructions:
     def test_bash_instructions(self) -> None:
         """Test bash installation instructions."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -401,7 +401,7 @@ class TestGetInstallInstructions:
     def test_zsh_instructions(self) -> None:
         """Test zsh installation instructions."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -412,7 +412,7 @@ class TestGetInstallInstructions:
     def test_fish_instructions(self) -> None:
         """Test fish installation instructions."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -464,9 +464,9 @@ class TestCompletionCoverageGaps:
         """Test completion for positional arguments."""
         from typing import Annotated
 
-        from wargs import Arg
+        from wArgs import Arg
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: Annotated[str, Arg(positional=True)]) -> str:
             return name
 
@@ -477,14 +477,14 @@ class TestCompletionCoverageGaps:
     def test_file_completion_detection(self) -> None:
         """Test that Path type creates a valid completion option."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(input_file: Path) -> str:
             return str(input_file)
 
         spec = get_completion_spec(cli)
         # Find input-file option
         file_opt = next(
-            (o for o in spec.global_options if "--input-file" in o.flags), None
+            (o for o in spec.global_options if "--cli-input-file" in o.flags), None
         )
         assert file_opt is not None
         # Note: file_completion detection may not work perfectly
@@ -599,9 +599,9 @@ class TestCompletionCoverageGaps:
 
     def test_install_completion_stdout(self, capsys) -> None:
         """Test install_completion with stdout=True."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -630,7 +630,7 @@ class TestCompletionCoverageGaps:
 
     def test_completion_option_empty_flags(self) -> None:
         """Test that empty flags returns empty completion."""
-        from wargs.completion.fish import _build_fish_option_completions
+        from wArgs.completion.fish import _build_fish_option_completions
 
         completions = _build_fish_option_completions("test", CompletionOption(flags=[]))
         assert completions == []
@@ -638,7 +638,7 @@ class TestCompletionCoverageGaps:
     def test_subcommand_options_bash(self) -> None:
         """Test bash completion includes subcommand options."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         class CLI:
             def add(self, name: str, count: int = 1) -> str:
                 return f"{name}: {count}"
@@ -652,7 +652,7 @@ class TestCompletionCoverageGaps:
     def test_get_completion_spec_via_parser(self) -> None:
         """Test get_completion_spec falls back to parser."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -808,7 +808,7 @@ class TestZshCompletionExtended:
 
     def test_zsh_empty_flags_option(self) -> None:
         """Test zsh _build_zsh_option_spec with empty flags."""
-        from wargs.completion.zsh import _build_zsh_option_spec
+        from wArgs.completion.zsh import _build_zsh_option_spec
 
         opt = CompletionOption(flags=[], description="Empty")
         result = _build_zsh_option_spec(opt)
@@ -821,7 +821,7 @@ class TestGetInstallInstructionsExtended:
     def test_auto_detect_shell(self) -> None:
         """Test get_install_instructions with auto-detected shell."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -832,7 +832,7 @@ class TestGetInstallInstructionsExtended:
     def test_unknown_shell_raises(self) -> None:
         """Test get_install_instructions raises for unknown shell."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -845,9 +845,9 @@ class TestInstallCompletionExtended:
 
     def test_install_bash_completion(self, tmp_path) -> None:
         """Test installing bash completion to custom path."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -861,9 +861,9 @@ class TestInstallCompletionExtended:
 
     def test_install_zsh_completion(self, tmp_path) -> None:
         """Test installing zsh completion to custom path."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -877,9 +877,9 @@ class TestInstallCompletionExtended:
 
     def test_install_fish_completion(self, tmp_path) -> None:
         """Test installing fish completion to custom path."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -893,9 +893,9 @@ class TestInstallCompletionExtended:
 
     def test_install_unknown_shell_raises(self, tmp_path) -> None:
         """Test install_completion raises for unknown shell."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -909,7 +909,7 @@ class TestExtractCompletionSpecExtended:
     def test_extract_with_subcommands(self) -> None:
         """Test extraction includes subcommand help options."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         class CLI:
             def add(self, name: str) -> str:
                 """Add item."""
@@ -936,9 +936,9 @@ class TestExtractCompletionSpecExtended:
         """Test extraction of positional argument."""
         from typing import Annotated
 
-        from wargs import Arg
+        from wArgs import Arg
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(filename: Annotated[str, Arg(positional=True)]) -> str:
             return filename
 
@@ -956,9 +956,9 @@ class TestInstallCompletionDefaultPaths:
 
     def test_install_bash_default_path(self, tmp_path, monkeypatch) -> None:
         """Test installing bash completion to default path."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -973,9 +973,9 @@ class TestInstallCompletionDefaultPaths:
 
     def test_install_zsh_default_path(self, tmp_path, monkeypatch) -> None:
         """Test installing zsh completion to default path."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -989,9 +989,9 @@ class TestInstallCompletionDefaultPaths:
 
     def test_install_fish_default_path(self, tmp_path, monkeypatch) -> None:
         """Test installing fish completion to default path."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -1005,9 +1005,9 @@ class TestInstallCompletionDefaultPaths:
 
     def test_install_auto_detect_shell(self, tmp_path, monkeypatch) -> None:
         """Test install_completion with auto-detected shell."""
-        from wargs.completion import install_completion
+        from wArgs.completion import install_completion
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -1024,8 +1024,8 @@ class TestExtractCompletionOptionEdgeCases:
 
     def test_positional_arg_without_flags(self) -> None:
         """Test extraction of positional arg that has no flags."""
-        from wargs.completion.generator import _extract_completion_option
-        from wargs.core.config import ArgumentConfig
+        from wArgs.completion.generator import _extract_completion_option
+        from wArgs.core.config import ArgumentConfig
 
         # Create a config with positional=True and no flags
         config = ArgumentConfig(
@@ -1043,8 +1043,8 @@ class TestExtractCompletionOptionEdgeCases:
 
     def test_arg_with_no_flags_and_not_positional(self) -> None:
         """Test extraction of arg with no flags that's not positional."""
-        from wargs.completion.generator import _extract_completion_option
-        from wargs.core.config import ArgumentConfig
+        from wArgs.completion.generator import _extract_completion_option
+        from wArgs.core.config import ArgumentConfig
 
         # Create a config with no flags and not positional
         config = ArgumentConfig(
@@ -1064,8 +1064,8 @@ class TestExtractCompletionOptionEdgeCases:
         """Test Path type triggers file_completion."""
         from pathlib import Path
 
-        from wargs.completion.generator import _extract_completion_option
-        from wargs.core.config import ArgumentConfig
+        from wArgs.completion.generator import _extract_completion_option
+        from wArgs.core.config import ArgumentConfig
 
         config = ArgumentConfig(
             name="input_file",
@@ -1104,7 +1104,7 @@ class TestCompletionFlag:
     def test_function_completion_flag(self, capsys) -> None:
         """Test --completion flag on function."""
 
-        @wargs(prog="myapp", completion=True)
+        @wArgs(prog="myapp", completion=True)
         def cli(name: str) -> str:
             return name
 
@@ -1117,7 +1117,7 @@ class TestCompletionFlag:
     def test_class_completion_flag(self, capsys) -> None:
         """Test --completion flag on class."""
 
-        @wargs(prog="myapp", completion=True)
+        @wArgs(prog="myapp", completion=True)
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -1131,7 +1131,7 @@ class TestCompletionFlag:
     def test_completion_flag_not_added_by_default(self) -> None:
         """Test --completion flag is not added when completion=False."""
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def cli(name: str) -> str:
             return name
 
@@ -1155,7 +1155,7 @@ class TestCompletionFlag:
     def test_completion_flag_in_help(self, capsys) -> None:
         """Test --completion flag appears in help when enabled."""
 
-        @wargs(prog="myapp", completion=True)
+        @wArgs(prog="myapp", completion=True)
         def cli(name: str) -> str:
             return name
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from wargs.core.arg import Arg
+from wArgs.core.arg import Arg
 
 
 class TestArgCreation:

@@ -6,8 +6,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from wargs.converters.registry import ConverterRegistry
-from wargs.plugins import (
+from wArgs.converters.registry import ConverterRegistry
+from wArgs.plugins import (
     ConverterPlugin,
     PluginError,
     PluginRegistry,
@@ -58,7 +58,7 @@ class TestPluginRegistry:
         registry = PluginRegistry()
         converter_registry = ConverterRegistry()
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             registry.load_converters(converter_registry)
 
@@ -69,7 +69,7 @@ class TestPluginRegistry:
         registry = PluginRegistry()
         converter_registry = ConverterRegistry()
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             count = registry.load_converters(converter_registry)
 
@@ -86,7 +86,7 @@ class TestPluginRegistry:
         mock_ep.name = "test_plugin"
         mock_ep.load.return_value = lambda r: None
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             count = registry.load_converters(converter_registry)
 
@@ -103,7 +103,7 @@ class TestPluginRegistry:
         mock_ep.name = "bad_plugin"
         mock_ep.load.side_effect = ImportError("Module not found")
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             count = registry.load_converters(converter_registry)
 
@@ -121,7 +121,7 @@ class TestPluginRegistry:
         mock_ep.name = "bad_plugin"
         mock_ep.load.side_effect = ImportError("Module not found")
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             with pytest.raises(PluginError) as exc_info:
                 registry.load_converters(converter_registry, raise_on_error=True)
@@ -137,7 +137,7 @@ class TestPluginRegistry:
         mock_ep.name = "test_plugin"
         mock_ep.load.return_value = lambda r: None
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             count1 = registry.load_converters(converter_registry)
             count2 = registry.load_converters(converter_registry)
@@ -151,7 +151,7 @@ class TestPluginRegistry:
         registry = PluginRegistry()
         converter_registry = ConverterRegistry()
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             registry.load_converters(converter_registry, group="custom.group")
 
@@ -163,7 +163,7 @@ class TestPluginRegistry:
         registry = PluginRegistry()
         converter_registry = ConverterRegistry()
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             registry.load_converters(converter_registry)
 
@@ -198,7 +198,7 @@ class TestPluginRegistry:
         mock_ep.name = "test_plugin"
         mock_ep.load.return_value = mock_register
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep]
             registry.load_converters(converter_registry)
 
@@ -211,7 +211,7 @@ class TestDiscoverEntryPoints:
 
     def test_discover_empty(self) -> None:
         """Test discovery with no entry points."""
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = []
             result = discover_entry_points("wargs.converters")
 
@@ -227,7 +227,7 @@ class TestDiscoverEntryPoints:
         mock_ep2.name = "plugin2"
         mock_ep2.value = "pkg2.module:register"
 
-        with patch("wargs.plugins.registry.entry_points") as mock_eps:
+        with patch("wArgs.plugins.registry.entry_points") as mock_eps:
             mock_eps.return_value = [mock_ep1, mock_ep2]
             result = discover_entry_points("wargs.converters")
 
@@ -243,7 +243,7 @@ class TestGetPluginRegistry:
     def test_returns_registry(self) -> None:
         """Test that get_plugin_registry returns a PluginRegistry."""
         # Reset the global registry
-        import wargs.plugins.registry as reg_module
+        import wArgs.plugins.registry as reg_module
 
         reg_module._plugin_registry = None
 

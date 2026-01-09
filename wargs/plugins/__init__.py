@@ -3,8 +3,8 @@
 This module provides plugin discovery and loading via entry points.
 """
 
-from wargs.plugins.interface import ConverterPlugin
-from wargs.plugins.registry import (
+from wArgs.plugins.interface import ConverterPlugin
+from wArgs.plugins.registry import (
     PluginError,
     PluginRegistry,
     discover_entry_points,

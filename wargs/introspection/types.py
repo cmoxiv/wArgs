@@ -10,10 +10,10 @@ from enum import Enum
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, Literal, Union, get_args, get_origin
 
-from wargs.core.config import TypeInfo
+from wArgs.core.config import TypeInfo
 
 if TYPE_CHECKING:
-    from wargs.converters.registry import ConverterRegistry
+    from wArgs.converters.registry import ConverterRegistry
 
 # Types that are natively supported by argparse
 BASIC_TYPES: dict[type, Callable[[str], Any]] = {

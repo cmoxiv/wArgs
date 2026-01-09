@@ -9,13 +9,13 @@ from __future__ import annotations
 import inspect
 from typing import Any, Callable, get_type_hints
 
-from wargs.core.config import (
+from wArgs.core.config import (
     MISSING,
     FunctionInfo,
     ParameterInfo,
     ParameterKind,
 )
-from wargs.core.exceptions import IntrospectionError
+from wArgs.core.exceptions import IntrospectionError
 
 
 def _convert_parameter_kind(kind: inspect._ParameterKind) -> ParameterKind:

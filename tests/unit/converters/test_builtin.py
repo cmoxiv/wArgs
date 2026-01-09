@@ -10,7 +10,7 @@ from uuid import UUID
 
 import pytest
 
-from wargs.converters.builtin import (
+from wArgs.converters.builtin import (
     convert_complex,
     convert_date,
     convert_datetime,
@@ -21,8 +21,8 @@ from wargs.converters.builtin import (
     convert_uuid,
     register_builtin_converters,
 )
-from wargs.converters.registry import ConverterRegistry
-from wargs.core.exceptions import ConversionError
+from wArgs.converters.registry import ConverterRegistry
+from wArgs.core.exceptions import ConversionError
 
 
 class TestDatetimeConverter:

@@ -7,7 +7,7 @@ This module provides:
 - Dataclass expansion support
 """
 
-from wargs.converters.builtin import (
+from wArgs.converters.builtin import (
     convert_complex,
     convert_date,
     convert_datetime,
@@ -18,12 +18,12 @@ from wargs.converters.builtin import (
     convert_uuid,
     register_builtin_converters,
 )
-from wargs.converters.dataclasses import (
+from wArgs.converters.dataclasses import (
     expand_dataclass,
     is_dataclass_type,
     reconstruct_dataclass,
 )
-from wargs.converters.registry import (
+from wArgs.converters.registry import (
     Converter,
     ConverterRegistry,
     converter,

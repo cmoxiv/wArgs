@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from argparse import ArgumentParser
 
-    from wargs.core.config import ArgumentConfig, ParserConfig
+    from wArgs.core.config import ArgumentConfig, ParserConfig
 
 
 @dataclass

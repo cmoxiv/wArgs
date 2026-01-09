@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from wargs.introspection.docstrings import (
+from wArgs.introspection.docstrings import (
     DocstringFormat,
     DocstringInfo,
     detect_docstring_format,

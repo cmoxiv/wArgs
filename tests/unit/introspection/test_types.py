@@ -9,7 +9,7 @@ from typing import Dict, List, Literal, Optional, Set, Tuple, Union
 
 import pytest
 
-from wargs.introspection.types import resolve_type
+from wArgs.introspection.types import resolve_type
 
 
 class Color(Enum):
@@ -304,7 +304,7 @@ class TestResolveWithRegistry:
 
     def test_resolve_with_registry_converter(self) -> None:
         """Test that registry converters take precedence."""
-        from wargs.converters.registry import ConverterRegistry
+        from wArgs.converters.registry import ConverterRegistry
 
         # Create a custom class
         class CustomType:
@@ -345,7 +345,7 @@ class TestResolveWithRegistry:
         Basic types (int, str, float, bool, Path) are handled specially
         and always use the built-in converters regardless of registry.
         """
-        from wargs.converters.registry import ConverterRegistry
+        from wArgs.converters.registry import ConverterRegistry
 
         registry = ConverterRegistry()
 
@@ -361,7 +361,7 @@ class TestResolveWithRegistry:
 
     def test_resolve_collection_element_with_registry(self) -> None:
         """Test that collection element types use registry converters."""
-        from wargs.converters.registry import ConverterRegistry
+        from wArgs.converters.registry import ConverterRegistry
 
         class Item:
             def __init__(self, value: str) -> None:

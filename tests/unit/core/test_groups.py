@@ -2,17 +2,17 @@
 
 from __future__ import annotations
 
-from wargs import wargs
-from wargs.core.groups import CommandInfo, WargsGroup
+from wArgs import wArgs
+from wArgs.core.groups import CommandInfo, WargsGroup
 
 
 class TestGroupDecorator:
-    """Tests for the @wargs.group() decorator."""
+    """Tests for the @wArgs.group() decorator."""
 
     def test_basic_group(self) -> None:
         """Test creating a basic group."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             """My CLI."""
             pass
@@ -23,7 +23,7 @@ class TestGroupDecorator:
     def test_group_with_options(self) -> None:
         """Test group with shared options."""
 
-        @wargs.group(prog="myapp", description="My application")
+        @wArgs.group(prog="myapp", description="My application")
         def cli(verbose: bool = False) -> None:
             """My CLI."""
             pass
@@ -39,7 +39,7 @@ class TestCommandRegistration:
     def test_register_command(self) -> None:
         """Test registering a command."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -55,7 +55,7 @@ class TestCommandRegistration:
     def test_register_multiple_commands(self) -> None:
         """Test registering multiple commands."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -76,7 +76,7 @@ class TestCommandRegistration:
     def test_command_with_custom_name(self) -> None:
         """Test command with custom name."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -91,7 +91,7 @@ class TestCommandRegistration:
     def test_command_name_from_underscore(self) -> None:
         """Test command name converts underscores to hyphens."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -110,7 +110,7 @@ class TestGroupExecution:
         """Test running a command."""
         calls = []
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             calls.append("cli")
 
@@ -119,7 +119,7 @@ class TestGroupExecution:
             calls.append(f"hello({name})")
             return f"Hello, {name}!"
 
-        result = cli.run(["hello", "--name", "World"])
+        result = cli.run(["hello", "--hello-name", "World"])
 
         assert result == "Hello, World!"
         assert calls == ["cli", "hello(World)"]
@@ -128,7 +128,7 @@ class TestGroupExecution:
         """Test running with shared options."""
         verbose_value = []
 
-        @wargs.group()
+        @wArgs.group()
         def cli(verbose: bool = False) -> None:
             verbose_value.append(verbose)
 
@@ -136,14 +136,14 @@ class TestGroupExecution:
         def hello(name: str) -> str:
             return f"Hello, {name}!"
 
-        cli.run(["--verbose", "hello", "--name", "World"])
+        cli.run(["--cli-verbose", "hello", "--hello-name", "World"])
 
         assert verbose_value == [True]
 
     def test_run_no_command_shows_help(self, capsys) -> None:
         """Test running without command shows help."""
 
-        @wargs.group(prog="myapp")
+        @wArgs.group(prog="myapp")
         def cli() -> None:
             pass
 
@@ -161,7 +161,7 @@ class TestGroupExecution:
         """Test calling group without args runs CLI."""
         calls = []
 
-        @wargs.group()
+        @wArgs.group()
         def cli(verbose: bool = False) -> None:
             calls.append(f"cli(verbose={verbose})")
 
@@ -183,7 +183,7 @@ class TestNestedGroups:
     def test_create_subgroup(self) -> None:
         """Test creating a subgroup."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -198,7 +198,7 @@ class TestNestedGroups:
     def test_subgroup_commands(self) -> None:
         """Test commands in subgroup."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -221,7 +221,7 @@ class TestGroupParser:
     def test_parser_creation(self) -> None:
         """Test that parser is created lazily."""
 
-        @wargs.group(prog="myapp")
+        @wArgs.group(prog="myapp")
         def cli(verbose: bool = False) -> None:
             pass
 
@@ -237,7 +237,7 @@ class TestGroupParser:
     def test_parser_has_subcommands(self) -> None:
         """Test parser has subcommands."""
 
-        @wargs.group(prog="myapp")
+        @wArgs.group(prog="myapp")
         def cli() -> None:
             pass
 
@@ -256,7 +256,7 @@ class TestGroupParser:
     def test_wargs_config_available(self) -> None:
         """Test _wargs_config is available for completion."""
 
-        @wargs.group(prog="myapp")
+        @wArgs.group(prog="myapp")
         def cli() -> None:
             pass
 
@@ -275,7 +275,7 @@ class TestGroupCompletion:
     def test_completion_flag(self, capsys) -> None:
         """Test --completion flag on group."""
 
-        @wargs.group(prog="myapp", completion=True)
+        @wArgs.group(prog="myapp", completion=True)
         def cli() -> None:
             pass
 
@@ -313,7 +313,7 @@ class TestGroupRepr:
     def test_repr(self) -> None:
         """Test __repr__."""
 
-        @wargs.group()
+        @wArgs.group()
         def mycli() -> None:
             pass
 
@@ -328,7 +328,7 @@ class TestGroupDirectCall:
         """Test calling group with args bypasses CLI parsing."""
         calls = []
 
-        @wargs.group()
+        @wArgs.group()
         def cli(verbose: bool = False) -> None:
             calls.append(f"verbose={verbose}")
 
@@ -343,7 +343,7 @@ class TestGroupArgumentKwargs:
     def test_command_with_default(self) -> None:
         """Test command with default value."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -357,7 +357,7 @@ class TestGroupArgumentKwargs:
     def test_command_with_required(self) -> None:
         """Test command with required argument."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -365,14 +365,14 @@ class TestGroupArgumentKwargs:
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
-        result = cli.run(["greet", "--name", "Alice"])
+        result = cli.run(["greet", "--greet-name", "Alice"])
         assert result == "Hello, Alice!"
 
     def test_command_with_choices(self) -> None:
         """Test command with choices."""
         from typing import Literal
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -380,13 +380,13 @@ class TestGroupArgumentKwargs:
         def format(output: Literal["json", "csv"] = "json") -> str:
             return output
 
-        result = cli.run(["format", "--output", "csv"])
+        result = cli.run(["format", "--format-output", "csv"])
         assert result == "csv"
 
     def test_command_with_boolean(self) -> None:
         """Test command with boolean flag."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -394,13 +394,13 @@ class TestGroupArgumentKwargs:
         def process(verbose: bool = False) -> bool:
             return verbose
 
-        result = cli.run(["process", "--verbose"])
+        result = cli.run(["process", "--process-verbose"])
         assert result is True
 
     def test_command_with_int(self) -> None:
         """Test command with int argument."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -408,7 +408,7 @@ class TestGroupArgumentKwargs:
         def multiply(value: int = 1) -> int:
             return value * 2
 
-        result = cli.run(["multiply", "--value", "5"])
+        result = cli.run(["multiply", "--multiply-value", "5"])
         assert result == 10
 
 
@@ -418,7 +418,7 @@ class TestGroupParserOptions:
     def test_group_with_formatter_class(self) -> None:
         """Test group with custom formatter class."""
 
-        @wargs.group(prog="myapp", formatter_class="ArgumentDefaultsHelpFormatter")
+        @wArgs.group(prog="myapp", formatter_class="ArgumentDefaultsHelpFormatter")
         def cli() -> None:
             pass
 
@@ -432,7 +432,7 @@ class TestGroupParserOptions:
     def test_group_without_help(self) -> None:
         """Test group with add_help=False."""
 
-        @wargs.group(prog="myapp", add_help=False)
+        @wArgs.group(prog="myapp", add_help=False)
         def cli() -> None:
             pass
 
@@ -450,8 +450,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_hidden_and_help(self) -> None:
         """Test building kwargs with hidden=True and help text."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="secret",
@@ -467,8 +467,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_hidden_no_help(self) -> None:
         """Test building kwargs with hidden=True and no help text."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="secret",
@@ -483,8 +483,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_choices(self) -> None:
         """Test building kwargs with choices."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="format",
@@ -497,8 +497,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_action(self) -> None:
         """Test building kwargs with action."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="verbose",
@@ -511,8 +511,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_nargs(self) -> None:
         """Test building kwargs with nargs."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="items",
@@ -525,8 +525,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_metavar(self) -> None:
         """Test building kwargs with metavar."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="file",
@@ -539,8 +539,8 @@ class TestBuildAddArgumentKwargs:
 
     def test_build_kwargs_with_dest(self) -> None:
         """Test building kwargs with dest."""
-        from wargs.core.config import ArgumentConfig
-        from wargs.core.groups import _build_add_argument_kwargs
+        from wArgs.core.config import ArgumentConfig
+        from wArgs.core.groups import _build_add_argument_kwargs
 
         config = ArgumentConfig(
             name="output",
@@ -558,7 +558,7 @@ class TestGroupEdgeCases:
     def test_empty_group(self) -> None:
         """Test group with no commands."""
 
-        @wargs.group(prog="myapp")
+        @wArgs.group(prog="myapp")
         def cli() -> None:
             pass
 
@@ -570,9 +570,9 @@ class TestGroupEdgeCases:
         """Test command with metavar argument."""
         from typing import Annotated
 
-        from wargs import Arg
+        from wArgs import Arg
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -580,16 +580,16 @@ class TestGroupEdgeCases:
         def greet(name: Annotated[str, Arg(metavar="NAME")] = "World") -> str:
             return f"Hello, {name}!"
 
-        result = cli.run(["greet", "--name", "Alice"])
+        result = cli.run(["greet", "--greet-name", "Alice"])
         assert result == "Hello, Alice!"
 
     def test_command_with_hidden_arg(self) -> None:
         """Test command with hidden argument."""
         from typing import Annotated
 
-        from wargs import Arg
+        from wArgs import Arg
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -603,7 +603,7 @@ class TestGroupEdgeCases:
     def test_parse_args_method(self) -> None:
         """Test parse_args method directly."""
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             pass
 
@@ -611,7 +611,7 @@ class TestGroupEdgeCases:
         def hello(name: str) -> str:
             return f"Hello, {name}!"
 
-        namespace = cli.parse_args(["hello", "--name", "Bob"])
+        namespace = cli.parse_args(["hello", "--hello-name", "Bob"])
         assert namespace.command == "hello"
         assert namespace.name == "Bob"
 
@@ -619,7 +619,7 @@ class TestGroupEdgeCases:
         """Test running a command in a subgroup."""
         calls = []
 
-        @wargs.group()
+        @wArgs.group()
         def cli() -> None:
             calls.append("cli")
 

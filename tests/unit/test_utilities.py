@@ -7,9 +7,9 @@ from typing import Annotated, Literal
 
 import pytest
 
-from wargs import Arg, wargs
-from wargs.core.config import ParserConfig
-from wargs.utilities import (
+from wArgs import Arg, wArgs
+from wArgs.core.config import ParserConfig
+from wArgs.utilities import (
     WARGS_DEBUG_VAR,
     debug_print,
     explain,
@@ -108,7 +108,7 @@ class TestGetParser:
     def test_get_parser_returns_parser(self) -> None:
         """Test that get_parser returns an ArgumentParser."""
 
-        @wargs
+        @wArgs
         def my_func(name: str) -> str:
             return name
 
@@ -118,7 +118,7 @@ class TestGetParser:
     def test_get_parser_same_as_property(self) -> None:
         """Test that get_parser returns the same parser as the property."""
 
-        @wargs
+        @wArgs
         def my_func(name: str) -> str:
             return name
 
@@ -127,7 +127,7 @@ class TestGetParser:
     def test_get_parser_with_class(self) -> None:
         """Test get_parser with a class decorator."""
 
-        @wargs
+        @wArgs
         class CLI:
             def run(self) -> None:
                 pass
@@ -151,7 +151,7 @@ class TestGetConfig:
     def test_get_config_returns_parser_config(self) -> None:
         """Test that get_config returns a ParserConfig."""
 
-        @wargs
+        @wArgs
         def my_func(name: str) -> str:
             return name
 
@@ -161,7 +161,7 @@ class TestGetConfig:
     def test_get_config_has_arguments(self) -> None:
         """Test that config has the expected arguments."""
 
-        @wargs
+        @wArgs
         def my_func(name: str, count: int = 1) -> str:
             return name
 
@@ -173,7 +173,7 @@ class TestGetConfig:
     def test_get_config_with_class(self) -> None:
         """Test get_config with a class decorator."""
 
-        @wargs
+        @wArgs
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -198,19 +198,19 @@ class TestExplain:
     def test_explain_basic_function(self) -> None:
         """Test explain output for a basic function."""
 
-        @wargs
+        @wArgs
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
         output = explain(greet)
         assert "Function: greet" in output
         assert "Single-command CLI" in output
-        assert "--name" in output
+        assert "--greet-name" in output
 
     def test_explain_with_description(self) -> None:
         """Test explain includes description."""
 
-        @wargs(prog="myapp", description="My application")
+        @wArgs(prog="myapp", description="My application")
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -221,7 +221,7 @@ class TestExplain:
     def test_explain_shows_default_values(self) -> None:
         """Test explain shows default values."""
 
-        @wargs
+        @wArgs
         def greet(name: str = "World") -> str:
             return f"Hello, {name}!"
 
@@ -232,7 +232,7 @@ class TestExplain:
     def test_explain_shows_required(self) -> None:
         """Test explain shows required arguments."""
 
-        @wargs
+        @wArgs
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -242,7 +242,7 @@ class TestExplain:
     def test_explain_class_subcommands(self) -> None:
         """Test explain output for a class with subcommands."""
 
-        @wargs
+        @wArgs
         class CLI:
             def add(self, name: str) -> str:
                 """Add an item."""
@@ -262,7 +262,7 @@ class TestExplain:
     def test_explain_verbose_mode(self) -> None:
         """Test explain with verbose mode."""
 
-        @wargs
+        @wArgs
         def greet(name: str) -> str:
             """Greet someone.
 
@@ -278,7 +278,7 @@ class TestExplain:
     def test_explain_positional_argument(self) -> None:
         """Test explain with positional argument."""
 
-        @wargs
+        @wArgs
         def process(filename: Annotated[str, Arg(positional=True)]) -> str:
             return filename
 
@@ -289,7 +289,7 @@ class TestExplain:
     def test_explain_with_choices(self) -> None:
         """Test explain shows choices."""
 
-        @wargs
+        @wArgs
         def export(format: Literal["json", "xml", "csv"]) -> str:
             return format
 
@@ -303,7 +303,7 @@ class TestWargsConfigAttribute:
     def test_function_has_wargs_config(self) -> None:
         """Test that decorated function has _wargs_config attribute."""
 
-        @wargs
+        @wArgs
         def my_func(name: str) -> str:
             return name
 
@@ -317,7 +317,7 @@ class TestWargsConfigAttribute:
     def test_class_has_wargs_config(self) -> None:
         """Test that decorated class has _wargs_config attribute."""
 
-        @wargs
+        @wArgs
         class CLI:
             def run(self) -> None:
                 pass
@@ -332,7 +332,7 @@ class TestWargsConfigAttribute:
     def test_wargs_config_none_before_build(self) -> None:
         """Test that _wargs_config is None before parser is built."""
 
-        @wargs
+        @wArgs
         def my_func(name: str) -> str:
             return name
 
@@ -342,7 +342,7 @@ class TestWargsConfigAttribute:
     def test_wargs_config_matches_get_config(self) -> None:
         """Test that _wargs_config matches get_config result."""
 
-        @wargs
+        @wArgs
         def my_func(name: str) -> str:
             return name
 
@@ -361,11 +361,11 @@ class TestDebugOutputIntegration:
         """Test that debug output is produced during parsing."""
         monkeypatch.setenv(WARGS_DEBUG_VAR, "1")
 
-        @wargs
+        @wArgs
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
-        greet.run(["--name", "World"])
+        greet.run(["--greet-name", "World"])
 
         captured = capsys.readouterr()
         assert "Building parser" in captured.err
@@ -378,11 +378,11 @@ class TestDebugOutputIntegration:
         """Test that no debug output is produced when disabled."""
         monkeypatch.delenv(WARGS_DEBUG_VAR, raising=False)
 
-        @wargs
+        @wArgs
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
-        greet.run(["--name", "World"])
+        greet.run(["--greet-name", "World"])
 
         captured = capsys.readouterr()
         assert "[wargs]" not in captured.err

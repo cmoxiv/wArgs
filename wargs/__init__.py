@@ -6,9 +6,9 @@ wArgs automatically generates argparse CLI interfaces from your function
 signatures, type hints, and docstrings.
 
 Basic usage:
-    from wargs import wargs
+    from wArgs import wArgs
 
-    @wargs
+    @wArgs
     def greet(name: str, count: int = 1):
         '''Greet someone.
 
@@ -29,27 +29,27 @@ CLI:
     Hello, World!
 """
 
-from wargs._version import __version__
-from wargs.completion import (
+from wArgs._version import __version__
+from wArgs.completion import (
     generate_completion,
     get_install_instructions,
     install_completion,
 )
-from wargs.converters.registry import ConverterRegistry, converter, get_default_registry
-from wargs.core.arg import Arg
-from wargs.core.exceptions import (
+from wArgs.converters.registry import ConverterRegistry, converter, get_default_registry
+from wArgs.core.arg import Arg
+from wArgs.core.exceptions import (
     ConfigurationError,
     ConversionError,
     ErrorContext,
     IntrospectionError,
     WargsError,
 )
-from wargs.core.groups import WargsGroup, group
-from wargs.decorator import WargsClassWrapper, WargsWrapper, wargs
-from wargs.utilities import explain, get_config, get_parser
+from wArgs.core.groups import WargsGroup, group
+from wArgs.decorator import WargsClassWrapper, WargsWrapper, wArgs
+from wArgs.utilities import explain, get_config, get_parser
 
-# Attach group as attribute of wargs for @wargs.group() pattern
-wargs.group = group  # type: ignore[attr-defined]
+# Attach group as attribute of wArgs for @wArgs.group() pattern
+wArgs.group = group  # type: ignore[attr-defined]
 
 __all__ = [
     "Arg",
@@ -72,5 +72,5 @@ __all__ = [
     "get_parser",
     "group",
     "install_completion",
-    "wargs",
+    "wArgs",
 ]

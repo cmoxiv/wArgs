@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import argparse
 
-from wargs.builders.parser import ParserBuilder, build_parser
-from wargs.core.config import ArgumentConfig, ParserConfig
+from wArgs.builders.parser import ParserBuilder, build_parser
+from wArgs.core.config import ArgumentConfig, ParserConfig
 
 
 class TestParserBuilder:
