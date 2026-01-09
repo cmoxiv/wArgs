@@ -53,7 +53,7 @@ This document outlines security considerations for wArgs. As a CLI library, wArg
 wArgs relies on argparse and registered converters for type safety:
 
 ```python
-@wargs
+@wArgs
 def process(count: int, path: Path):
     """Process files."""
     # count is guaranteed to be int (argparse validates)
@@ -104,7 +104,7 @@ wArgs does not provide special handling for sensitive data like passwords or API
    ```python
    import os
 
-   @wargs
+   @wArgs
    def deploy(env: str):
        api_key = os.environ.get("API_KEY")
        if not api_key:
@@ -113,7 +113,7 @@ wArgs does not provide special handling for sensitive data like passwords or API
 
 2. **Use configuration files** with restricted permissions:
    ```python
-   @wargs
+   @wArgs
    def deploy(config: Path = Path("~/.myapp/config.toml")):
        config = config.expanduser()
        # Load secrets from config file
@@ -123,7 +123,7 @@ wArgs does not provide special handling for sensitive data like passwords or API
    ```python
    import getpass
 
-   @wargs
+   @wArgs
    def login(username: str):
        password = getpass.getpass("Password: ")
        # password not visible in command line
@@ -142,10 +142,10 @@ wArgs does not provide special handling for sensitive data like passwords or API
 
 ### Decorator Safety
 
-The `@wargs` decorator executes at import time, not when user input is received:
+The `@wArgs` decorator executes at import time, not when user input is received:
 
 ```python
-@wargs  # Introspection happens here (import time)
+@wArgs  # Introspection happens here (import time)
 def main(name: str):
     pass
 

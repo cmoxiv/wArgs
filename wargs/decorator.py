@@ -1,11 +1,11 @@
-"""The @wargs decorator for automatic CLI generation.
+"""The @wArgs decorator for automatic CLI generation.
 
 This is the main user-facing API for wArgs.
 
 Example (function):
-    from wargs import wArgs
+    from wArgs import wArgs
 
-    @wargs
+    @wArgs
     def greet(name: str, count: int = 1):
         '''Greet someone.
 
@@ -20,9 +20,9 @@ Example (function):
         greet()
 
 Example (class with subcommands):
-    from wargs import wArgs
+    from wArgs import wArgs
 
-    @wargs
+    @wArgs
     class CLI:
         def __init__(self, verbose: bool = False):
             '''Global options.
@@ -74,7 +74,7 @@ if TYPE_CHECKING:
 
 
 class WargsWrapper:
-    """Wrapper class for functions decorated with @wargs.
+    """Wrapper class for functions decorated with @wArgs.
 
     Provides access to the underlying function, parser, and CLI execution.
 
@@ -290,7 +290,7 @@ class WargsWrapper:
 
 
 class WargsClassWrapper:
-    """Wrapper class for classes decorated with @wargs.
+    """Wrapper class for classes decorated with @wArgs.
 
     Provides subcommand support where methods become subcommands and
     __init__ parameters become global options.
@@ -623,25 +623,25 @@ def wArgs(
     Can be used with or without arguments on functions or classes:
 
         # Function-based CLI
-        @wargs
+        @wArgs
         def my_func(name: str): ...
 
         # Class-based CLI with subcommands
-        @wargs
+        @wArgs
         class CLI:
             def __init__(self, verbose: bool = False): ...
             def add(self, name: str): ...
             def remove(self, item_id: int): ...
 
-        @wargs(prog="myapp", description="My application")
+        @wArgs(prog="myapp", description="My application")
         def my_func(name: str): ...
 
         # Disable MRO traversal for inherited parameters
-        @wargs(traverse_mro=False)
+        @wArgs(traverse_mro=False)
         class CLI(BaseClass): ...
 
         # Enable shell completion support
-        @wargs(completion=True)
+        @wArgs(completion=True)
         def cli(name: str): ...
         # Then run: python script.py --completion bash
 
@@ -660,12 +660,12 @@ def wArgs(
         or a decorator function.
     """
     if func is not None:
-        # Called as @wargs without parentheses
+        # Called as @wArgs without parentheses
         if inspect.isclass(func):
             return WargsClassWrapper(func)
         return WargsWrapper(func)
 
-    # Called as @wargs(...) with arguments
+    # Called as @wArgs(...) with arguments
     def decorator(f: Callable[..., Any] | type) -> WargsWrapper | WargsClassWrapper:
         if inspect.isclass(f):
             return WargsClassWrapper(

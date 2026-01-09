@@ -15,9 +15,9 @@ wArgs supports multiple import patterns to accommodate different preferences:
 ### Style 1: Single Import (Recommended)
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def main(name: str):
     print(f"Hello, {name}")
 ```
@@ -25,9 +25,9 @@ def main(name: str):
 ### Style 2: Multiple Imports
 
 ```python
-from wargs import wargs, Arg, converter
+from wArgs import wArgs, Arg, converter
 
-@wargs
+@wArgs
 def main(name: Annotated[str, Arg("-n", help="Your name")]):
     print(f"Hello, {name}")
 ```
@@ -35,9 +35,9 @@ def main(name: Annotated[str, Arg("-n", help="Your name")]):
 ### Style 3: Namespace Import
 
 ```python
-import wargs
+import wArgs
 
-@wargs.wargs
+@wArgs.wargs
 def main(name: str):
     print(f"Hello, {name}")
 ```
@@ -46,9 +46,9 @@ def main(name: str):
 
 | ID | Requirement | Priority | Notes |
 |----|-------------|----------|-------|
-| REQ-FE-001 | Support `from wargs import wargs` | Must | Primary pattern |
+| REQ-FE-001 | Support `from wArgs import wArgs` | Must | Primary pattern |
 | REQ-FE-002 | Support `from wargs import *` | Should | Convenience |
-| REQ-FE-003 | Support `import wargs` namespace | Should | Alternative |
+| REQ-FE-003 | Support `import wArgs` namespace | Should | Alternative |
 | REQ-FE-004 | Document recommended import style | Must | User guidance |
 
 ---
@@ -72,10 +72,10 @@ def wargs(
     Decorator to transform a function or class into a CLI command.
 
     Can be used with or without parentheses:
-        @wargs
+        @wArgs
         def main(name: str): ...
 
-        @wargs(prog="myapp")
+        @wArgs(prog="myapp")
         def main(name: str): ...
 
     Args:
@@ -96,9 +96,9 @@ def wargs(
 
 | Usage | Behavior |
 |-------|----------|
-| `@wargs` | Use all defaults, introspect everything |
-| `@wargs()` | Same as above |
-| `@wargs(prog="myapp")` | Override specific settings |
+| `@wArgs` | Use all defaults, introspect everything |
+| `@wArgs()` | Same as above |
+| `@wArgs(prog="myapp")` | Override specific settings |
 
 **Invocation Behavior:**
 
@@ -109,7 +109,7 @@ def wargs(
 | `func(name="value")` | Bypass parsing, call function directly with provided kwargs |
 
 ```python
-@wargs
+@wArgs
 def greet(name: str, count: int = 1):
     print(f"Hello, {name}!" * count)
 
@@ -183,9 +183,9 @@ class Arg:
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def process(
     # Positional argument
     input_file: Annotated[Path, Arg(positional=True, metavar="FILE")],
@@ -219,7 +219,7 @@ def converter(type_: type) -> Callable[[Callable], Callable]:
     Register a type converter.
 
     Usage:
-        @wargs.converter(MyClass)
+        @wArgs.converter(MyClass)
         def parse_myclass(value: str) -> MyClass:
             return MyClass.from_string(value)
 
@@ -234,7 +234,7 @@ def converter(type_: type) -> Callable[[Callable], Callable]:
 **Example:**
 
 ```python
-from wargs import wargs, converter
+from wArgs import wArgs, converter
 from datetime import datetime
 
 @converter(datetime)
@@ -247,7 +247,7 @@ def parse_datetime(value: str) -> datetime:
             continue
     raise ValueError(f"Cannot parse datetime: {value}")
 
-@wargs
+@wArgs
 def schedule(event: str, when: datetime):
     """Schedule an event."""
     print(f"Scheduled '{event}' for {when}")
@@ -260,7 +260,7 @@ def schedule(event: str, when: datetime):
 #### Class-Based API
 
 ```python
-@wargs
+@wArgs
 class CLI:
     """Main CLI with subcommands."""
 
@@ -285,9 +285,9 @@ if __name__ == "__main__":
 #### Decorator-Based API
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs.group()
+@wArgs.group()
 def cli():
     """Main CLI with subcommands."""
     pass
@@ -310,7 +310,7 @@ if __name__ == "__main__":
 
 | ID | Requirement | Priority | Notes |
 |----|-------------|----------|-------|
-| REQ-FE-005 | @wargs.group() creates command group | Should | Decorator API |
+| REQ-FE-005 | @wArgs.group() creates command group | Should | Decorator API |
 | REQ-FE-006 | @group.command() registers subcommand | Should | Decorator API |
 | REQ-FE-007 | Class methods as subcommands | Must | Class-based API |
 | REQ-FE-008 | __init__ params as global options | Must | Shared arguments |
@@ -327,7 +327,7 @@ def explain(func_or_class: Callable | type) -> None:
     Useful for debugging and understanding wArgs behavior.
 
     Args:
-        func_or_class: A @wargs decorated function or class
+        func_or_class: A @wArgs decorated function or class
     """
 
 def get_parser(func_or_class: Callable | type) -> ArgumentParser:
@@ -337,7 +337,7 @@ def get_parser(func_or_class: Callable | type) -> ArgumentParser:
     Useful for testing or advanced customization.
 
     Args:
-        func_or_class: A @wargs decorated function or class
+        func_or_class: A @wArgs decorated function or class
 
     Returns:
         The configured ArgumentParser
@@ -348,7 +348,7 @@ def get_config(func_or_class: Callable | type) -> ParserConfig:
     Get the internal configuration for a decorated function/class.
 
     Args:
-        func_or_class: A @wargs decorated function or class
+        func_or_class: A @wArgs decorated function or class
 
     Returns:
         ParserConfig dataclass with all detected settings
@@ -388,7 +388,7 @@ def generate_completion(shell: str) -> str:
 
 **Auto-Added Subcommand (classes/groups only):**
 
-When using `@wargs` on a class or `@wargs.group()`, an `install-completion` subcommand is automatically available:
+When using `@wArgs` on a class or `@wArgs.group()`, an `install-completion` subcommand is automatically available:
 
 ```bash
 $ myapp install-completion
@@ -402,9 +402,9 @@ Run 'source ~/.zshrc' or start a new shell to enable completions.
 Use the utility function instead:
 
 ```python
-from wargs import wargs, install_completion
+from wArgs import wArgs, install_completion
 
-@wargs
+@wArgs
 def mytool(name: str):
     """My simple tool."""
     print(f"Hello, {name}")
@@ -507,7 +507,7 @@ wargs.ConfigurationError: Cannot create CLI for function 'process'
 
   Solutions:
     1. Register a converter:
-       @wargs.converter(CustomClass)
+       @wArgs.converter(CustomClass)
        def parse_custom(value: str) -> CustomClass:
            return CustomClass(value)
 
@@ -535,7 +535,7 @@ wargs.ConfigurationError: Cannot create CLI for function 'process'
 | REQ-FE-002 | Support star import | Should | Convenience |
 | REQ-FE-003 | Support namespace import | Should | Alternative |
 | REQ-FE-004 | Document recommended style | Must | User guidance |
-| REQ-FE-005 | @wargs.group() for command groups | Should | Decorator API |
+| REQ-FE-005 | @wArgs.group() for command groups | Should | Decorator API |
 | REQ-FE-006 | @group.command() for subcommands | Should | Decorator API |
 | REQ-FE-007 | Class methods as subcommands | Must | Class-based API |
 | REQ-FE-008 | __init__ as global options | Must | Shared arguments |

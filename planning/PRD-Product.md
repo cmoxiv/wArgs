@@ -36,7 +36,7 @@ wArgs transforms any Python function into a CLI command with a single decorator.
 
 | Feature | Description |
 |---------|-------------|
-| Decorator-based | Single `@wargs` decorator transforms functions to CLI commands |
+| Decorator-based | Single `@wArgs` decorator transforms functions to CLI commands |
 | Type introspection | Automatically extracts types from annotations for argument parsing |
 | Docstring parsing | Extracts help text from function and parameter docstrings |
 | MRO traversal | Discovers arguments from parent classes for inheritance-based CLIs |

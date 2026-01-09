@@ -236,15 +236,15 @@ tests/unit/builders/
 
 ## Phase 4: Core Decorator
 
-**Goal:** Implement the `@wargs` decorator for functions.
+**Goal:** Implement the `@wArgs` decorator for functions.
 
 ### Tasks
 
 | ID   | Task                              | Description                                          | Dependencies |
 |------|-----------------------------------|------------------------------------------------------|--------------|
-| 4.1  | Implement basic decorator         | `@wargs` transforms function                         | Phase 3      |
-| 4.2  | Support decorator with parens     | `@wargs()` works same as `@wargs`                    | 4.1          |
-| 4.3  | Support decorator options         | `@wargs(prog="...", description="...")`              | 4.2          |
+| 4.1  | Implement basic decorator         | `@wArgs` transforms function                         | Phase 3      |
+| 4.2  | Support decorator with parens     | `@wArgs()` works same as `@wArgs`                    | 4.1          |
+| 4.3  | Support decorator options         | `@wArgs(prog="...", description="...")`              | 4.2          |
 | 4.4  | Implement sys.argv parsing        | `func()` parses sys.argv                             | 4.1          |
 | 4.5  | Implement list argument parsing   | `func(["--name", "value"])`                          | 4.1          |
 | 4.6  | Implement direct call passthrough | `func(name="value")` bypasses parsing                | 4.1          |
@@ -287,7 +287,7 @@ tests/e2e/
 ### Documentation
 
 - Update README with usage examples
-- Docstrings on `@wargs` and `Arg`
+- Docstrings on `@wArgs` and `Arg`
 
 ### Deliverables
 
@@ -295,7 +295,7 @@ tests/e2e/
 wargs/
 ├── __init__.py           # Export: wargs, Arg
 ├── core/
-│   ├── decorator.py      # @wargs implementation
+│   ├── decorator.py      # @wArgs implementation
 │   └── arg.py            # Arg dataclass
 
 tests/unit/
@@ -318,13 +318,13 @@ tests/e2e/
 
 ## Phase 5: Class-Based Subcommands
 
-**Goal:** Implement `@wargs` on classes for subcommand support.
+**Goal:** Implement `@wArgs` on classes for subcommand support.
 
 ### Tasks
 
 | ID  | Task                               | Description                                | Dependencies |
 |-----|------------------------------------|--------------------------------------------|--------------|
-| 5.1 | Detect class decoration            | `@wargs` on class triggers subcommand mode | Phase 4      |
+| 5.1 | Detect class decoration            | `@wArgs` on class triggers subcommand mode | Phase 4      |
 | 5.2 | Extract __init__ as global options | Class init params become shared args       | 5.1          |
 | 5.3 | Extract methods as subcommands     | Public methods become subcommands          | 5.1          |
 | 5.4 | Exclude private methods            | Methods starting with `_` excluded         | 5.3          |
@@ -385,7 +385,7 @@ tests/e2e/fixtures/
 | 6.2 | Merge parameters        | Combine parent and child parameters           | 6.1          |
 | 6.3 | Handle conflicts        | Child overrides parent, warn on type mismatch | 6.2          |
 | 6.4 | Support mixins          | Multiple inheritance contributes args         | 6.1          |
-| 6.5 | Add traverse_mro option | `@wargs(traverse_mro=False)` to disable       | 6.1          |
+| 6.5 | Add traverse_mro option | `@wArgs(traverse_mro=False)` to disable       | 6.1          |
 	
 ### Unit Tests
 
@@ -427,7 +427,7 @@ tests/integration/
 | ID  | Task                              | Description                                         | Dependencies |
 |-----|-----------------------------------|-----------------------------------------------------|--------------|
 | 7.1 | Create ConverterRegistry          | Central registry for type converters                | Phase 4      |
-| 7.2 | Implement @converter decorator    | `@wargs.converter(MyClass)` registration            | 7.1          |
+| 7.2 | Implement @converter decorator    | `@wArgs.converter(MyClass)` registration            | 7.1          |
 | 7.3 | Register built-in converters      | datetime, date, time, UUID, Decimal, Path           | 7.1          |
 | 7.4 | Implement converter lookup        | Check registry, then inheritance chain              | 7.1          |
 | 7.5 | Implement entry point discovery   | Load converters from `wargs.converters` entry point | 7.1          |
@@ -668,13 +668,13 @@ wargs/
 
 ## Phase 12: Decorator Groups (v1.2)
 
-**Goal:** Implement `@wargs.group()` decorator pattern.
+**Goal:** Implement `@wArgs.group()` decorator pattern.
 	
 ### Tasks
 
 | ID   | Task                       | Description                         | Dependencies |
 |------|----------------------------|-------------------------------------|--------------|
-| 12.1 | Implement @wargs.group()   | Create command group decorator      | v1.0         |
+| 12.1 | Implement @wArgs.group()   | Create command group decorator      | v1.0         |
 | 12.2 | Implement @group.command() | Register command with group         | 12.1         |
 | 12.3 | Support shared options     | Group function params become shared | 12.1         |
 | 12.4 | Support nested groups      | Groups can contain groups           | 12.1         |

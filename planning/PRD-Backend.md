@@ -30,7 +30,7 @@ This document details the internal processing logic, algorithms, and data handli
 
 ```python
 # dict[str, list[int]] handling
-@wargs
+@wArgs
 def process(data: dict[str, list[int]]):
     """Process data dictionary."""
     pass
@@ -59,7 +59,7 @@ def process(data: dict[str, list[int]]):
 | No annotation | Treated as strings |
 
 ```python
-@wargs
+@wArgs
 def combine(*files: Path):
     """Combine multiple files."""
     for f in files:
@@ -77,7 +77,7 @@ def combine(*files: Path):
 | No validation | Values passed as strings unless type hints available |
 
 ```python
-@wargs
+@wArgs
 def configure(name: str, **options):
     """Configure with arbitrary options."""
     print(f"Name: {name}")
@@ -208,7 +208,7 @@ class ConverterRegistry:
 | ID | Requirement | Priority | Notes |
 |----|-------------|----------|-------|
 | REQ-BE-022 | Global converter registry | Must | Extensibility |
-| REQ-BE-023 | @wargs.converter decorator for registration | Must | User API |
+| REQ-BE-023 | @wArgs.converter decorator for registration | Must | User API |
 | REQ-BE-024 | Last-registered converter wins on conflict | Must | Deterministic |
 | REQ-BE-025 | Check type inheritance for converter lookup | Should | Convenience |
 | REQ-BE-026 | Built-in converters for common stdlib types | Should | Convenience |
@@ -232,7 +232,7 @@ class ParserBuilder:
             return self._parser
 
         # Use standard HelpFormatter by default (consistent with REQ-UX-005)
-        # Developer can override via @wargs(formatter_class=...)
+        # Developer can override via @wArgs(formatter_class=...)
         self._parser = ArgumentParser(
             prog=self.config.prog,
             description=self.config.description,
@@ -263,7 +263,7 @@ class ParserBuilder:
 **Class-Based Flow:**
 
 ```
-1. Detect @wargs on class
+1. Detect @wArgs on class
 2. Find __init__ for global arguments
 3. Find public methods (not starting with _)
 4. Create subparser for each method
@@ -273,7 +273,7 @@ class ParserBuilder:
 **Decorator-Based Flow:**
 
 ```
-1. Create group with @wargs.group()
+1. Create group with @wArgs.group()
 2. Register commands with @group.command()
 3. Build parent parser with subparsers
 4. Wire up function invocation
@@ -286,7 +286,7 @@ class ParserBuilder:
 | REQ-BE-031 | Class methods become subcommands | Must | Core feature |
 | REQ-BE-032 | __init__ params become global options | Must | Shared arguments |
 | REQ-BE-033 | Private methods (_foo) excluded | Must | Convention |
-| REQ-BE-034 | @wargs.group() creates command group | Should | Alternative API |
+| REQ-BE-034 | @wArgs.group() creates command group | Should | Alternative API |
 | REQ-BE-035 | Nested classes for deep hierarchies | Should | Complex CLIs |
 
 ---
@@ -389,7 +389,7 @@ class ParserConfig:
 
 ```python
 # Future API
-@wargs
+@wArgs
 async def fetch(url: str, timeout: int = 30):
     """Fetch data from URL."""
     async with aiohttp.ClientSession() as session:
@@ -404,7 +404,7 @@ async def fetch(url: str, timeout: int = 30):
 | ID | Requirement | Priority | Notes |
 |----|-------------|----------|-------|
 | REQ-BE-043 | Detect async functions automatically | Future | Auto asyncio.run() |
-| REQ-BE-044 | Support @wargs.async for explicit async | Future | Alternative API |
+| REQ-BE-044 | Support @wArgs.async for explicit async | Future | Alternative API |
 
 ---
 
@@ -434,7 +434,7 @@ async def fetch(url: str, timeout: int = 30):
 | REQ-BE-020 | Warn on type conflicts | Should | Debugging |
 | REQ-BE-021 | Support multiple inheritance | Must | Mixins |
 | REQ-BE-022 | Global converter registry | Must | Extensibility |
-| REQ-BE-023 | @wargs.converter decorator | Must | User API |
+| REQ-BE-023 | @wArgs.converter decorator | Must | User API |
 | REQ-BE-024 | Last-registered converter wins | Must | Deterministic |
 | REQ-BE-025 | Check inheritance for converters | Should | Convenience |
 | REQ-BE-026 | Built-in stdlib converters | Should | Convenience |
@@ -445,7 +445,7 @@ async def fetch(url: str, timeout: int = 30):
 | REQ-BE-031 | Class methods as subcommands | Must | Core feature |
 | REQ-BE-032 | __init__ params as global options | Must | Shared arguments |
 | REQ-BE-033 | Private methods excluded | Must | Convention |
-| REQ-BE-034 | @wargs.group() for command groups | Should | Alternative API |
+| REQ-BE-034 | @wArgs.group() for command groups | Should | Alternative API |
 | REQ-BE-035 | Nested classes for hierarchies | Should | Complex CLIs |
 | REQ-BE-036 | Bash completion generation | Should | Popular shell |
 | REQ-BE-037 | Zsh completion generation | Should | Popular shell |
@@ -455,7 +455,7 @@ async def fetch(url: str, timeout: int = 30):
 | REQ-BE-041 | Complete choice/enum values | Should | Value completion |
 | REQ-BE-042 | Complete subcommand names | Should | Subcommand completion |
 | REQ-BE-043 | Async function support | Future | Auto asyncio.run() |
-| REQ-BE-044 | @wargs.async decorator | Future | Explicit async |
+| REQ-BE-044 | @wArgs.async decorator | Future | Explicit async |
 
 ## Decisions
 

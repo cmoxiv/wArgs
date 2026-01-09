@@ -16,7 +16,7 @@ pip install -e ".[dev]"
 pytest
 
 # Run tests with coverage
-pytest --cov=wargs --cov-report=term-missing
+pytest --cov=wArgs --cov-report=term-missing
 
 # Run a single test file
 pytest tests/unit/test_exceptions.py
@@ -25,11 +25,11 @@ pytest tests/unit/test_exceptions.py
 pytest -k "test_conversion"
 
 # Linting
-ruff check wargs tests
-ruff format --check wargs tests
+ruff check wArgs tests
+ruff format --check wArgs tests
 
 # Type checking
-mypy wargs
+mypy wArgs
 
 # Run all checks via tox
 tox
@@ -45,7 +45,7 @@ tox -e coverage
 ### Current Package Structure
 
 ```
-wargs/
+wArgs/
 ├── __init__.py              # Public API exports
 ├── _version.py              # Version string
 ├── py.typed                 # PEP 561 marker
@@ -66,7 +66,7 @@ The system flow (partially implemented):
    - `types.py`: Resolves type annotations (primitives, Optional, Union, Literal, Enum, collections)
    - `docstrings.py`: Auto-detects and parses Google/NumPy/Sphinx docstrings
 2. **Configuration Builder** (Phase 3 - Pending) - Builds internal config representation
-3. **@wargs decorator** (Phase 4 - Pending) - Applied at import time
+3. **@wArgs decorator** (Phase 4 - Pending) - Applied at import time
 4. **Parser Builder** (Phase 3 - Pending) - Generates ArgumentParser (lazy construction)
 5. **Execution Handler** (Phase 4 - Pending) - Parses args and calls function
 
@@ -79,10 +79,10 @@ The system flow (partially implemented):
 
 ### Planned Modules
 
-- `wargs/builders/` - ArgumentParser and argument construction
-- `wargs/converters/` - Type converter registry
-- `wargs/completion/` - Shell completion generation (bash/zsh/fish)
-- `wargs/plugins/` - Entry point-based plugin system
+- `wArgs/builders/` - ArgumentParser and argument construction
+- `wArgs/converters/` - Type converter registry
+- `wArgs/completion/` - Shell completion generation (bash/zsh/fish)
+- `wArgs/plugins/` - Entry point-based plugin system
 
 ### Exception Hierarchy
 

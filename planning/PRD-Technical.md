@@ -50,7 +50,7 @@ wargs/
 ├── _version.py           # Version info
 ├── core/
 │   ├── __init__.py
-│   ├── decorator.py      # Main @wargs decorator
+│   ├── decorator.py      # Main @wArgs decorator
 │   ├── config.py         # Configuration dataclasses
 │   └── exceptions.py     # Custom exceptions
 ├── introspection/
@@ -89,7 +89,7 @@ wargs/
 
 ```
 ┌─────────────────┐
-│  @wargs         │  Decorator applied at import time
+│  @wArgs         │  Decorator applied at import time
 │  decorator      │
 └────────┬────────┘
          │
@@ -209,7 +209,7 @@ class ParserBuilder:
 
 | Plugin Type | Purpose | Example |
 |-------------|---------|---------|
-| TypeConverter | Custom type handling | `@wargs.converter(MyClass)` |
+| TypeConverter | Custom type handling | `@wArgs.converter(MyClass)` |
 | DocstringParser | Custom docstring format | YAML-style docstrings |
 | CompletionGenerator | Custom shell | PowerShell completion |
 | OutputFormatter | Custom help format | Rich-colored output |
@@ -426,7 +426,7 @@ tests/
 
 - [x] **Cython compilation:** No - focus on clean Python code, optimize algorithms instead of adding build complexity
 - [x] **Circular imports in type annotations:** Use `from __future__ import annotations` (PEP 563) and string annotations for forward references
-- [x] **MRO traversal:** Opt-out - enabled by default for classes, disable with `@wargs(traverse_mro=False)`
+- [x] **MRO traversal:** Opt-out - enabled by default for classes, disable with `@wArgs(traverse_mro=False)`
 
 ## Risks
 

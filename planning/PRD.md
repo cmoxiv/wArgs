@@ -51,7 +51,7 @@
 
 | ID | Requirement | Aspect |
 |----|-------------|--------|
-| REQ-FEAT-001 | Basic `@wargs` decorator | Features |
+| REQ-FEAT-001 | Basic `@wArgs` decorator | Features |
 | REQ-FEAT-002 | Full Python type hint support (str, int, float, bool, Path, collections, Optional, Union, Literal, Enum) | Features |
 | REQ-FEAT-003 | Custom class type support via constructors or converters | Features |
 | REQ-FEAT-004 | Docstring parsing (Google, NumPy, Sphinx auto-detect) | Features |
@@ -71,8 +71,8 @@
 | ID | Requirement | Aspect |
 |----|-------------|--------|
 | REQ-FEAT-008 | Shell completion with auto-install (bash/zsh/fish) | Features |
-| REQ-FEAT-009 | Nested decorator pattern (`@wargs.group()`, `@command()`) | Features |
-| REQ-FE-005 | `@wargs.group()` creates command groups | Frontend |
+| REQ-FEAT-009 | Nested decorator pattern (`@wArgs.group()`, `@command()`) | Features |
+| REQ-FE-005 | `@wArgs.group()` creates command groups | Frontend |
 | REQ-TECH-005 | < 5ms import overhead per function | Technical |
 | REQ-TECH-006 | < 10% parse time overhead vs argparse | Technical |
 
@@ -115,9 +115,9 @@ wArgs Package Structure:
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def process(
     input_file: Annotated[Path, Arg(positional=True, metavar="FILE")],
     output: Annotated[Path, Arg("-o", "--output")] = None,
@@ -176,7 +176,7 @@ if __name__ == "__main__":
 ## Implementation Roadmap
 
 ### Phase 1: Core (v1.0)
-- [ ] Basic `@wargs` decorator
+- [ ] Basic `@wArgs` decorator
 - [ ] Type introspection engine
 - [ ] Docstring parsing (all formats)
 - [ ] Class-based subcommands
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
 ### Phase 2: Enhancements (v1.x)
 - [ ] Shell completion generation
-- [ ] `@wargs.group()` decorator pattern
+- [ ] `@wArgs.group()` decorator pattern
 - [ ] Performance optimization
 - [ ] Additional docstring formats
 

@@ -27,9 +27,9 @@ pip install git+https://github.com/cmoxiv/wArgs.git
 ## Quick Start
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, greeting: str = "Hello", times: int = 1) -> None:
     """Greet someone.
 
@@ -66,9 +66,9 @@ Hello, World!
 ## Subcommands with Classes
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class CLI:
     """My awesome CLI tool."""
 
@@ -131,11 +131,11 @@ pip install -e ".[dev]"
 pytest
 
 # Run linting
-ruff check wargs tests
-ruff format --check wargs tests
+ruff check wArgs tests
+ruff format --check wArgs tests
 
 # Run type checking
-mypy wargs
+mypy wArgs
 ```
 
 ## Contributing

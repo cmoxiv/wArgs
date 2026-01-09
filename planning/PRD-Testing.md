@@ -105,7 +105,7 @@ tests/
 │   │   ├── test_bash.py          # Bash completion
 │   │   ├── test_zsh.py           # Zsh completion
 │   │   └── test_fish.py          # Fish completion
-│   └── test_decorator.py         # @wargs decorator
+│   └── test_decorator.py         # @wArgs decorator
 ├── integration/
 │   ├── __init__.py
 │   ├── test_basic_cli.py         # Simple CLI scenarios
@@ -194,11 +194,11 @@ class TestResolveType:
 ```python
 # tests/integration/test_basic_cli.py
 import pytest
-from wargs import wargs
+from wArgs import wArgs
 
 class TestBasicCLI:
     def test_simple_function_parses_args(self):
-        @wargs
+        @wArgs
         def greet(name: str, count: int = 1):
             return f"Hello, {name}!" * count
 
@@ -206,7 +206,7 @@ class TestBasicCLI:
         assert result == "Hello, World!Hello, World!"
 
     def test_bool_flag_default_false(self):
-        @wargs
+        @wArgs
         def process(verbose: bool = False):
             return verbose
 
@@ -214,7 +214,7 @@ class TestBasicCLI:
         assert process(["--verbose"]) is True
 
     def test_missing_required_arg_exits(self):
-        @wargs
+        @wArgs
         def process(name: str):
             return name
 

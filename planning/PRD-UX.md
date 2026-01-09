@@ -36,9 +36,9 @@ wArgs has two distinct user experiences to consider:
 **Quick Start Example (README):**
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, excited: bool = False):
     """Greet someone by name."""
     msg = f"Hello, {name}!"
@@ -99,7 +99,7 @@ wargs.ConfigurationError: Cannot create CLI for function 'process'
 **Example:**
 
 ```python
-@wargs
+@wArgs
 def mytool(name: str):
     """My tool."""
     pass
@@ -244,7 +244,7 @@ docs/
 │   ├── migration.md         # Migrating from Click/argparse
 │   └── testing.md           # Testing wArgs CLIs
 ├── api/
-│   ├── decorators.md        # @wargs, @wargs.group, etc.
+│   ├── decorators.md        # @wArgs, @wArgs.group, etc.
 │   ├── types.md             # Arg, type converters
 │   └── utilities.md         # Helper functions
 └── changelog.md             # Version history

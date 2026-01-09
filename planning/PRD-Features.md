@@ -29,16 +29,16 @@ This document details the functional requirements for wArgs, organized by featur
 
 | ID | Story | Acceptance Criteria |
 |----|-------|---------------------|
-| US-001 | As a developer, I want to add `@wargs` to my function so that it becomes a CLI command | Function runs with parsed arguments when script is executed |
+| US-001 | As a developer, I want to add `@wArgs` to my function so that it becomes a CLI command | Function runs with parsed arguments when script is executed |
 | US-002 | As a developer, I want my function's parameters to become CLI arguments automatically | All parameters appear in `--help` output |
 | US-003 | As a developer, I want default values to make arguments optional | Parameters with defaults are optional CLI args |
 
 **Example Usage:**
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, count: int = 1):
     """Greet someone multiple times.
 
@@ -119,21 +119,21 @@ Hello, World!
 | ID | Story | Acceptance Criteria |
 |----|-------|---------------------|
 | US-012 | As a developer, I want to use my own classes as argument types | Class constructor called with string value |
-| US-013 | As a developer, I want to register custom converters | `@wargs.converter(MyClass)` for custom parsing |
+| US-013 | As a developer, I want to register custom converters | `@wArgs.converter(MyClass)` for custom parsing |
 | US-014 | As a developer, I want dataclasses to expand to multiple args | Each field becomes a CLI argument |
 
 **Example:**
 
 ```python
 from dataclasses import dataclass
-from wargs import wargs
+from wArgs import wArgs
 
 @dataclass
 class Config:
     host: str = "localhost"
     port: int = 8080
 
-@wargs
+@wArgs
 def serve(config: Config, debug: bool = False):
     """Start the server with the given configuration."""
     print(f"Starting server at {config.host}:{config.port}")
@@ -198,16 +198,16 @@ def func(name: str):
 
 | ID | Story | Acceptance Criteria |
 |----|-------|---------------------|
-| US-018 | As a developer, I want class methods to become subcommands | `@wargs class Git` → `git commit`, `git push` |
+| US-018 | As a developer, I want class methods to become subcommands | `@wArgs class Git` → `git commit`, `git push` |
 | US-019 | As a developer, I want class-level arguments shared by subcommands | `__init__` params become global options |
 | US-020 | As a developer, I want nested classes for deeper hierarchies | Inner classes create sub-subcommands |
 
 **Example:**
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class Git:
     """A distributed version control system."""
 
@@ -259,7 +259,7 @@ Committing: Initial commit
 **Example:**
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
 class LoggingMixin:
     def __init__(self, log_level: str = "INFO"):
@@ -269,7 +269,7 @@ class DatabaseMixin:
     def __init__(self, db_url: str = "sqlite:///app.db"):
         self.db_url = db_url
 
-@wargs
+@wArgs
 class App(LoggingMixin, DatabaseMixin):
     """Application with logging and database support."""
 
@@ -304,7 +304,7 @@ options:
 
 | ID | Story | Acceptance Criteria |
 |----|-------|---------------------|
-| US-024 | As a developer, I want mutually exclusive argument groups | `@wargs.exclusive` or `Annotated` metadata |
+| US-024 | As a developer, I want mutually exclusive argument groups | `@wArgs.exclusive` or `Annotated` metadata |
 | US-025 | As a developer, I want logical argument groups | Arguments grouped in help output |
 | US-026 | As a developer, I want short option names | `-v` for `--verbose` |
 | US-027 | As a developer, I want positional arguments | First N args can be positional |
@@ -315,9 +315,9 @@ options:
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def tool(
     input_file: Annotated[Path, Arg(positional=True, metavar="FILE")],
     output: Annotated[Path, Arg("-o", metavar="FILE")] = None,
@@ -359,7 +359,7 @@ options:
 | US-032 | As a developer, I want completions for bash, zsh, and fish | All major shells supported |
 
 **Implementation:**
-- `@wargs` adds hidden `install-completion` subcommand
+- `@wArgs` adds hidden `install-completion` subcommand
 - Detects current shell from `$SHELL`
 - Writes completion script to appropriate location
 - Supports `--shell` override for explicit shell selection
@@ -374,15 +374,15 @@ options:
 
 | ID | Story | Acceptance Criteria |
 |----|-------|---------------------|
-| US-033 | As a developer, I want Click-style `@group` and `@command` | `@wargs.group()` creates command group |
+| US-033 | As a developer, I want Click-style `@group` and `@command` | `@wArgs.group()` creates command group |
 | US-034 | As a developer, I want to add commands to groups dynamically | `@mygroup.command()` registers command |
 
 **Example:**
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs.group()
+@wArgs.group()
 def cli():
     """My CLI application."""
     pass
@@ -440,7 +440,7 @@ def build(target: str = "release"):
 
 | ID | Requirement | Priority | Notes |
 |----|-------------|----------|-------|
-| REQ-FEAT-001 | Basic `@wargs` decorator | Must | Core functionality |
+| REQ-FEAT-001 | Basic `@wArgs` decorator | Must | Core functionality |
 | REQ-FEAT-002 | Full Python type hint support | Must | str, int, float, bool, Path, collections, Optional, Union, Literal, Enum |
 | REQ-FEAT-003 | Custom class type support | Must | Constructor or registered converter |
 | REQ-FEAT-004 | Docstring parsing (all formats) | Must | Google, NumPy, Sphinx auto-detect |
