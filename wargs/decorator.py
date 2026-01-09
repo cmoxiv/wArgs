@@ -514,18 +514,32 @@ class WargsClassWrapper:
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
         """Call the wrapper.
 
-        If called with no arguments, parses CLI arguments.
-        Otherwise, creates an instance of the class directly.
+        Parses CLI arguments and creates an instance of the class.
+        Any explicitly provided kwargs override CLI-parsed values.
+
+        Args:
+            *args: Positional arguments passed directly to __init__.
+            **kwargs: Keyword arguments that override CLI-parsed values.
 
         Returns:
-            Instance of the class or result of method call.
+            Instance of the wrapped class.
         """
-        # If arguments are provided, create instance directly
-        if args or kwargs:
+        # If positional args are provided, pass them directly
+        # (can't merge positional args with CLI parsing)
+        if args:
             return self._cls(*args, **kwargs)
 
-        # No arguments - parse CLI
-        return self.run()
+        # Parse CLI arguments
+        namespace = self.parse_args()
+
+        # Get init kwargs from CLI
+        cli_kwargs = self._get_init_kwargs(namespace)
+
+        # Merge: explicit kwargs override CLI kwargs
+        merged_kwargs = {**cli_kwargs, **kwargs}
+
+        # Create and return instance
+        return self._cls(**merged_kwargs)
 
     def __repr__(self) -> str:
         """Return string representation."""

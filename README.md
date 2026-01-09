@@ -21,7 +21,7 @@
 ## Installation
 
 ```bash
-pip install wargs
+pip install git+https://github.com/cmoxiv/wArgs.git
 ```
 
 ## Quick Start
