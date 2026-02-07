@@ -373,35 +373,32 @@ if __name__ == "__main__":
     WebScraper()
 ```
 
-## Example --help Output
+
+## CLI Help Output
 
 ```
-$ python scraper.py --help
-usage: scraper.py [-h] [--WebScraper-user-agent WEBSCRAPER_USER_AGENT]
-                  [--WebScraper-timeout WEBSCRAPER_TIMEOUT]
-                  [--WebScraper-delay WEBSCRAPER_DELAY]
-                  [--WebScraper-verbose]
-                  {scrape,extract,links,images,table} ...
+$ python webscraper.py --help
+usage: webscraper.py [-h] [--user-agent USER_AGENT] [--timeout TIMEOUT]
+                     [--delay DELAY] [--verbose]
+                     {extract,images,links,scrape,table} ...
 
 Web scraping CLI tool with export capabilities.
 
 positional arguments:
-  {scrape,extract,links,images,table}
-    scrape              Scrape a website and save results
-    extract             Extract specific data using CSS selector
-    links               Extract all links from a page
-    images              Extract and optionally download images
-    table               Extract HTML table data to CSV
+  {extract,images,links,scrape,table}
+    extract             Extract specific data using CSS selector.
+    images              Extract and optionally download images.
+    links               Extract all links from a page.
+    scrape              Scrape a website and save results.
+    table               Extract HTML table data to CSV.
 
 options:
   -h, --help            show this help message and exit
-  --WebScraper-user-agent WEBSCRAPER_USER_AGENT
-                        User agent string for requests (default: wArgs-Scraper/1.0)
-  --WebScraper-timeout WEBSCRAPER_TIMEOUT
-                        Request timeout in seconds (default: 30)
-  --WebScraper-delay WEBSCRAPER_DELAY
-                        Delay between requests (rate limiting) (default: 1.0)
-  --WebScraper-verbose  Show detailed output (default: False)
+  --user-agent USER_AGENT
+                        User agent string for requests (default: 'wArgs-Scraper/1.0')
+  --timeout TIMEOUT     Request timeout in seconds (default: 30)
+  --delay DELAY         Delay between requests (rate limiting) (default: 1.0)
+  --verbose             Show detailed output (default: False)
 ```
 
 ## Usage Examples

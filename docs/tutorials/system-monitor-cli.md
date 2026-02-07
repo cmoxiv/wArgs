@@ -381,31 +381,32 @@ if __name__ == "__main__":
     SystemMonitor()
 ```
 
-## Example --help Output
+
+## CLI Help Output
 
 ```
-$ python monitor.py --help
-usage: monitor.py [-h] [--SystemMonitor-verbose]
-                  {status,cpu,memory,disk,network,processes,kill,monitor,alert} ...
+$ python sysmonitor.py --help
+usage: sysmonitor.py [-h] [--verbose]
+                     {alert,cpu,disk,kill,memory,monitor,network,processes,status}
+                     ...
 
 System monitoring and management CLI.
 
 positional arguments:
-  {status,cpu,memory,disk,network,processes,kill,monitor,alert}
-    status              Show current system status
-    cpu                 Show CPU information and usage
-    memory              Show memory information and usage
-    disk                Show disk information and usage
-    network             Show network information and statistics
-    processes           Show running processes
-    kill                Kill a process by PID
-    monitor             Monitor system metrics over time
-    alert               Alert when metric exceeds threshold
+  {alert,cpu,disk,kill,memory,monitor,network,processes,status}
+    alert               Alert when metric exceeds threshold.
+    cpu                 Show CPU information and usage.
+    disk                Show disk information and usage.
+    kill                Kill a process by PID.
+    memory              Show memory information and usage.
+    monitor             Monitor system metrics over time.
+    network             Show network information and statistics.
+    processes           Show running processes.
+    status              Show current system status.
 
 options:
   -h, --help            show this help message and exit
-  --SystemMonitor-verbose
-                        Show detailed output (default: False)
+  --verbose             Show detailed output (default: False)
 ```
 
 ## Usage Examples

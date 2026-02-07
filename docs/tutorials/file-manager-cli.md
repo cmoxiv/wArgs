@@ -328,6 +328,35 @@ if __name__ == "__main__":
     FileManager()
 ```
 
+## CLI Help Output
+
+```
+$ python filemanager.py --help
+usage: filemanager.py [-h] [--verbose] [--dry-run]
+                      {copy,delete,duplicates,find,ls,move,organize,rename,size}
+                      ...
+
+File management CLI tool.
+
+positional arguments:
+  {copy,delete,duplicates,find,ls,move,organize,rename,size}
+    copy                Copy file or directory.
+    delete              Delete file or directory.
+    duplicates          Find duplicate files by content hash.
+    find                Find files by name pattern.
+    ls                  List files in a directory.
+    move                Move file or directory.
+    organize            Organize files into subdirectories.
+    rename              Batch rename files.
+    size                Calculate directory size.
+
+options:
+  -h, --help            show this help message and exit
+  --verbose             Show detailed output (default: False)
+  --dry-run             Preview changes without executing (default: False)
+```
+
+
 ## Usage Examples
 
 ### List files

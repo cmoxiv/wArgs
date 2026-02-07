@@ -204,6 +204,50 @@ class DBCLI:
 if __name__ == "__main__":
     DBCLI()
 ```
+## CLI Help Output
+
+### Main Command
+
+```
+$ python dbcli.py --help
+usage: dbcli.py [-h] [--db-type {postgres,mysql}] [--host HOST] [--port PORT]
+                [--database DATABASE] [--user USER] [--password PASSWORD]
+                {backup,query,schema,tables} ...
+
+Database CLI for PostgreSQL and MySQL.
+
+positional arguments:
+  {backup,query,schema,tables}
+    backup              Backup database schema to SQL file.
+    query               Execute a SQL query and show results.
+    schema              Show schema for a specific table.
+    tables              List all tables in the database.
+
+options:
+  -h, --help            show this help message and exit
+  --db-type {postgres,mysql}
+                        Database type (postgres or mysql) (default: 'postgres')
+  --host HOST           Database host (default: 'localhost')
+  --port PORT           Database port (default: 5432)
+  --database DATABASE   Database name (default: 'postgres')
+  --user USER           Database user (default: 'postgres')
+  --password PASSWORD   Database password (default: '')
+```
+
+### Query Subcommand
+
+```
+$ python dbcli.py query --help
+usage: dbcli.py query [-h] --sql SQL [--output OUTPUT]
+
+Execute a SQL query and show results.
+
+options:
+  -h, --help       show this help message and exit
+  --sql SQL        SQL query to execute
+  --output OUTPUT  Optional JSON file to save results
+```
+
 
 ## Step 3: Usage Examples
 
