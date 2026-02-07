@@ -211,5 +211,8 @@ __marimo__/
 .AppleDouble
 .LSOverride
 
-# Claude Code
 .claude/
+claude/
+*.claude
+.claude_*
+claude_*
