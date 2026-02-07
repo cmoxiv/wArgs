@@ -83,6 +83,16 @@ nav:
     - Subcommands: guide/subcommands.md
     - Inheritance: guide/inheritance.md
     - Advanced: guide/advanced.md
+  - Tutorials:
+    - Overview: tutorials/index.md
+    - Database CLI: tutorials/database-cli.md
+    - File Manager CLI: tutorials/file-manager-cli.md
+    - Web Scraper CLI: tutorials/web-scraper-cli.md
+    - System Monitor CLI: tutorials/system-monitor-cli.md
+  - Integrations:
+    - Overview: integrations/index.md
+    - Django: integrations/django.md
+    - Flask: integrations/flask.md
   - Cookbook:
     - Common Patterns: cookbook/patterns.md
     - Testing CLIs: cookbook/testing.md
@@ -96,6 +106,7 @@ nav:
   - Examples: examples.md
   - FAQ: faq.md
   - Troubleshooting: troubleshooting.md
+  - Community: community/resources.md
   - Changelog: changelog.md
 
 extra:
