@@ -1,8 +1,8 @@
 site_name: wArgs
 site_description: Decorator-based argparse automation. Just decorate and you're done.
-site_url: https://wargs.readthedocs.io
-repo_name: wargs/wargs
-repo_url: https://github.com/wargs/wargs
+site_url: https://cmoxiv.github.io/wArgs/
+repo_name: cmoxiv/wArgs
+repo_url: https://github.com/cmoxiv/wArgs
 edit_uri: edit/main/docs/
 
 theme:
@@ -93,11 +93,14 @@ nav:
     - Types: api/types.md
     - Utilities: api/utilities.md
     - Exceptions: api/exceptions.md
+  - Examples: examples.md
+  - FAQ: faq.md
+  - Troubleshooting: troubleshooting.md
   - Changelog: changelog.md
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/wargs/wargs
+      link: https://github.com/cmoxiv/wArgs
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/wargs/

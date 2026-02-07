@@ -7,13 +7,13 @@ wArgs supports inheriting CLI options from parent classes, enabling reusable opt
 Child classes inherit parent `__init__` parameters:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
 class BaseOptions:
     def __init__(self, verbose: bool = False) -> None:
         self.verbose = verbose
 
-@wargs
+@wArgs
 class CLI(BaseOptions):
     def __init__(self, name: str) -> None:
         super().__init__()
@@ -44,7 +44,7 @@ Hello, World!
 Create reusable option sets with mixins:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
 class VerboseMixin:
     """Adds --verbose option."""
@@ -64,7 +64,7 @@ class ConfigMixin:
         super().__init__(**kwargs)
         self.config = config
 
-@wargs
+@wArgs
 class CLI(VerboseMixin, DryRunMixin, ConfigMixin):
     """A CLI with multiple inherited options."""
 
@@ -109,7 +109,7 @@ class B(A):
         super().__init__()
         self.b = b
 
-@wargs
+@wArgs
 class C(B):
     def __init__(self, c: str = "c") -> None:
         super().__init__()
@@ -132,7 +132,7 @@ class Base:
     def __init__(self, level: int = 1) -> None:
         self.level = level
 
-@wargs
+@wArgs
 class Child(Base):
     def __init__(self, level: int = 5) -> None:  # Override default
         super().__init__(level)
@@ -156,7 +156,7 @@ class Base:
     def __init__(self, value: str = "default") -> None:
         self.value = value
 
-@wargs
+@wArgs
 class Child(Base):
     def __init__(self, value: int = 0) -> None:  # Different type!
         super().__init__(str(value))
@@ -177,7 +177,7 @@ class Base:
     def __init__(self, debug: bool = False) -> None:
         self.debug = debug
 
-@wargs(traverse_mro=False)
+@wArgs(traverse_mro=False)
 class CLI(Base):
     def __init__(self, name: str) -> None:
         super().__init__()
@@ -207,7 +207,7 @@ class Mixin2:
         super().__init__(**kwargs)
         self.opt2 = opt2
 
-@wargs
+@wArgs
 class CLI(Mixin1, Mixin2):
     def __init__(self, name: str, **kwargs) -> None:
         super().__init__(**kwargs)

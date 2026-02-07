@@ -69,9 +69,9 @@ class TestExtractArgMetadata:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
-        # Should use default flags since no Arg metadata
+        # Should use prefixed flags
         assert config.arguments[0].flags == ["--func-value"]
 
     def test_annotated_with_multiple_metadata(self) -> None:
@@ -89,7 +89,7 @@ class TestExtractArgMetadata:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         # Should find Arg even among other metadata
         assert config.arguments[0].flags == ["-v", "--func-value"]
@@ -597,7 +597,7 @@ class TestBuildArgumentConfigAdvanced:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert config.arguments[0].flags == ["-n", "--greet-name"]
         assert config.arguments[0].help == "The name"
@@ -623,7 +623,7 @@ class TestBuildArgumentConfigAdvanced:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert len(config.arguments) == 1
         assert config.arguments[0].name == "visible"
@@ -636,7 +636,7 @@ class TestBuildArgumentConfigAdvanced:
             description="This is the first sentence. This is more detail that should be excluded.",
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert config.description == "This is the first sentence."
 
@@ -648,7 +648,7 @@ class TestBuildArgumentConfigAdvanced:
             description=None,
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert config.description is None
 
@@ -672,7 +672,7 @@ class TestBuildParserConfig:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert config.description == "Greet someone."
         assert len(config.arguments) == 1
@@ -706,7 +706,7 @@ class TestBuildParserConfig:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert len(config.arguments) == 3
 
@@ -723,7 +723,7 @@ class TestBuildParserConfig:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert len(config.arguments) == 0
 
@@ -740,7 +740,7 @@ class TestBuildParserConfig:
             ],
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert len(config.arguments) == 0
 
@@ -772,6 +772,6 @@ class TestBuildParserConfig:
             description="First paragraph.\n\nSecond paragraph with more details.",
         )
 
-        config = build_parser_config(func_info)
+        config = build_parser_config(func_info, prefix=func_info.name)
 
         assert config.description == "First paragraph."

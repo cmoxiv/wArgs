@@ -36,11 +36,11 @@ Raised when decorator configuration is invalid.
 ### Example
 
 ```python
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 from typing import Annotated
 
 # This raises ConfigurationError at import time
-@wargs
+@wArgs
 def bad_config(
     name: Annotated[str, Arg(positional=True, short="-n")],  # Can't have both!
 ) -> None:
@@ -64,10 +64,10 @@ Raised when function introspection fails.
 ### Example
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
 # This might raise IntrospectionError
-@wargs
+@wArgs
 def problematic(x: "NonExistentType") -> None:
     pass
 ```
@@ -89,10 +89,10 @@ Raised when argument conversion fails.
 ### Example
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 from datetime import datetime
 
-@wargs
+@wArgs
 def schedule(when: datetime) -> None:
     print(f"Scheduled: {when}")
 
@@ -112,10 +112,10 @@ Context information for exceptions.
 ## Handling Exceptions
 
 ```python
-from wargs import wargs, WargsError, ConversionError
+from wArgs import wArgs, WargsError, ConversionError
 import sys
 
-@wargs
+@wArgs
 def my_command(count: int) -> None:
     print(f"Count: {count}")
 

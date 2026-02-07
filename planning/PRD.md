@@ -243,7 +243,3 @@ PRD generated through structured interviews covering:
 - Testing (TDD, 100% coverage, multi-Python)
 - Integration (CI/CD, PyPI release)
 - Operations (community support, maintenance)
-
----
-
-*Generated with Claude Code PRD Generator*

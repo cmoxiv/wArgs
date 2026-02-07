@@ -94,6 +94,7 @@ class WargsWrapper:
         add_help: bool = True,
         formatter_class: str | None = None,
         completion: bool = False,
+        prefix: bool | str = False,
     ) -> None:
         """Initialize the wrapper.
 
@@ -104,6 +105,8 @@ class WargsWrapper:
             add_help: Whether to add -h/--help.
             formatter_class: Help formatter class name.
             completion: Whether to add --completion flag for shell completion.
+            prefix: Argument prefixing mode. False (default) = no prefix, True = use
+                function name as prefix, str = use custom prefix string.
         """
         self._func = func
         self._prog = prog
@@ -111,6 +114,7 @@ class WargsWrapper:
         self._add_help = add_help
         self._formatter_class = formatter_class
         self._completion = completion
+        self._prefix = prefix
         self._parser: ArgumentParser | None = None
         self._func_info: FunctionInfo | None = None
         self._parser_config: ParserConfig | None = None
@@ -158,11 +162,23 @@ class WargsWrapper:
         # Store for later use
         self._func_info = func_info
 
+        # Determine prefix for arguments
+        if self._prefix is False:
+            # No prefix (default)
+            arg_prefix = None
+        elif self._prefix is True:
+            # Use function name as prefix
+            arg_prefix = func_info.name
+        else:
+            # Use custom prefix string
+            arg_prefix = str(self._prefix)
+
         # Build parser config
         self._parser_config = build_parser_config(
             func_info,
             prog=self._prog,
             description=self._description,
+            prefix=arg_prefix,
         )
 
         # Apply options
@@ -310,6 +326,7 @@ class WargsClassWrapper:
         formatter_class: str | None = None,
         traverse_mro: bool = True,
         completion: bool = False,
+        prefix: bool | str = False,
     ) -> None:
         """Initialize the class wrapper.
 
@@ -321,6 +338,8 @@ class WargsClassWrapper:
             formatter_class: Help formatter class name.
             traverse_mro: Whether to collect __init__ params from parent classes.
             completion: Whether to add --completion flag for shell completion.
+            prefix: Argument prefixing mode. False (default) = no prefix, True = use
+                class/method names as prefix, str = use custom prefix for __init__ args.
         """
         self._cls = cls
         self._prog = prog
@@ -329,6 +348,7 @@ class WargsClassWrapper:
         self._formatter_class = formatter_class
         self._traverse_mro = traverse_mro
         self._completion = completion
+        self._prefix = prefix
         self._parser: ArgumentParser | None = None
         self._parser_config: ParserConfig | None = None
         self._methods: dict[str, Any] = {}
@@ -365,6 +385,7 @@ class WargsClassWrapper:
             prog=self._prog,
             description=self._description,
             traverse_mro=self._traverse_mro,
+            prefix=self._prefix,
         )
 
         # Apply options
@@ -601,6 +622,7 @@ def wArgs(
     formatter_class: str | None = None,
     traverse_mro: bool = True,
     completion: bool = False,
+    prefix: bool | str = False,
 ) -> Callable[[Callable[..., Any] | type], WargsWrapper | WargsClassWrapper]: ...
 
 
@@ -613,6 +635,7 @@ def wArgs(
     formatter_class: str | None = None,
     traverse_mro: bool = True,
     completion: bool = False,
+    prefix: bool | str = False,
 ) -> (
     WargsWrapper
     | WargsClassWrapper
@@ -654,6 +677,8 @@ def wArgs(
         traverse_mro: Whether to collect __init__ params from parent classes
             (only applies to class decoration).
         completion: Whether to add --completion flag for shell completion.
+        prefix: Argument prefixing mode. False (default) = no prefix, True = use
+            callable name as prefix, str = use custom prefix string.
 
     Returns:
         WargsWrapper for functions, WargsClassWrapper for classes,
@@ -676,6 +701,7 @@ def wArgs(
                 formatter_class=formatter_class,
                 traverse_mro=traverse_mro,
                 completion=completion,
+                prefix=prefix,
             )
         return WargsWrapper(
             f,
@@ -684,6 +710,7 @@ def wArgs(
             add_help=add_help,
             formatter_class=formatter_class,
             completion=completion,
+            prefix=prefix,
         )
 
     return decorator

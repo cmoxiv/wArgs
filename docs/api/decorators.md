@@ -49,9 +49,9 @@ Metadata class for configuring arguments.
 ### Function Decorator
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str) -> None:
     """Greet someone."""
     print(f"Hello, {name}!")
@@ -65,9 +65,9 @@ greet.run(["--name", "World"])  # Explicit
 ### Class Decorator
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class CLI:
     """My CLI tool."""
 
@@ -87,7 +87,7 @@ CLI.run(["--verbose", "run"])  # Explicit
 ### With Options
 
 ```python
-@wargs(
+@wArgs(
     prog="myapp",
     description="My application",
     add_help=True,
@@ -101,9 +101,9 @@ def my_command() -> None:
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def process(
     input_file: Annotated[str, Arg("-i", help="Input file")],
     verbose: Annotated[bool, Arg("-v")] = False,

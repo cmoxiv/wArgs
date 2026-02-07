@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Core Framework**
-  - `@wargs` decorator for automatic CLI generation from functions and classes
+  - `@wArgs` decorator for automatic CLI generation from functions and classes
   - Support for function-based and class-based CLI patterns
   - Subcommand support via class methods
   - Global options via `__init__` parameters
@@ -104,5 +104,5 @@ Initial development release.
 - `wargs/builders/` - ArgumentParser construction
 - `wargs/converters/` - Type converter registry
 - `wargs/plugins/` - Plugin discovery system
-- `wargs/decorator.py` - Main `@wargs` decorator
+- `wargs/decorator.py` - Main `@wArgs` decorator
 - `wargs/utilities.py` - Debugging utilities

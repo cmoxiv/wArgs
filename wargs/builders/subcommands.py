@@ -126,6 +126,7 @@ def build_subcommand_config(
     description: str | None = None,
     traverse_mro: bool = True,
     warn_on_conflict: bool = True,
+    prefix: bool | str = False,
 ) -> ParserConfig:
     """Build ParserConfig for a class with subcommands.
 
@@ -135,6 +136,8 @@ def build_subcommand_config(
         description: Description override.
         traverse_mro: Whether to collect __init__ params from parent classes.
         warn_on_conflict: Whether to warn when child/parent types conflict.
+        prefix: Argument prefixing mode. False (default) = no prefix, True = use
+            class/method names as prefix, str = use custom prefix for __init__ args.
 
     Returns:
         ParserConfig with subcommands.
@@ -161,20 +164,38 @@ def build_subcommand_config(
         dict_expansions=dict_expansions,
     )
 
+    # Determine prefix for __init__ arguments
+    if prefix is False:
+        # No prefix (default)
+        init_prefix: str | None = None
+    elif prefix is True:
+        # Use class name as prefix
+        init_prefix = cls.__name__
+    else:
+        # Use custom prefix string
+        init_prefix = str(prefix)
+
+    # Determine prefix for method arguments
+    if prefix is False:
+        # No prefix (default)
+        method_prefix_mode: bool | None = False
+    else:
+        # For methods, always use method name when prefixing is enabled
+        method_prefix_mode = True
+
     # Extract global options from __init__ (with optional MRO traversal)
-    # Always use class name as prefix for init args
     if traverse_mro:
         # Use MRO traversal to get inherited parameters
         init_info = get_inherited_function_info(cls, warn_on_conflict=warn_on_conflict)
         if init_info.parameters:
-            init_config = build_parser_config(init_info, prefix=cls.__name__)
+            init_config = build_parser_config(init_info, prefix=init_prefix)
             config.arguments = init_config.arguments
             config.dict_expansions.update(init_config.dict_expansions)
     else:
         # Only get __init__ from the class itself
         maybe_init_info = extract_init_info(cls)
         if maybe_init_info is not None:
-            init_config = build_parser_config(maybe_init_info, prefix=cls.__name__)
+            init_config = build_parser_config(maybe_init_info, prefix=init_prefix)
             config.arguments = init_config.arguments
             config.dict_expansions.update(init_config.dict_expansions)
 
@@ -182,7 +203,16 @@ def build_subcommand_config(
     methods = extract_methods(cls)
     for method_name, method in methods.items():
         method_info = extract_method_info(method)
-        method_config = build_parser_config(method_info)
+
+        # Determine prefix for this method's arguments
+        if method_prefix_mode is False:
+            # No prefix
+            this_method_prefix = None
+        else:
+            # Use method name as prefix
+            this_method_prefix = method_info.name
+
+        method_config = build_parser_config(method_info, prefix=this_method_prefix)
 
         # Use method name (with underscores replaced by hyphens) as subcommand
         subcommand_name = method_name.replace("_", "-")

@@ -13,15 +13,17 @@ Usage:
     python mixins.py --dry-run --verbose build
 """
 
-from typing import Annotated
+from __future__ import annotations
 
-from wargs import Arg, wargs
+from typing import Annotated, Any, Callable
+
+from wArgs import Arg, wArgs
 
 
 class VerboseMixin:
     """Adds --verbose option for detailed output."""
 
-    def __init__(self, verbose: bool = False, **kwargs: bool) -> None:
+    def __init__(self, verbose: bool = False, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.verbose = verbose
 
@@ -34,11 +36,11 @@ class VerboseMixin:
 class DryRunMixin:
     """Adds --dry-run option for simulation mode."""
 
-    def __init__(self, dry_run: bool = False, **kwargs: bool) -> None:
+    def __init__(self, dry_run: bool = False, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.dry_run = dry_run
 
-    def execute(self, description: str, action: callable) -> None:
+    def execute(self, description: str, action: Callable[[], None]) -> None:
         """Execute an action or simulate it in dry-run mode."""
         if self.dry_run:
             print(f"[DRY RUN] Would: {description}")
@@ -53,18 +55,18 @@ class ConfigMixin:
     def __init__(
         self,
         config: Annotated[str, Arg("-c", help="Configuration file")] = "config.yml",
-        **kwargs: str,
+        **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
         self.config = config
 
-    def load_config(self) -> dict:
+    def load_config(self) -> dict[str, Any]:
         """Load configuration from file."""
         # In a real app, this would load the actual config
         return {"loaded_from": self.config}
 
 
-@wargs(prog="devops")
+@wArgs(prog="devops")
 class DevOps(VerboseMixin, DryRunMixin, ConfigMixin):
     """DevOps CLI tool with multiple inherited options.
 
@@ -74,7 +76,7 @@ class DevOps(VerboseMixin, DryRunMixin, ConfigMixin):
     - ConfigMixin: --config for configuration file
     """
 
-    def __init__(self, **kwargs: bool | str) -> None:
+    def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
     def deploy(self, env: str, tag: str = "latest") -> None:

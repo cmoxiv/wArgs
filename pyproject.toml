@@ -34,11 +34,11 @@ classifiers = [
 keywords = ["argparse", "cli", "decorator", "arguments", "command-line", "typing"]
 
 [project.urls]
-Homepage = "https://github.com/wargs/wargs"
-Documentation = "https://wargs.readthedocs.io"
-Repository = "https://github.com/wargs/wargs"
-Issues = "https://github.com/wargs/wargs/issues"
-Changelog = "https://github.com/wargs/wargs/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/cmoxiv/wArgs"
+Documentation = "https://cmoxiv.github.io/wArgs/"
+Repository = "https://github.com/cmoxiv/wArgs"
+Issues = "https://github.com/cmoxiv/wArgs/issues"
+Changelog = "https://github.com/cmoxiv/wArgs/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [

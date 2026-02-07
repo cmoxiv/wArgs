@@ -24,9 +24,9 @@ tasks/
 Create `tasks.py` with a basic class structure:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs(prog="tasks", description="A simple task manager")
+@wArgs(prog="tasks", description="A simple task manager")
 class Tasks:
     """Manage your tasks from the command line."""
 
@@ -62,7 +62,7 @@ Let's add actual storage functionality:
 from __future__ import annotations
 import json
 from pathlib import Path
-from wargs import wargs
+from wArgs import wArgs
 
 DATA_FILE = Path("tasks.json")
 
@@ -76,7 +76,7 @@ def save_tasks(tasks: list[dict]) -> None:
     """Save tasks to JSON file."""
     DATA_FILE.write_text(json.dumps(tasks, indent=2))
 
-@wargs(prog="tasks")
+@wArgs(prog="tasks")
 class Tasks:
     """Manage your tasks from the command line."""
 
@@ -134,7 +134,7 @@ Let's add complete and delete commands:
 from __future__ import annotations
 import json
 from pathlib import Path
-from wargs import wargs
+from wArgs import wArgs
 
 DATA_FILE = Path("tasks.json")
 
@@ -152,7 +152,7 @@ def find_task(tasks: list[dict], task_id: int) -> dict | None:
             return task
     return None
 
-@wargs(prog="tasks")
+@wArgs(prog="tasks")
 class Tasks:
     """Manage your tasks from the command line."""
 
@@ -244,7 +244,7 @@ Let's add a `--verbose` flag that affects all commands:
 from __future__ import annotations
 import json
 from pathlib import Path
-from wargs import wargs
+from wArgs import wArgs
 
 DATA_FILE = Path("tasks.json")
 
@@ -262,7 +262,7 @@ def find_task(tasks: list[dict], task_id: int) -> dict | None:
             return task
     return None
 
-@wargs(prog="tasks")
+@wArgs(prog="tasks")
 class Tasks:
     """Manage your tasks from the command line."""
 
@@ -372,11 +372,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Literal
-from wargs import wargs
+from wArgs import wArgs
 
 # ... (same helper functions)
 
-@wargs(prog="tasks")
+@wArgs(prog="tasks")
 class Tasks:
     """Manage your tasks from the command line."""
 
@@ -423,9 +423,9 @@ Use `Arg` with `Annotated` for more control:
 
 ```python
 from typing import Annotated, Literal
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs(prog="tasks")
+@wArgs(prog="tasks")
 class Tasks:
     """Manage your tasks from the command line."""
 
@@ -457,7 +457,7 @@ Added task #4: Quick task
 
 ## Complete Example
 
-See the full working example in the [examples/tasks](https://github.com/wargs/wargs/tree/main/examples/tasks) directory.
+See the full working example in the [examples/tasks](https://github.com/cmoxiv/wArgs/tree/main/examples/tasks) directory.
 
 ## What's Next?
 

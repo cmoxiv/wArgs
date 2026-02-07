@@ -108,7 +108,7 @@ class TestGetParser:
     def test_get_parser_returns_parser(self) -> None:
         """Test that get_parser returns an ArgumentParser."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str) -> str:
             return name
 
@@ -118,7 +118,7 @@ class TestGetParser:
     def test_get_parser_same_as_property(self) -> None:
         """Test that get_parser returns the same parser as the property."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str) -> str:
             return name
 
@@ -127,7 +127,7 @@ class TestGetParser:
     def test_get_parser_with_class(self) -> None:
         """Test get_parser with a class decorator."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def run(self) -> None:
                 pass
@@ -151,7 +151,7 @@ class TestGetConfig:
     def test_get_config_returns_parser_config(self) -> None:
         """Test that get_config returns a ParserConfig."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str) -> str:
             return name
 
@@ -161,7 +161,7 @@ class TestGetConfig:
     def test_get_config_has_arguments(self) -> None:
         """Test that config has the expected arguments."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str, count: int = 1) -> str:
             return name
 
@@ -173,7 +173,7 @@ class TestGetConfig:
     def test_get_config_with_class(self) -> None:
         """Test get_config with a class decorator."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -198,7 +198,7 @@ class TestExplain:
     def test_explain_basic_function(self) -> None:
         """Test explain output for a basic function."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -210,7 +210,7 @@ class TestExplain:
     def test_explain_with_description(self) -> None:
         """Test explain includes description."""
 
-        @wArgs(prog="myapp", description="My application")
+        @wArgs(prog="myapp", description="My application", prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -221,7 +221,7 @@ class TestExplain:
     def test_explain_shows_default_values(self) -> None:
         """Test explain shows default values."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str = "World") -> str:
             return f"Hello, {name}!"
 
@@ -232,7 +232,7 @@ class TestExplain:
     def test_explain_shows_required(self) -> None:
         """Test explain shows required arguments."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -242,7 +242,7 @@ class TestExplain:
     def test_explain_class_subcommands(self) -> None:
         """Test explain output for a class with subcommands."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 """Add an item."""
@@ -262,7 +262,7 @@ class TestExplain:
     def test_explain_verbose_mode(self) -> None:
         """Test explain with verbose mode."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             """Greet someone.
 
@@ -278,7 +278,7 @@ class TestExplain:
     def test_explain_positional_argument(self) -> None:
         """Test explain with positional argument."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(filename: Annotated[str, Arg(positional=True)]) -> str:
             return filename
 
@@ -289,7 +289,7 @@ class TestExplain:
     def test_explain_with_choices(self) -> None:
         """Test explain shows choices."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def export(format: Literal["json", "xml", "csv"]) -> str:
             return format
 
@@ -303,7 +303,7 @@ class TestWargsConfigAttribute:
     def test_function_has_wargs_config(self) -> None:
         """Test that decorated function has _wargs_config attribute."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str) -> str:
             return name
 
@@ -317,7 +317,7 @@ class TestWargsConfigAttribute:
     def test_class_has_wargs_config(self) -> None:
         """Test that decorated class has _wargs_config attribute."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def run(self) -> None:
                 pass
@@ -332,7 +332,7 @@ class TestWargsConfigAttribute:
     def test_wargs_config_none_before_build(self) -> None:
         """Test that _wargs_config is None before parser is built."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str) -> str:
             return name
 
@@ -342,7 +342,7 @@ class TestWargsConfigAttribute:
     def test_wargs_config_matches_get_config(self) -> None:
         """Test that _wargs_config matches get_config result."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_func(name: str) -> str:
             return name
 
@@ -361,7 +361,7 @@ class TestDebugOutputIntegration:
         """Test that debug output is produced during parsing."""
         monkeypatch.setenv(WARGS_DEBUG_VAR, "1")
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -378,7 +378,7 @@ class TestDebugOutputIntegration:
         """Test that no debug output is produced when disabled."""
         monkeypatch.delenv(WARGS_DEBUG_VAR, raising=False)
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 

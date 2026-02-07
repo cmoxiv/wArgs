@@ -11,9 +11,9 @@ Get a human-readable explanation of a wargs-decorated function.
 ### Example
 
 ```python
-from wargs import wargs, explain
+from wArgs import wArgs, explain
 
-@wargs
+@wArgs
 def greet(name: str, count: int = 1) -> None:
     """Greet someone.
 
@@ -65,9 +65,9 @@ Get the ArgumentParser for a wargs-decorated function.
 ### Example
 
 ```python
-from wargs import wargs, get_parser
+from wArgs import wArgs, get_parser
 
-@wargs
+@wArgs
 def my_command(name: str) -> None:
     pass
 
@@ -91,9 +91,9 @@ Get the ParserConfig for a wargs-decorated function.
 ### Example
 
 ```python
-from wargs import wargs, get_config
+from wArgs import wArgs, get_config
 
-@wargs
+@wArgs
 def my_command(name: str, count: int = 1) -> None:
     pass
 

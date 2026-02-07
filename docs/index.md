@@ -29,9 +29,9 @@ if __name__ == "__main__":
 With wArgs, the same CLI becomes:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, greeting: str = "Hello", times: int = 1) -> None:
     """Greet someone.
 
@@ -64,9 +64,9 @@ That's it. No duplication. No boilerplate. Just your function.
 === "Function-based CLI"
 
     ```python
-    from wargs import wargs
+    from wArgs import wArgs
 
-    @wargs
+    @wArgs
     def hello(name: str, loud: bool = False) -> None:
         """Say hello to someone.
 
@@ -89,9 +89,9 @@ That's it. No duplication. No boilerplate. Just your function.
 === "Class-based CLI"
 
     ```python
-    from wargs import wargs
+    from wArgs import wArgs
 
-    @wargs
+    @wArgs
     class Calculator:
         """A simple calculator."""
 

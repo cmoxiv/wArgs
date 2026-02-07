@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial release of wArgs
-- `@wargs` decorator for functions and classes
+- `@wArgs` decorator for functions and classes
 - Automatic argument parsing from type hints
 - Support for Google, NumPy, and Sphinx docstring formats
 - `Arg` metadata class for fine-grained control
@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Initial development release.
 
 ### Features
-- Function decoration with `@wargs`
+- Function decoration with `@wArgs`
 - Class decoration for subcommands
 - Type hint-based argument conversion
 - Docstring parsing for help text

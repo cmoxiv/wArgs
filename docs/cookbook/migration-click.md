@@ -6,7 +6,7 @@ This guide shows how to convert Click-based CLIs to wArgs.
 
 | Feature | Click | wArgs |
 |---------|-------|-------|
-| Decorator | `@click.command()` | `@wargs` |
+| Decorator | `@click.command()` | `@wArgs` |
 | Options | `@click.option()` | Type hints + `Arg` |
 | Arguments | `@click.argument()` | `Arg(positional=True)` |
 | Groups | `@click.group()` | Class with methods |
@@ -35,9 +35,9 @@ if __name__ == "__main__":
 ### After (wArgs)
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, count: int = 1) -> None:
     """Greet someone.
 
@@ -73,7 +73,7 @@ def func(name: str, count: int = 1): ...
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(name: Annotated[str, Arg("-n")]): ...
 ```
 
@@ -118,7 +118,7 @@ def func(format: Literal["json", "xml"]): ...
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(filename: Annotated[str, Arg(positional=True)]): ...
 ```
 
@@ -188,9 +188,9 @@ if __name__ == "__main__":
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 class CLI:
     """CLI tool."""
 
@@ -236,9 +236,9 @@ def show(ctx):
 ### After (wArgs)
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class CLI:
     def __init__(self, config: str = "config.yml") -> None:
         self.config_data = load_config(config)
@@ -266,9 +266,9 @@ def serve(port):
 ### After (wArgs)
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def serve(port: int) -> None:
     """Start server.
 
@@ -285,10 +285,10 @@ def serve(port: int) -> None:
 Click has built-in progress bars. With wArgs, use tqdm or rich:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 from tqdm import tqdm
 
-@wargs
+@wArgs
 def process(files: list[str]) -> None:
     """Process files."""
     for f in tqdm(files, desc="Processing"):
@@ -301,9 +301,9 @@ def process(files: list[str]) -> None:
 Click has built-in prompts. With wArgs, use standard input:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def login(username: str, password: str = "") -> None:
     """Login to service."""
     if not password:
@@ -315,9 +315,9 @@ Or use `getpass` for hidden input:
 
 ```python
 from getpass import getpass
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def login(username: str) -> None:
     """Login to service."""
     password = getpass("Password: ")
@@ -372,9 +372,9 @@ if __name__ == "__main__":
 
 ```python
 from typing import Annotated, Literal
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 class CLI:
     """My CLI application."""
 

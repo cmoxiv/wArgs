@@ -7,9 +7,9 @@ This guide will get you up and running with wArgs in 5 minutes.
 Create a file called `greet.py`:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, greeting: str = "Hello") -> None:
     """Greet someone.
 
@@ -61,7 +61,7 @@ wArgs extracts everything it needs from your function:
 wArgs automatically converts arguments based on type hints:
 
 ```python
-@wargs
+@wArgs
 def process(
     count: int,           # Converted to integer
     rate: float,          # Converted to float
@@ -84,7 +84,7 @@ Files: ['a.txt', 'b.txt']
 Boolean parameters with `False` default become flags:
 
 ```python
-@wargs
+@wArgs
 def build(debug: bool = False, optimize: bool = False) -> None:
     """Build the project."""
     print(f"Debug: {debug}, Optimize: {optimize}")
@@ -103,9 +103,9 @@ Debug: True, Optimize: True
 Use a class to create subcommands:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class CLI:
     """File management tool."""
 

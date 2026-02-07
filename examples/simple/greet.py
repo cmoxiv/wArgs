@@ -7,10 +7,10 @@ Usage:
     python greet.py --name Bob --times 3
 """
 
-from wargs import wargs
+from wArgs import wArgs
 
 
-@wargs
+@wArgs
 def greet(name: str, greeting: str = "Hello", times: int = 1) -> None:
     """Greet someone.
 

@@ -7,9 +7,9 @@ wArgs supports building complex CLI applications with subcommands using classes.
 Decorate a class to turn its methods into subcommands:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class Calculator:
     """A simple calculator."""
 
@@ -48,7 +48,7 @@ $ python calc.py subtract --a 10 --b 4
 Python method names with underscores become hyphenated subcommands:
 
 ```python
-@wargs
+@wArgs
 class CLI:
     def list_users(self) -> None:
         """List all users."""
@@ -69,7 +69,7 @@ $ python app.py add-user --name alice
 Methods starting with `_` are excluded from subcommands:
 
 ```python
-@wargs
+@wArgs
 class CLI:
     def public(self) -> None:
         """This is a subcommand."""
@@ -92,7 +92,7 @@ $ python app.py --help
 Parameters in `__init__` become global options:
 
 ```python
-@wargs
+@wArgs
 class CLI:
     """File manager with global options."""
 
@@ -164,7 +164,7 @@ options:
 ## Combining Global and Local Options
 
 ```python
-@wargs
+@wArgs
 class CLI:
     def __init__(self, config: str = "config.yml") -> None:
         """Global options.
@@ -199,7 +199,7 @@ Force mode enabled
 You can still create instances directly:
 
 ```python
-@wargs
+@wArgs
 class Calculator:
     def add(self, a: int, b: int) -> None:
         print(a + b)
@@ -232,7 +232,7 @@ positional arguments:
 ## Customizing the Parser
 
 ```python
-@wargs(
+@wArgs(
     prog="myapp",
     description="Custom description",
 )

@@ -26,7 +26,7 @@ class TestWargsDecoratorBasic:
     def test_decorator_without_parentheses(self) -> None:
         """Test @wargs without parentheses."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -55,7 +55,7 @@ class TestWargsDecoratorBasic:
     def test_parser_property(self) -> None:
         """Test that parser property returns ArgumentParser."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -64,7 +64,7 @@ class TestWargsDecoratorBasic:
     def test_parser_caching(self) -> None:
         """Test that parser property is cached."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -88,7 +88,7 @@ class TestWargsDecoratorParsing:
     def test_parse_required_string(self) -> None:
         """Test parsing a required string argument."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
@@ -99,7 +99,7 @@ class TestWargsDecoratorParsing:
     def test_parse_integer(self) -> None:
         """Test parsing an integer argument."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def repeat(count: int) -> int:
             return count * 2
 
@@ -109,7 +109,7 @@ class TestWargsDecoratorParsing:
     def test_parse_with_default(self) -> None:
         """Test parsing argument with default value."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str = "World") -> str:
             return f"Hello, {name}!"
 
@@ -119,7 +119,7 @@ class TestWargsDecoratorParsing:
     def test_parse_boolean_flag(self) -> None:
         """Test parsing boolean flag (store_true)."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(verbose: bool = False) -> bool:
             return verbose
 
@@ -132,7 +132,7 @@ class TestWargsDecoratorParsing:
     def test_parse_list(self) -> None:
         """Test parsing list argument."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(files: list[str]) -> list[str]:
             return files
 
@@ -142,7 +142,7 @@ class TestWargsDecoratorParsing:
     def test_parse_choices_literal(self) -> None:
         """Test parsing Literal type as choices."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def export(format: Literal["json", "xml", "csv"]) -> str:
             return format
 
@@ -156,7 +156,7 @@ class TestWargsDecoratorExecution:
     def test_run_method(self) -> None:
         """Test run() method parses and calls function."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def add(a: int, b: int) -> int:
             return a + b
 
@@ -166,7 +166,7 @@ class TestWargsDecoratorExecution:
     def test_call_with_args(self) -> None:
         """Test calling wrapper directly with arguments."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def add(a: int, b: int) -> int:
             return a + b
 
@@ -176,7 +176,7 @@ class TestWargsDecoratorExecution:
     def test_call_with_kwargs(self) -> None:
         """Test calling wrapper with keyword arguments."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str, greeting: str = "Hello") -> str:
             return f"{greeting}, {name}!"
 
@@ -186,7 +186,7 @@ class TestWargsDecoratorExecution:
     def test_repr(self) -> None:
         """Test string representation."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def my_function() -> None:
             pass
 
@@ -199,7 +199,7 @@ class TestWargsDecoratorDocstrings:
     def test_google_docstring_descriptions(self) -> None:
         """Test that Google docstring param descriptions are used."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str, count: int = 1) -> None:
             """Greet someone multiple times.
 
@@ -217,7 +217,7 @@ class TestWargsDecoratorDocstrings:
     def test_description_from_docstring(self) -> None:
         """Test that description comes from docstring summary."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(data: str) -> None:
             """Process the input data."""
             pass
@@ -233,7 +233,7 @@ class TestWargsDecoratorAnnotated:
     def test_short_flag(self) -> None:
         """Test Arg with short flag."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: Annotated[str, Arg(short="-n")]) -> str:
             return f"Hello, {name}!"
 
@@ -243,7 +243,7 @@ class TestWargsDecoratorAnnotated:
     def test_custom_help(self) -> None:
         """Test Arg with custom help text."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: Annotated[str, Arg(help="Name to greet")]) -> str:
             return f"Hello, {name}!"
 
@@ -253,7 +253,7 @@ class TestWargsDecoratorAnnotated:
     def test_positional_argument(self) -> None:
         """Test Arg with positional=True."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(filename: Annotated[str, Arg(positional=True)]) -> str:
             return filename
 
@@ -267,7 +267,7 @@ class TestWargsDecoratorEnums:
     def test_enum_choices(self) -> None:
         """Test that Enum members become choices."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def paint(color: Color) -> Color:
             return color
 
@@ -311,7 +311,7 @@ class TestWargsDecoratorEdgeCases:
     def test_function_with_no_parameters(self) -> None:
         """Test decorating function with no parameters."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def noop() -> None:
             pass
 
@@ -321,7 +321,7 @@ class TestWargsDecoratorEdgeCases:
     def test_function_with_optional_type(self) -> None:
         """Test Optional type annotation."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def greet(name: str | None = None) -> str:
             return f"Hello, {name or 'World'}!"
 
@@ -331,7 +331,7 @@ class TestWargsDecoratorEdgeCases:
     def test_preserves_function_metadata(self) -> None:
         """Test that function name and docstring are preserved."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def documented_function(x: int) -> int:
             """This is the docstring."""
             return x
@@ -342,7 +342,7 @@ class TestWargsDecoratorEdgeCases:
     def test_multiple_parameters(self) -> None:
         """Test function with multiple parameters of different types."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(
             input_file: str,
             output_file: str,
@@ -380,7 +380,7 @@ class TestWargsDecoratorIntegration:
     def test_complete_cli_workflow(self) -> None:
         """Test a complete CLI workflow."""
 
-        @wArgs(prog="greet", description="A greeting program")
+        @wArgs(prog="greet", description="A greeting program", prefix=True)
         def greet(
             name: str,
             greeting: str = "Hello",
@@ -443,7 +443,7 @@ class TestWargsClassDecorator:
         """Test basic class decoration."""
         from wArgs import WargsClassWrapper
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 return f"Added {name}"
@@ -464,7 +464,7 @@ class TestWargsClassDecorator:
     def test_subcommands_from_methods(self) -> None:
         """Test that methods become subcommands."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 return f"Added {name}"
@@ -480,7 +480,7 @@ class TestWargsClassDecorator:
     def test_global_options_from_init(self) -> None:
         """Test that __init__ params become global options."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def __init__(self, verbose: bool = False) -> None:
                 self.verbose = verbose
@@ -495,7 +495,7 @@ class TestWargsClassDecorator:
     def test_subcommand_execution(self) -> None:
         """Test executing a subcommand."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 return f"Added {name}"
@@ -506,7 +506,7 @@ class TestWargsClassDecorator:
     def test_global_options_passed_to_instance(self) -> None:
         """Test that global options are passed to __init__."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def __init__(self, verbose: bool = False) -> None:
                 self.verbose = verbose
@@ -523,7 +523,7 @@ class TestWargsClassDecorator:
     def test_private_methods_excluded(self) -> None:
         """Test that private methods are not subcommands."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def public(self) -> str:
                 return "public"
@@ -538,7 +538,7 @@ class TestWargsClassDecorator:
     def test_method_with_underscores(self) -> None:
         """Test that method underscores become hyphens."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add_item(self) -> str:
                 return "added"
@@ -553,7 +553,7 @@ class TestWargsClassDecorator:
         """Test that calling with explicit kwargs overrides CLI values."""
         monkeypatch.setattr("sys.argv", ["test", "--Config-count", "99"])
 
-        @wArgs
+        @wArgs(prefix=True)
         class Config:
             def __init__(self, count: int = 0) -> None:
                 self.count = count
@@ -565,7 +565,7 @@ class TestWargsClassDecorator:
     def test_subcommand_with_arguments(self) -> None:
         """Test subcommand with multiple arguments."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def process(
                 self,
@@ -597,7 +597,7 @@ class TestWargsClassDecorator:
     def test_repr(self) -> None:
         """Test string representation."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class MyCLI:
             def run(self) -> None:
                 pass
@@ -616,7 +616,7 @@ class TestWargsClassInheritance:
             def __init__(self, debug: bool = False) -> None:
                 self.debug = debug
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI(BaseOptions):
             def __init__(self, name: str) -> None:
                 super().__init__()
@@ -637,7 +637,7 @@ class TestWargsClassInheritance:
             def __init__(self, debug: bool = False) -> None:
                 self.debug = debug
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI(BaseOptions):
             def __init__(self, name: str, **kwargs: bool) -> None:
                 super().__init__(**kwargs)
@@ -656,7 +656,7 @@ class TestWargsClassInheritance:
             def __init__(self, debug: bool = False) -> None:
                 self.debug = debug
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI(BaseOptions):
             def __init__(self, name: str, debug: bool = False) -> None:
                 super().__init__(debug=debug)
@@ -679,7 +679,7 @@ class TestWargsClassInheritance:
             def __init__(self, dry_run: bool = False) -> None:
                 self.dry_run = dry_run
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI(VerboseMixin, DryRunMixin):
             def __init__(self, name: str) -> None:
                 super().__init__()
@@ -708,7 +708,7 @@ class TestWargsClassInheritance:
                 super().__init__(**kwargs)
                 self.dry_run = dry_run
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI(VerboseMixin, DryRunMixin):
             def __init__(self, name: str, **kwargs: bool) -> None:
                 super().__init__(**kwargs)
@@ -733,7 +733,7 @@ class TestWargsClassInheritance:
             def __init__(self, debug: bool = False) -> None:
                 self.debug = debug
 
-        @wArgs(traverse_mro=False)
+        @wArgs(traverse_mro=False, prefix=True)
         class CLI(BaseOptions):
             def __init__(self, name: str) -> None:
                 super().__init__()
@@ -754,7 +754,7 @@ class TestWargsClassInheritance:
             def __init__(self, value: str = "parent") -> None:
                 self.value = value
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI(Base):
             def __init__(self, value: str = "child") -> None:
                 super().__init__(value)
@@ -774,7 +774,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_parameter_without_annotation(self) -> None:
         """Test handling parameters without type annotations."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(data) -> str:  # no annotation
             return str(data)
 
@@ -785,7 +785,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_class_no_subcommand_shows_help(self, capsys) -> None:
         """Test that calling class without subcommand shows help."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def do_something(self) -> str:
                 return "done"
@@ -800,7 +800,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_class_with_no_init(self) -> None:
         """Test class without custom __init__."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def run(self) -> str:
                 return "running"
@@ -812,7 +812,7 @@ class TestWargsDecoratorCoverageGaps:
         """Test accessing cls property on WargsClassWrapper."""
         from wArgs import WargsClassWrapper
 
-        @wArgs
+        @wArgs(prefix=True)
         class MyCLI:
             def run(self) -> None:
                 pass
@@ -823,7 +823,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_wrapper_wargs_config(self) -> None:
         """Test _wargs_config property on wrapper."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(name: str) -> str:
             return name
 
@@ -837,7 +837,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_class_wrapper_wargs_config(self) -> None:
         """Test _wargs_config property on class wrapper."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -852,7 +852,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_class_init_not_in_dict(self) -> None:
         """Test class that inherits __init__ from object."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class MinimalCLI:
             def run(self) -> str:
                 return "done"
@@ -863,7 +863,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_subcommand_method_kwargs_empty_subconfig(self) -> None:
         """Test getting kwargs for a subcommand that doesn't exist."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def add(self, name: str) -> str:
                 return name
@@ -883,7 +883,7 @@ class TestWargsDecoratorCoverageGaps:
             def __call__(self) -> str:
                 return "called"
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             callable_attr = CallableClass()
 
@@ -898,7 +898,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_class_call_without_args_parses_cli(self, monkeypatch) -> None:
         """Test that calling class wrapper without args parses CLI and creates instance."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class Config:
             def __init__(self, name: str = "default") -> None:
                 self.name = name
@@ -914,7 +914,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_function_call_without_args_runs_cli(self, monkeypatch) -> None:
         """Test that calling function wrapper without args runs CLI."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(name: str = "default") -> str:
             return f"processed: {name}"
 
@@ -943,7 +943,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_get_init_kwargs_build_parser_on_demand(self) -> None:
         """Test that _get_init_kwargs builds parser if needed."""
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def __init__(self, verbose: bool = False) -> None:
                 self.verbose = verbose
@@ -962,7 +962,7 @@ class TestWargsDecoratorCoverageGaps:
         """Test that _get_method_kwargs builds parser if needed."""
         from argparse import Namespace
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def run(self, value: str = "default") -> str:
                 return value
@@ -978,7 +978,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_var_positional_skipped(self) -> None:
         """Test that *args parameters are skipped."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(*items: str, count: int = 1) -> dict:
             return {"items": items, "count": count}
 
@@ -990,7 +990,7 @@ class TestWargsDecoratorCoverageGaps:
     def test_var_keyword_skipped(self) -> None:
         """Test that **kwargs parameters are skipped."""
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(name: str, **options) -> dict:
             return {"name": name, "options": options}
 
@@ -1003,7 +1003,7 @@ class TestWargsDecoratorCoverageGaps:
         """Test _convert_namespace_to_kwargs builds parser if needed."""
         from argparse import Namespace
 
-        @wArgs
+        @wArgs(prefix=True)
         def process(name: str = "default") -> str:
             return name
 
@@ -1022,7 +1022,7 @@ class TestWargsDecoratorCoverageGaps:
         """Test _get_init_kwargs builds parser if needed."""
         from argparse import Namespace
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def __init__(self, verbose: bool = False) -> None:
                 self.verbose = verbose
@@ -1045,7 +1045,7 @@ class TestWargsDecoratorCoverageGaps:
         """Test _get_method_kwargs builds parser if needed."""
         from argparse import Namespace
 
-        @wArgs
+        @wArgs(prefix=True)
         class CLI:
             def process(self, value: str = "default") -> str:
                 return value

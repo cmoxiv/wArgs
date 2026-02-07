@@ -2,14 +2,14 @@
 
 This guide covers the fundamentals of using wArgs to create CLI applications.
 
-## The @wargs Decorator
+## The @wArgs Decorator
 
-The `@wargs` decorator transforms a function or class into a CLI:
+The `@wArgs` decorator transforms a function or class into a CLI:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def my_command(name: str) -> None:
     """Do something with a name."""
     print(f"Hello, {name}!")
@@ -20,7 +20,7 @@ def my_command(name: str) -> None:
 You can pass options to customize the CLI:
 
 ```python
-@wargs(
+@wArgs(
     prog="myapp",           # Program name in help
     description="My app",    # Override docstring description
     add_help=True,          # Add -h/--help (default: True)
@@ -45,7 +45,7 @@ wArgs converts function parameters to CLI arguments:
 Python underscores become CLI hyphens:
 
 ```python
-@wargs
+@wArgs
 def process(input_file: str, output_dir: str) -> None:
     ...
 ```
@@ -59,7 +59,7 @@ $ python app.py --input-file data.txt --output-dir ./out
 Arguments are **required** if they have no default value:
 
 ```python
-@wargs
+@wArgs
 def greet(
     name: str,              # Required
     greeting: str = "Hi",   # Optional (default: "Hi")
@@ -80,7 +80,7 @@ $ python greet.py
 Boolean parameters with `False` default become flags:
 
 ```python
-@wargs
+@wArgs
 def build(
     debug: bool = False,     # --debug flag
     optimize: bool = False,  # --optimize flag
@@ -146,9 +146,9 @@ print(args.name)  # "World"
 Get the underlying `ArgumentParser`:
 
 ```python
-from wargs import wargs, get_parser
+from wArgs import wArgs, get_parser
 
-@wargs
+@wArgs
 def my_command(name: str) -> None:
     ...
 
@@ -167,9 +167,9 @@ parser.add_argument("--extra", help="Extra option")
 Use `explain()` to see how wArgs interprets your function:
 
 ```python
-from wargs import wargs, explain
+from wArgs import wArgs, explain
 
-@wargs
+@wArgs
 def greet(name: str, count: int = 1) -> None:
     """Greet someone.
 

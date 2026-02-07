@@ -100,7 +100,7 @@ from wargs.converters.builtin import register_builtin_converters
 register_builtin_converters()
 
 # Or on custom registry
-from wargs import ConverterRegistry
+from wArgs import ConverterRegistry
 registry = ConverterRegistry()
 register_builtin_converters(registry)
 ```
@@ -108,7 +108,7 @@ register_builtin_converters(registry)
 ## Custom Converter Example
 
 ```python
-from wargs import converter
+from wArgs import converter
 
 class EmailAddress:
     def __init__(self, address: str) -> None:

@@ -1,0 +1,55 @@
+name: Feature Request
+description: Suggest a new feature for wArgs
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please provide details below.
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: What problem does this feature solve? Describe a real-world scenario.
+      placeholder: "When building a CLI for data processing, I need to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How should this feature work? Include code examples if possible.
+      placeholder: |
+        ```python
+        @wArgs
+        def process(input_file: Path, output: Path):
+            # Your idea here
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other approaches have you tried or considered?
+      placeholder: "I tried using argparse directly, but..."
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact & Benefits
+      description: Who would benefit from this? How commonly would it be used?
+      placeholder: "This would help CLI developers who need to..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have checked the [ROADMAP](https://github.com/cmoxiv/wArgs/blob/main/ROADMAP.md) for similar features
+          required: true
+        - label: I have searched existing [issues](https://github.com/cmoxiv/wArgs/issues) and [discussions](https://github.com/cmoxiv/wArgs/discussions)
+          required: true

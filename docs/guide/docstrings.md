@@ -15,7 +15,7 @@ wArgs auto-detects and parses:
 The most common format, used by Google and many Python projects:
 
 ```python
-@wargs
+@wArgs
 def greet(name: str, times: int = 1) -> None:
     """Greet someone multiple times.
 
@@ -53,7 +53,7 @@ options:
 Popular in scientific Python projects:
 
 ```python
-@wargs
+@wArgs
 def process(data: str, verbose: bool = False) -> None:
     """Process input data.
 
@@ -76,7 +76,7 @@ def process(data: str, verbose: bool = False) -> None:
 Used in Sphinx documentation:
 
 ```python
-@wargs
+@wArgs
 def calculate(x: float, y: float) -> None:
     """Calculate something.
 
@@ -95,7 +95,7 @@ def calculate(x: float, y: float) -> None:
 The first line or paragraph becomes the CLI description:
 
 ```python
-@wargs
+@wArgs
 def my_command() -> None:
     """This is the description.
 
@@ -117,7 +117,7 @@ This is the description.
 Parameter descriptions become argument help text:
 
 ```python
-@wargs
+@wArgs
 def copy(
     source: str,
     dest: str,
@@ -145,7 +145,7 @@ $ python copy.py --help
 Long descriptions are preserved:
 
 ```python
-@wargs
+@wArgs
 def deploy(env: str) -> None:
     """Deploy the application.
 
@@ -162,7 +162,7 @@ def deploy(env: str) -> None:
 For class-based CLIs, the class docstring becomes the main description:
 
 ```python
-@wargs
+@wArgs
 class CLI:
     """File management utility.
 
@@ -207,9 +207,9 @@ When using `Arg`, the `help` parameter overrides the docstring:
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def greet(
     name: Annotated[str, Arg(help="Name to greet (overrides docstring)")],
 ) -> None:
@@ -229,7 +229,7 @@ def greet(
 4. **Include defaults context** - Explain what default values mean
 
 ```python
-@wargs
+@wArgs
 def backup(
     path: str,
     compress: bool = True,

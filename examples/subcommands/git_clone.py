@@ -16,10 +16,10 @@ Usage:
 
 from typing import Annotated
 
-from wargs import Arg, wargs
+from wArgs import Arg, wArgs
 
 
-@wargs(prog="mygit")
+@wArgs(prog="mygit")
 class Git:
     """A simplified git-like CLI tool.
 

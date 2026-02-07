@@ -9,9 +9,9 @@ This guide covers strategies for testing wArgs CLI applications.
 The simplest approach - call the function directly:
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def add(a: int, b: int) -> int:
     """Add two numbers."""
     return a + b
@@ -56,9 +56,9 @@ def test_parse_args():
 
 ```python
 import pytest
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, loud: bool = False) -> str:
     msg = f"Hello, {name}!"
     return msg.upper() if loud else msg
@@ -86,9 +86,9 @@ class TestGreetCLI:
 
 ```python
 import pytest
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def calculate(op: str, a: int, b: int) -> int:
     ops = {
         "add": lambda x, y: x + y,
@@ -112,9 +112,9 @@ def test_calculate(op, a, b, expected):
 ### Capture stdout
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def echo(message: str) -> None:
     print(message)
 
@@ -128,9 +128,9 @@ def test_echo_output(capsys):
 
 ```python
 import sys
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def warn(message: str) -> None:
     print(message, file=sys.stderr)
 
@@ -143,9 +143,9 @@ def test_warn_output(capsys):
 ## Testing Class-Based CLIs
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class Calculator:
     def __init__(self, precision: int = 2) -> None:
         self.precision = precision
@@ -171,9 +171,9 @@ def test_calculator_precision(capsys):
 
 ```python
 import pytest
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str) -> str:
     return f"Hello, {name}!"
 
@@ -186,7 +186,7 @@ def test_missing_required_argument():
 ### Test Invalid Arguments
 
 ```python
-@wargs
+@wArgs
 def process(count: int) -> int:
     return count
 
@@ -199,9 +199,9 @@ def test_invalid_type():
 
 ```python
 from datetime import datetime
-from wargs import wargs, ConversionError
+from wArgs import wArgs, ConversionError
 
-@wargs
+@wArgs
 def schedule(when: datetime) -> None:
     print(f"Scheduled: {when}")
 
@@ -253,9 +253,9 @@ def test_cli_help():
 
 ```python
 from unittest.mock import patch, MagicMock
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def fetch(url: str) -> str:
     import requests
     return requests.get(url).text

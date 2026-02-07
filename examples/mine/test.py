@@ -1,18 +1,39 @@
+from __future__ import annotations
+
+from typing import Any
 
 from wArgs import wArgs
 
 @wArgs
 class MyClass:
-    def __init__(self, a=123, b=12.3, c='c', d=dict(aa=123,
-                                                    bb=12.3,
-                                                    cc='q'),
-                 e=2.71123, f=False, g=1, h=4., i="qwe", j=[1, 2, 3],
-                 k=(4, 5, 6), l={7, 8, 9}, m=None,
-                 n=complex(1, 2), o=b'byte_string',
-                 p=set([10, 11, 12]), q=frozenset([13, 14, 15]),
-                 r=range(5), s="this is a string!!",
-                 t=memoryview(b'memory_view'), value=42,
-                 w=..., x=lambda x: x * 2, y=bytes([65, 66, 67]), z=None):
+    def __init__(
+        self,
+        a: int = 123,
+        b: float = 12.3,
+        c: str = 'c',
+        d: dict[str, Any] = dict(aa=123, bb=12.3, cc='q'),
+        e: float = 2.71123,
+        f: bool = False,
+        g: int = 1,
+        h: float = 4.,
+        i: str = "qwe",
+        j: list[int] = [1, 2, 3],
+        k: tuple[int, ...] = (4, 5, 6),
+        l: set[int] = {7, 8, 9},
+        m: Any = None,
+        n: complex = complex(1, 2),
+        o: bytes = b'byte_string',
+        p: set[int] = set([10, 11, 12]),
+        q: frozenset[int] = frozenset([13, 14, 15]),
+        r: range = range(5),
+        s: str = "this is a string!!",
+        t: memoryview = memoryview(b'memory_view'),
+        value: int = 42,
+        w: Any = ...,
+        x: Any = lambda x: x * 2,
+        y: bytes = bytes([65, 66, 67]),
+        z: Any = None,
+    ) -> None:
         """Initializes MyClass with various parameters.
         Args:
             a (int): An integer parameter. Default is 123.
@@ -41,13 +62,12 @@ class MyClass:
             y (bytes): A bytes parameter. Default is bytes([65, 66, 67]).
             z: A parameter with default None.
         """
-        
+        self.value = value  # Explicitly assign for type checking
         self.__dict__.update(locals())
-        pass
 
     
 
-    def display(self, x, y, z=10):
+    def display(self, x: Any, y: Any, z: int = 10) -> int:
         """Displays the value of the instance variable 'value'.
         Args:
             x: An unused parameter.

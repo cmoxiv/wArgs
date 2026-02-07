@@ -6,9 +6,9 @@ This cookbook contains common patterns and recipes for wArgs.
 
 ```python
 from pathlib import Path
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def process(
     input_file: Path,
     output_file: Path = Path("output.txt"),
@@ -33,9 +33,9 @@ $ python process.py --input-file data.txt --output-file result.txt
 
 ```python
 from pathlib import Path
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def concat(files: list[Path], output: Path) -> None:
     """Concatenate multiple files.
 
@@ -55,7 +55,7 @@ $ python concat.py --files a.txt b.txt c.txt --output combined.txt
 ## 3. Verbose Mode Mixin
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
 class VerboseMixin:
     """Adds verbose output support."""
@@ -68,7 +68,7 @@ class VerboseMixin:
         if self.verbose:
             print(f"[INFO] {message}")
 
-@wargs
+@wArgs
 class CLI(VerboseMixin):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -91,9 +91,9 @@ Result: HELLO
 import json
 from pathlib import Path
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 class CLI:
     def __init__(
         self,
@@ -115,9 +115,9 @@ class CLI:
 ## 5. Progress Output
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def download(
     urls: list[str],
     quiet: bool = False,
@@ -141,9 +141,9 @@ def download(
 ```python
 import json
 from typing import Literal
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def export(
     data: str,
     format: Literal["json", "csv", "text"] = "text",
@@ -170,9 +170,9 @@ $ python export.py --data "hello" --format json
 ## 7. Confirmation Prompt
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def delete(
     path: str,
     force: bool = False,
@@ -205,9 +205,9 @@ Deleted: test.txt
 ```python
 import os
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def deploy(
     env: str = os.environ.get("DEPLOY_ENV", "dev"),
     host: str = os.environ.get("DEPLOY_HOST", "localhost"),
@@ -233,9 +233,9 @@ Deploying to staging on localhost
 
 ```python
 import logging
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def process(
     data: str,
     log_level: str = "INFO",
@@ -267,7 +267,7 @@ HELLO
 ## 10. Dry Run Mode
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
 class DryRunMixin:
     """Adds dry-run support."""
@@ -283,7 +283,7 @@ class DryRunMixin:
             func()
             print(f"Done: {action}")
 
-@wargs
+@wArgs
 class FileManager(DryRunMixin):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -305,9 +305,9 @@ $ python files.py --dry-run delete --path test.txt
 ## 11. Subcommand with Shared State
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class Database:
     """Database management tool."""
 
@@ -334,9 +334,9 @@ class Database:
 ## 12. Plugin-Style Commands
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class CLI:
     """Extensible CLI with plugins."""
 
@@ -365,9 +365,9 @@ class CLI:
 
 ```python
 from pathlib import Path
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def batch(
     input_dir: Path,
     output_dir: Path,

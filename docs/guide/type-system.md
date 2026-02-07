@@ -7,7 +7,7 @@ wArgs automatically converts CLI string arguments to Python types based on type 
 ### Strings
 
 ```python
-@wargs
+@wArgs
 def greet(name: str) -> None:
     print(f"Hello, {name}!")
 ```
@@ -20,7 +20,7 @@ Hello, World!
 ### Integers
 
 ```python
-@wargs
+@wArgs
 def repeat(count: int) -> None:
     print(f"Count: {count}")
 ```
@@ -33,7 +33,7 @@ Count: 42
 ### Floats
 
 ```python
-@wargs
+@wArgs
 def scale(factor: float) -> None:
     print(f"Factor: {factor}")
 ```
@@ -48,7 +48,7 @@ Factor: 3.14
 Boolean with `False` default becomes a flag:
 
 ```python
-@wargs
+@wArgs
 def build(debug: bool = False) -> None:
     print(f"Debug: {debug}")
 ```
@@ -63,7 +63,7 @@ Debug: True
 ### Lists
 
 ```python
-@wargs
+@wArgs
 def process(files: list[str]) -> None:
     for f in files:
         print(f"Processing: {f}")
@@ -79,7 +79,7 @@ Processing: c.txt
 With typed elements:
 
 ```python
-@wargs
+@wArgs
 def sum_numbers(numbers: list[int]) -> None:
     print(f"Sum: {sum(numbers)}")
 ```
@@ -94,7 +94,7 @@ Sum: 15
 Fixed-length tuples:
 
 ```python
-@wargs
+@wArgs
 def point(coords: tuple[int, int]) -> None:
     x, y = coords
     print(f"Point: ({x}, {y})")
@@ -108,7 +108,7 @@ Point: (10, 20)
 ### Sets
 
 ```python
-@wargs
+@wArgs
 def tags(items: set[str]) -> None:
     print(f"Unique tags: {items}")
 ```
@@ -123,7 +123,7 @@ Unique tags: {'foo', 'bar', 'baz'}
 ### Union with None
 
 ```python
-@wargs
+@wArgs
 def greet(name: str | None = None) -> None:
     if name:
         print(f"Hello, {name}!")
@@ -144,7 +144,7 @@ Hello, World!
 ```python
 from typing import Optional
 
-@wargs
+@wArgs
 def greet(name: Optional[str] = None) -> None:
     ...
 ```
@@ -156,7 +156,7 @@ Use `Literal` for choices:
 ```python
 from typing import Literal
 
-@wargs
+@wArgs
 def export(format: Literal["json", "xml", "csv"]) -> None:
     print(f"Exporting as {format}")
 ```
@@ -178,14 +178,14 @@ Enums provide named choices:
 
 ```python
 from enum import Enum
-from wargs import wargs
+from wArgs import wArgs
 
 class Color(Enum):
     RED = "red"
     GREEN = "green"
     BLUE = "blue"
 
-@wargs
+@wArgs
 def paint(color: Color) -> None:
     print(f"Painting with {color.value}")
 ```
@@ -203,7 +203,7 @@ Painting with red
 ```python
 from pathlib import Path
 
-@wargs
+@wArgs
 def process(input_file: Path, output_dir: Path) -> None:
     print(f"Input: {input_file}")
     print(f"Output dir: {output_dir}")
@@ -224,7 +224,7 @@ Exists: True
 ```python
 from datetime import datetime
 
-@wargs
+@wArgs
 def schedule(when: datetime) -> None:
     print(f"Scheduled for: {when}")
 ```
@@ -239,7 +239,7 @@ Scheduled for: 2024-01-15 10:30:00
 ```python
 from datetime import date
 
-@wargs
+@wArgs
 def birthday(day: date) -> None:
     print(f"Birthday: {day}")
 ```
@@ -254,7 +254,7 @@ Birthday: 2024-01-15
 ```python
 from datetime import time
 
-@wargs
+@wArgs
 def alarm(at: time) -> None:
     print(f"Alarm at: {at}")
 ```
@@ -271,7 +271,7 @@ Alarm at: 07:30:00
 ```python
 from uuid import UUID
 
-@wargs
+@wArgs
 def lookup(id: UUID) -> None:
     print(f"Looking up: {id}")
 ```
@@ -286,7 +286,7 @@ Looking up: 123e4567-e89b-12d3-a456-426614174000
 ```python
 from decimal import Decimal
 
-@wargs
+@wArgs
 def price(amount: Decimal) -> None:
     print(f"Price: ${amount}")
 ```
@@ -301,7 +301,7 @@ Price: $19.99
 Register custom converters for your types:
 
 ```python
-from wargs import wargs, converter
+from wArgs import wArgs, converter
 
 class EmailAddress:
     def __init__(self, address: str) -> None:
@@ -313,7 +313,7 @@ class EmailAddress:
 def convert_email(value: str) -> EmailAddress:
     return EmailAddress(value)
 
-@wargs
+@wArgs
 def send(to: EmailAddress) -> None:
     print(f"Sending to: {to.address}")
 ```

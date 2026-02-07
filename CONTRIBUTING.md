@@ -10,7 +10,7 @@ Please be respectful and constructive in all interactions. We want wArgs to be a
 
 ### Reporting Bugs
 
-1. Check if the bug has already been reported in [GitHub Issues](https://github.com/YOUR_USERNAME/wargs/issues)
+1. Check if the bug has already been reported in [GitHub Issues](https://github.com/cmoxiv/wArgs/issues)
 2. If not, create a new issue with:
    - A clear, descriptive title
    - Steps to reproduce the bug
@@ -20,11 +20,30 @@ Please be respectful and constructive in all interactions. We want wArgs to be a
 
 ### Suggesting Features
 
-1. Check existing issues for similar suggestions
-2. Create a new issue describing:
-   - The use case for the feature
-   - How it would work from a user's perspective
-   - Any implementation ideas (optional)
+We welcome feature ideas! Before proposing:
+
+1. **Check the [ROADMAP.md](ROADMAP.md)** - Your idea might already be planned
+2. **Search [Issues](https://github.com/cmoxiv/wArgs/issues)** - Similar requests may exist
+3. **Browse [Discussions](https://github.com/cmoxiv/wArgs/discussions)** - Join ongoing conversations
+
+#### How to Propose a Feature
+
+Create a Feature Request issue with:
+
+- **Use Case**: What problem are you solving? Provide a real-world scenario
+- **Proposed Solution**: How should it work? Include code examples
+- **Alternatives**: What workarounds have you tried?
+- **Impact**: Who benefits? How much complexity does it add?
+
+#### Feature Request Process
+
+1. **Community Discussion** (1-2 weeks): Gather feedback in GitHub Discussions
+2. **Core Team Review**: We evaluate feasibility, alignment with project goals
+3. **Roadmap Addition**: Accepted features added to ROADMAP.md with target version
+4. **Implementation**: Community or core team implements, with design review
+5. **Release**: Feature ships in planned version
+
+Popular features may be prioritized or implemented by core team.
 
 ### Pull Requests
 
@@ -39,7 +58,7 @@ Please be respectful and constructive in all interactions. We want wArgs to be a
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/wargs.git
+git clone https://github.com/cmoxiv/wArgs.git
 cd wargs
 
 # Create virtual environment

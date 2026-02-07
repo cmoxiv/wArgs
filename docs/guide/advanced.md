@@ -8,9 +8,9 @@ Use `Arg` with `Annotated` for fine-grained control:
 
 ```python
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def process(
     input_file: Annotated[str, Arg("-i", help="Input file path")],
     output: Annotated[str, Arg("-o", "--out", help="Output file")] = "out.txt",
@@ -51,7 +51,7 @@ $ python app.py --input-file data.txt --out result.txt --verbose
 Make arguments positional:
 
 ```python
-@wargs
+@wArgs
 def copy(
     source: Annotated[str, Arg(positional=True)],
     dest: Annotated[str, Arg(positional=True)],
@@ -70,7 +70,7 @@ Copying source.txt to dest.txt
 Hide arguments from help (useful for debugging):
 
 ```python
-@wargs
+@wArgs
 def deploy(
     env: str,
     debug_mode: Annotated[bool, Arg(hidden=True)] = False,
@@ -93,7 +93,7 @@ Debug mode enabled
 Skip parameters that shouldn't become arguments:
 
 ```python
-@wargs
+@wArgs
 def process(
     data: str,
     _internal: Annotated[str, Arg(skip=True)] = "default",
@@ -107,7 +107,7 @@ def process(
 Organize arguments into groups:
 
 ```python
-@wargs
+@wArgs
 def server(
     host: Annotated[str, Arg(group="Network")] = "localhost",
     port: Annotated[int, Arg(group="Network")] = 8080,
@@ -132,7 +132,7 @@ Development:
 ## Mutually Exclusive Options
 
 ```python
-@wargs
+@wArgs
 def output(
     json: Annotated[bool, Arg(mutually_exclusive="format")] = False,
     xml: Annotated[bool, Arg(mutually_exclusive="format")] = False,
@@ -155,7 +155,7 @@ $ python app.py --json --xml
 ## Custom Metavar
 
 ```python
-@wargs
+@wArgs
 def download(
     url: Annotated[str, Arg(metavar="URL")],
     output: Annotated[str, Arg("-o", metavar="FILE")] = "output.html",
@@ -175,7 +175,7 @@ $ python app.py --help
 Register converters for custom types:
 
 ```python
-from wargs import wargs, converter
+from wArgs import wArgs, converter
 
 class IPAddress:
     def __init__(self, address: str) -> None:
@@ -191,7 +191,7 @@ class IPAddress:
 def convert_ip(value: str) -> IPAddress:
     return IPAddress(value)
 
-@wargs
+@wArgs
 def ping(host: IPAddress) -> None:
     """Ping a host."""
     print(f"Pinging {host}")
@@ -200,7 +200,7 @@ def ping(host: IPAddress) -> None:
 ### Converter Registry
 
 ```python
-from wargs import ConverterRegistry, get_default_registry
+from wArgs import ConverterRegistry, get_default_registry
 
 # Get the default registry
 registry = get_default_registry()
@@ -219,9 +219,9 @@ conv = registry.get(MyType)
 ## Accessing Internal Config
 
 ```python
-from wargs import wargs, get_config, get_parser
+from wArgs import wArgs, get_config, get_parser
 
-@wargs
+@wArgs
 def my_command(name: str) -> None:
     ...
 
@@ -239,9 +239,9 @@ parser = get_parser(my_command)
 ```python
 import os
 from typing import Annotated
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs
+@wArgs
 def connect(
     host: Annotated[str, Arg(envvar="DB_HOST")] = "localhost",
     password: Annotated[str, Arg(envvar="DB_PASSWORD")] = "",
@@ -260,7 +260,7 @@ Connecting to prod.example.com
 ### explain() Function
 
 ```python
-from wargs import explain
+from wArgs import explain
 
 print(explain(my_command))
 print(explain(my_command, verbose=True))
@@ -278,7 +278,7 @@ $ WARGS_DEBUG=1 python app.py --name test
 ### _wargs_config Attribute
 
 ```python
-@wargs
+@wArgs
 def my_command(name: str) -> None:
     ...
 
@@ -291,9 +291,9 @@ config = my_command._wargs_config
 
 ```python
 import pytest
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str) -> str:
     return f"Hello, {name}!"
 

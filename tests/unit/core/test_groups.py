@@ -119,7 +119,7 @@ class TestGroupExecution:
             calls.append(f"hello({name})")
             return f"Hello, {name}!"
 
-        result = cli.run(["hello", "--hello-name", "World"])
+        result = cli.run(["hello", "--name", "World"])
 
         assert result == "Hello, World!"
         assert calls == ["cli", "hello(World)"]
@@ -136,7 +136,7 @@ class TestGroupExecution:
         def hello(name: str) -> str:
             return f"Hello, {name}!"
 
-        cli.run(["--cli-verbose", "hello", "--hello-name", "World"])
+        cli.run(["--verbose", "hello", "--name", "World"])
 
         assert verbose_value == [True]
 
@@ -365,7 +365,7 @@ class TestGroupArgumentKwargs:
         def greet(name: str) -> str:
             return f"Hello, {name}!"
 
-        result = cli.run(["greet", "--greet-name", "Alice"])
+        result = cli.run(["greet", "--name", "Alice"])
         assert result == "Hello, Alice!"
 
     def test_command_with_choices(self) -> None:
@@ -380,7 +380,7 @@ class TestGroupArgumentKwargs:
         def format(output: Literal["json", "csv"] = "json") -> str:
             return output
 
-        result = cli.run(["format", "--format-output", "csv"])
+        result = cli.run(["format", "--output", "csv"])
         assert result == "csv"
 
     def test_command_with_boolean(self) -> None:
@@ -394,7 +394,7 @@ class TestGroupArgumentKwargs:
         def process(verbose: bool = False) -> bool:
             return verbose
 
-        result = cli.run(["process", "--process-verbose"])
+        result = cli.run(["process", "--verbose"])
         assert result is True
 
     def test_command_with_int(self) -> None:
@@ -408,7 +408,7 @@ class TestGroupArgumentKwargs:
         def multiply(value: int = 1) -> int:
             return value * 2
 
-        result = cli.run(["multiply", "--multiply-value", "5"])
+        result = cli.run(["multiply", "--value", "5"])
         assert result == 10
 
 
@@ -580,7 +580,7 @@ class TestGroupEdgeCases:
         def greet(name: Annotated[str, Arg(metavar="NAME")] = "World") -> str:
             return f"Hello, {name}!"
 
-        result = cli.run(["greet", "--greet-name", "Alice"])
+        result = cli.run(["greet", "--name", "Alice"])
         assert result == "Hello, Alice!"
 
     def test_command_with_hidden_arg(self) -> None:
@@ -611,7 +611,7 @@ class TestGroupEdgeCases:
         def hello(name: str) -> str:
             return f"Hello, {name}!"
 
-        namespace = cli.parse_args(["hello", "--hello-name", "Bob"])
+        namespace = cli.parse_args(["hello", "--name", "Bob"])
         assert namespace.command == "hello"
         assert namespace.name == "Bob"
 

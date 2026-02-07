@@ -15,10 +15,10 @@ Usage:
 from pathlib import Path
 from typing import Literal
 
-from wargs import wargs
+from wArgs import wArgs
 
 
-@wargs
+@wArgs
 def process(
     input_file: Path,
     output_dir: Path = Path("output"),

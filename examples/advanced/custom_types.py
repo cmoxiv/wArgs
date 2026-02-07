@@ -14,10 +14,12 @@ Usage:
     python custom_types.py lookup --ip 192.168.1.1
 """
 
-from datetime import datetime
-from typing import Annotated
+from __future__ import annotations
 
-from wargs import Arg, converter, wargs
+from datetime import datetime
+from typing import Annotated, Any
+
+from wArgs import Arg, converter, wArgs
 
 
 # Custom types
@@ -69,7 +71,7 @@ def convert_ip(value: str) -> IPAddress:
     return IPAddress(value)
 
 
-@wargs(prog="messenger")
+@wArgs(prog="messenger")
 class Messenger:
     """Advanced messaging CLI with custom types.
 
@@ -95,7 +97,7 @@ class Messenger:
         self.output_format = "json" if json else "csv" if csv else "text"
         self.debug = debug
 
-    def _output(self, data: dict) -> None:
+    def _output(self, data: dict[str, Any]) -> None:
         """Output data in the selected format."""
         if self.debug:
             print(f"[DEBUG] Format: {self.output_format}")
@@ -120,7 +122,7 @@ class Messenger:
         subject: Annotated[str, Arg(group="Message", help="Subject line")] = "No Subject",
         cc: Annotated[list[EmailAddress], Arg(group="Recipients")] = [],
         priority: Annotated[int, Arg(group="Options", help="Priority 1-5")] = 3,
-        schedule: Annotated[datetime, Arg(group="Options")] = None,
+        schedule: Annotated[datetime | None, Arg(group="Options")] = None,
     ) -> None:
         """Send a message.
 

@@ -410,8 +410,8 @@ def build_parser_config(
         else:
             desc = first_para.strip()
 
-    # Use function name as prefix for argument flags
-    arg_prefix = prefix if prefix is not None else func_info.name
+    # Use provided prefix for argument flags (None = no prefix)
+    arg_prefix = prefix
 
     # Build argument configs
     arguments: list[ArgumentConfig] = []

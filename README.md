@@ -2,7 +2,7 @@
 
 > Just decorate and you're done.
 
-[![CI](https://github.com/YOUR_USERNAME/wargs/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/wargs/actions/workflows/ci.yml)
+[![CI](https://github.com/cmoxiv/wArgs/actions/workflows/ci.yml/badge.svg)](https://github.com/cmoxiv/wArgs/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/wargs.svg)](https://badge.fury.io/py/wargs)
 [![Python versions](https://img.shields.io/pypi/pyversions/wargs.svg)](https://pypi.org/project/wargs/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -117,7 +117,7 @@ Full documentation is available at [https://wargs.readthedocs.io](https://wargs.
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/wargs.git
+git clone https://github.com/cmoxiv/wArgs.git
 cd wargs
 
 # Create virtual environment

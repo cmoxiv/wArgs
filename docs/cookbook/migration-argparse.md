@@ -29,9 +29,9 @@ if __name__ == "__main__":
 ### After (wArgs)
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 def greet(name: str, greeting: str = "Hello", times: int = 1) -> None:
     """Greet someone.
 
@@ -119,7 +119,7 @@ parser.add_argument("filename")
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(filename: Annotated[str, Arg(positional=True)]): ...
 ```
 
@@ -131,7 +131,7 @@ parser.add_argument("-n", "--name")
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(name: Annotated[str, Arg("-n")]): ...
 ```
 
@@ -158,7 +158,7 @@ parser.add_argument("--config", metavar="FILE")
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(config: Annotated[str, Arg(metavar="FILE")]): ...
 ```
 
@@ -172,7 +172,7 @@ group.add_argument("--port", type=int)
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(
     host: Annotated[str, Arg(group="Network")],
     port: Annotated[int, Arg(group="Network")],
@@ -189,7 +189,7 @@ group.add_argument("--xml", action="store_true")
 
 # wArgs
 from typing import Annotated
-from wargs import Arg
+from wArgs import Arg
 def func(
     json: Annotated[bool, Arg(mutually_exclusive="format")] = False,
     xml: Annotated[bool, Arg(mutually_exclusive="format")] = False,
@@ -229,9 +229,9 @@ args.func(args)
 ### After (wArgs)
 
 ```python
-from wargs import wargs
+from wArgs import wArgs
 
-@wargs
+@wArgs
 class Calculator:
     """Calculator CLI."""
 
@@ -265,7 +265,7 @@ if args.verbose:
 ### After (wArgs)
 
 ```python
-@wargs
+@wArgs
 class CLI:
     def __init__(self, verbose: bool = False) -> None:
         self.verbose = verbose
@@ -341,9 +341,9 @@ if __name__ == "__main__":
 
 ```python
 from typing import Annotated, Literal
-from wargs import wargs, Arg
+from wArgs import wArgs, Arg
 
-@wargs(prog="myapp")
+@wArgs(prog="myapp")
 class CLI:
     """My application."""
 
