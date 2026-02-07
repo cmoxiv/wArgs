@@ -88,7 +88,7 @@ def process_file(input: Path):
     print(f"Processing {input}")
 ```
 
-See [examples/advanced/custom_types.py](../examples/advanced/custom_types.py) for complete examples.
+See [examples/advanced/custom_types.py](https://github.com/cmoxiv/wArgs/blob/main/examples/advanced/custom_types.py) for complete examples.
 
 ### Why isn't my Optional[str] working?
 
@@ -236,18 +236,18 @@ Used in production by several projects (see [examples](examples.md)).
 
 ### How do I contribute?
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for development setup, coding standards, and the contribution process.
+See the [CONTRIBUTING.md](https://github.com/cmoxiv/wArgs/blob/main/CONTRIBUTING.md) file in the repository for development setup, coding standards, and the contribution process.
 
 ### How do I request a feature?
 
-1. Check [ROADMAP.md](../ROADMAP.md) to see if it's already planned
+1. Check [ROADMAP.md](https://github.com/cmoxiv/wArgs/blob/main/ROADMAP.md) to see if it's already planned
 2. Search [issues](https://github.com/cmoxiv/wArgs/issues) for similar requests
 3. Create a [Feature Request](https://github.com/cmoxiv/wArgs/issues/new?template=feature_request.yml) with details
 
 ### Where can I get help?
 
 - **Documentation**: Start with [Getting Started](getting-started/quickstart.md)
-- **Examples**: Browse [examples/](../examples/) directory
+- **Examples**: Browse [examples/](https://github.com/cmoxiv/wArgs/tree/main/examples/) directory
 - **Issues**: Search [existing issues](https://github.com/cmoxiv/wArgs/issues)
 - **Discussions**: Join [GitHub Discussions](https://github.com/cmoxiv/wArgs/discussions)
 - **Troubleshooting**: See [troubleshooting guide](troubleshooting.md)

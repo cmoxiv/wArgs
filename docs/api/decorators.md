@@ -1,10 +1,10 @@
 # Decorators
 
-## wargs
+## wArgs
 
 The main decorator for creating CLI applications.
 
-::: wargs.wargs
+::: wArgs.wArgs
     options:
       show_root_heading: true
       show_source: false
@@ -13,7 +13,7 @@ The main decorator for creating CLI applications.
 
 Wrapper class for decorated functions.
 
-::: wargs.WargsWrapper
+::: wArgs.WargsWrapper
     options:
       show_root_heading: true
       members:
@@ -26,7 +26,7 @@ Wrapper class for decorated functions.
 
 Wrapper class for decorated classes.
 
-::: wargs.WargsClassWrapper
+::: wArgs.WargsClassWrapper
     options:
       show_root_heading: true
       members:
@@ -39,7 +39,7 @@ Wrapper class for decorated classes.
 
 Metadata class for configuring arguments.
 
-::: wargs.Arg
+::: wArgs.Arg
     options:
       show_root_heading: true
       show_source: false

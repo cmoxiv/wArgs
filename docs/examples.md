@@ -294,7 +294,7 @@ Have a great example? We'd love to include it!
 4. Test it thoroughly
 5. Submit a PR with description
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details.
+See [CONTRIBUTING.md](https://github.com/cmoxiv/wArgs/blob/main/CONTRIBUTING.md) for more details.
 
 ## Example Categories
 

@@ -6,7 +6,7 @@
 
 Configuration for an ArgumentParser.
 
-::: wargs.core.config.ParserConfig
+::: wArgs.core.config.ParserConfig
     options:
       show_root_heading: true
 
@@ -14,7 +14,7 @@ Configuration for an ArgumentParser.
 
 Configuration for a single CLI argument.
 
-::: wargs.core.config.ArgumentConfig
+::: wArgs.core.config.ArgumentConfig
     options:
       show_root_heading: true
 
@@ -22,7 +22,7 @@ Configuration for a single CLI argument.
 
 Information about a function parameter.
 
-::: wargs.core.config.ParameterInfo
+::: wArgs.core.config.ParameterInfo
     options:
       show_root_heading: true
 
@@ -30,7 +30,7 @@ Information about a function parameter.
 
 Information about a function.
 
-::: wargs.core.config.FunctionInfo
+::: wArgs.core.config.FunctionInfo
     options:
       show_root_heading: true
 
@@ -38,7 +38,7 @@ Information about a function.
 
 Information about a resolved type.
 
-::: wargs.core.config.TypeInfo
+::: wArgs.core.config.TypeInfo
     options:
       show_root_heading: true
 
@@ -48,7 +48,7 @@ Information about a resolved type.
 
 Registry for type converters.
 
-::: wargs.ConverterRegistry
+::: wArgs.ConverterRegistry
     options:
       show_root_heading: true
       members:
@@ -64,7 +64,7 @@ Registry for type converters.
 
 Decorator to register a converter on the default registry.
 
-::: wargs.converters.registry.converter
+::: wArgs.converters.registry.converter
     options:
       show_root_heading: true
 
@@ -72,7 +72,7 @@ Decorator to register a converter on the default registry.
 
 Get the default global converter registry.
 
-::: wargs.converters.registry.get_default_registry
+::: wArgs.converters.registry.get_default_registry
     options:
       show_root_heading: true
 

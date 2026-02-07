@@ -4,7 +4,7 @@
 
 Get a human-readable explanation of a wargs-decorated function.
 
-::: wargs.utilities.explain
+::: wArgs.utilities.explain
     options:
       show_root_heading: true
 
@@ -58,7 +58,7 @@ Arguments:
 
 Get the ArgumentParser for a wargs-decorated function.
 
-::: wargs.utilities.get_parser
+::: wArgs.utilities.get_parser
     options:
       show_root_heading: true
 
@@ -84,7 +84,7 @@ args = parser.parse_args(["--name", "test", "--extra", "value"])
 
 Get the ParserConfig for a wargs-decorated function.
 
-::: wargs.utilities.get_config
+::: wArgs.utilities.get_config
     options:
       show_root_heading: true
 
@@ -110,7 +110,7 @@ for arg in config.arguments:
 
 Check if WARGS_DEBUG environment variable is set.
 
-::: wargs.utilities.is_debug_enabled
+::: wArgs.utilities.is_debug_enabled
     options:
       show_root_heading: true
 
@@ -118,7 +118,7 @@ Check if WARGS_DEBUG environment variable is set.
 
 Print debug output if WARGS_DEBUG is enabled.
 
-::: wargs.utilities.debug_print
+::: wArgs.utilities.debug_print
     options:
       show_root_heading: true
 

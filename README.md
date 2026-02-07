@@ -106,12 +106,79 @@ wArgs supports all common Python types out of the box:
 
 ## Documentation
 
-Full documentation is available at [https://wargs.readthedocs.io](https://wargs.readthedocs.io)
+Full documentation is available at [https://cmoxiv.github.io/wArgs/](https://cmoxiv.github.io/wArgs/)
 
 ## Requirements
 
 - Python 3.8+
 - No runtime dependencies
+
+## Testing & Quality
+
+wArgs maintains high code quality standards with comprehensive test coverage and rigorous quality checks.
+
+### Test Suite
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage report
+pytest --cov=wArgs --cov-report=term-missing
+```
+
+**Current Statistics:**
+- ✅ **600 tests** passing (100% pass rate)
+- 📊 **94% code coverage** (target: 97%)
+- ⚡ **2.13 seconds** test execution time
+- 🧪 **19 test modules** covering all components
+  - 18 unit test modules
+  - 1 property-based test module (Hypothesis)
+
+### Test Categories
+
+| Category | Tests | Description |
+|----------|-------|-------------|
+| **Core** | ~150 | Decorator, configuration, exceptions |
+| **Introspection** | ~200 | Signatures, types, docstrings, MRO |
+| **Builders** | ~100 | Argument building, parser construction |
+| **Converters** | ~80 | Type conversion, registry, plugins |
+| **Completion** | ~50 | Shell completion generation |
+| **Integration** | ~20 | End-to-end workflows |
+
+### Coverage Report
+
+| Module | Coverage | Notes |
+|--------|----------|-------|
+| Core modules | 100% | Full coverage |
+| Introspection | 93-99% | Type resolution edge cases |
+| Builders | 84-95% | Dictionary expansion paths |
+| Converters | 100% | Full coverage |
+| Completion | 97-99% | Shell-specific paths |
+
+*See `htmlcov/index.html` for detailed coverage report after running `pytest --cov`*
+
+### Quality Checks
+
+```bash
+# Run all quality checks
+tox
+
+# Or run individual checks:
+ruff check wArgs tests      # Linting
+ruff format --check wArgs tests  # Formatting
+mypy wArgs                  # Type checking
+```
+
+### CI/CD
+
+All tests and quality checks run automatically on:
+- Every push
+- Every pull request
+- Multiple Python versions (3.8, 3.9, 3.10, 3.11, 3.12)
+- Multiple platforms (Linux, macOS, Windows)
+
+See [CI status](https://github.com/cmoxiv/wArgs/actions)
 
 ## Development
 

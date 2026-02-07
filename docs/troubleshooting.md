@@ -391,7 +391,7 @@ If you're still stuck after trying these steps:
 
 1. **Check the FAQ**: [faq.md](faq.md) covers common questions
 2. **Search issues**: [GitHub Issues](https://github.com/cmoxiv/wArgs/issues)
-3. **Browse examples**: [examples/](../examples/) directory
+3. **Browse examples**: [examples/](https://github.com/cmoxiv/wArgs/tree/main/examples/) directory
 4. **Ask for help**:
    - [GitHub Discussions](https://github.com/cmoxiv/wArgs/discussions) - Questions and community help
    - [Create an issue](https://github.com/cmoxiv/wArgs/issues/new) - Bug reports and problems

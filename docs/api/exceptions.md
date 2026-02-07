@@ -15,7 +15,7 @@ WargsError (base)
 
 Base exception for all wArgs errors.
 
-::: wargs.WargsError
+::: wArgs.WargsError
     options:
       show_root_heading: true
 
@@ -23,7 +23,7 @@ Base exception for all wArgs errors.
 
 Raised when decorator configuration is invalid.
 
-::: wargs.ConfigurationError
+::: wArgs.ConfigurationError
     options:
       show_root_heading: true
 
@@ -51,7 +51,7 @@ def bad_config(
 
 Raised when function introspection fails.
 
-::: wargs.IntrospectionError
+::: wArgs.IntrospectionError
     options:
       show_root_heading: true
 
@@ -76,7 +76,7 @@ def problematic(x: "NonExistentType") -> None:
 
 Raised when argument conversion fails.
 
-::: wargs.ConversionError
+::: wArgs.ConversionError
     options:
       show_root_heading: true
 
@@ -105,7 +105,7 @@ schedule.run(["--when", "not-a-date"])
 
 Context information for exceptions.
 
-::: wargs.ErrorContext
+::: wArgs.ErrorContext
     options:
       show_root_heading: true
 
