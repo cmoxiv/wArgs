@@ -1,4 +1,5 @@
 # By Mo Hossny
+.gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
