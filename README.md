@@ -104,6 +104,32 @@ wArgs supports all common Python types out of the box:
 - Paths: `pathlib.Path`
 - And more...
 
+## Comparison with Other CLI Libraries
+
+| Feature | wArgs | Fire | Typer | Click | argparse | defopt |
+|---|---|---|---|---|---|---|
+| **Approach** | Decorator + type hints + docstrings | Zero-config, any object | Type hints + Click | Explicit decorators | Manual | Type hints + docstrings |
+| **Subcommands** | Classes + groups | Classes/dicts | Nested groups | Nested groups | Subparsers | Lists/dicts |
+| **Dict Expansion** | **Yes** | No | No | No | No | No |
+| **Arg Prefixing** | **Yes** (`--greet-name`) | No | No | No | No | No |
+| **Shell Completion** | Bash/Zsh/Fish | Bash/Fish | Bash/Zsh/Fish/PowerShell | Bash/Zsh/Fish | Via argcomplete | No |
+| **Plugin System** | **Entry-point based** | No | No | Via click-plugins | Custom Actions | No |
+| **Docstring Parsing** | Google/NumPy/Sphinx | No | Limited | No | No | Google/NumPy/Sphinx |
+
+### What Makes wArgs Different
+
+**Dict expansion to CLI flags** -- No other library does this. A parameter like `config={"host": "localhost", "port": 8080}` automatically becomes `--f-config-host` and `--f-config-port`. Typer doesn't even support `Dict` types at all.
+
+**Argument prefixing with callable name** -- wArgs uses `--greet-name` instead of `--name`, preventing namespace collisions in multi-function scenarios. No other library offers this.
+
+**Combined feature set** -- No single library offers type-hint inference + multi-format docstring parsing + dict expansion + arg prefixing + shell completion + entry-point plugins together.
+
+### Closest Competitors
+
+- **defopt** is the most similar in philosophy (type hints + docstrings, no boilerplate), but lacks dict expansion, prefixing, shell completion, and plugins.
+- **Typer** is the most popular modern option, but requires more explicit configuration (`typer.Option()`, `typer.Argument()`), doesn't support dicts, and has no prefixing.
+- **Fire** is the most "zero-config" but infers types from values (not hints), has no prefixing, and provides less control over the generated CLI.
+
 ## Documentation
 
 Full documentation is available at [https://cmoxiv.github.io/wArgs/](https://cmoxiv.github.io/wArgs/)

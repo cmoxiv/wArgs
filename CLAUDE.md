@@ -108,7 +108,8 @@ wArgs/
 │   ├── zsh.py               # Zsh completion scripts
 │   └── fish.py              # Fish completion scripts
 └── plugins/
-    └── registry.py          # Entry point plugin system
+    ├── interface.py          # Plugin interface definitions
+    └── registry.py           # Entry point plugin system
 ```
 
 ### Key Features
